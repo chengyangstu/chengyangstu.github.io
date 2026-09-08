@@ -19,7 +19,7 @@ const Reader = {
     if (!Array.isArray(items) || items.length > 10000) throw Error('高亮备份格式或数量无效');
     const keys = new Set();
     for (const item of items) {
-      if (!item || !/^\d{4}-\d{2}-\d{2}T\d{6}Z:\d{4}\.\d{4,5}v\d+:(takeaway|question|methods|findings|limitations|reading|evidence):\d+$/.test(item.key) ||
+      if (!item || !/^\d{4}-\d{2}-\d{2}(?:-r(?:[2-9]|[1-9]\d+)|T\d{6}Z)?:\d{4}\.\d{4,5}v\d+:(takeaway|question|methods|findings|limitations|reading|evidence):\d+$/.test(item.key) ||
           keys.has(item.key) || typeof item.text !== 'string' || item.text.length > 20000 || !Number.isFinite(Date.parse(item.saved_at))) throw Error('高亮条目无效或重复');
       keys.add(item.key);
     }

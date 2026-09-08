@@ -18,6 +18,7 @@ assert.equal(Reader.priority({...paper(['聚变等离子体']), title: 'Error fi
 assert.deepEqual(Reader.paragraphs('one\n\n two\n\n'), ['one', 'two']);
 const highlight = {key: '2026-09-08T114713Z:2609.02803v1:methods:0', text: 'A paragraph', saved_at: new Date().toISOString()};
 assert.equal(Reader.validateHighlights([highlight]).length, 1);
+assert.equal(Reader.validateHighlights([{...highlight, key: highlight.key.replace('2026-09-08T114713Z','2026-09-08')}]).length, 1);
 for (const invalid of [[highlight, highlight], [{...highlight, key: 'bad'}], [{...highlight, text: 5}], [{...highlight, saved_at: 'bad'}]]) assert.throws(() => Reader.validateHighlights(invalid));
 
 let formulaCount = 0;

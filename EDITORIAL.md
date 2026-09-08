@@ -67,8 +67,8 @@
 
 ## 7. 检查、永久存档与部署
 
-发布前运行 `node scripts/check_reader.cjs .cache/briefs.json`，验证待发布稿全部公式；再运行 `python -X utf8 scripts/weekly.py publish`。修订使用 `--briefs .cache/briefs-expanded.json --revision-of 原期ID`，必须标注 `edition_note`，保持原检索窗口，新文件单独归档。
+发布前运行 `node scripts/check_reader.cjs .cache/briefs.json`，验证待发布稿全部公式；再运行 `python -X utf8 scripts/weekly.py publish`。修订使用 `--briefs .cache/briefs-expanded.json --revision-of 原期ID`，必须标注 `edition_note`，保持原检索窗口，新文件以截止日期命名为 `YYYY-MM-DD.json`；同日纠错另存为 `YYYY-MM-DD-r2.json`、`-r3.json`，不覆盖正式旧稿。
 
 运行 `python -X utf8 scripts/check.py`、`python -X utf8 scripts/check_tutorial.py`、`node scripts/check_reader.cjs`、`node --check plasma/app.js` 与 `node --check cuda/book.js`。这些检查覆盖结构、数学语法与存档，不替代事实复核。检查失败先修复；证据不足就保留候选或降低范围，不发布装作完成的简报。
 
-提交前确认 `git diff --name-status` 中历史 issue 文件没有 M/D，只允许新增。提交新期与完整索引，推送后检查 Pages Actions 成功，再核对线上 issue ID、首篇、总体报告、公式和历史列表。保留源 PDF 哈希、证据位置与实际阅读范围。完成后通知用户；无变化保持安静。收藏与高亮由浏览器保存，导出分别备份，不能靠更换文章版本自动迁移手工标记。
+2026-09-08 用户明确要求清理前几份试验稿，只保留当日最新稿；这一例外已完成，不恢复被丢弃的试验版本。此后正式周报提交前确认 `git diff --name-status` 中历史 issue 文件没有 M/D，只允许新增。提交新期与完整索引，推送后检查 Pages Actions 成功，再核对线上 issue ID、首篇、总体报告、公式和历史列表。保留源 PDF 哈希、证据位置与实际阅读范围。完成后通知用户；无变化保持安静。收藏与高亮由浏览器保存，导出分别备份，不能靠更换文章版本自动迁移手工标记。

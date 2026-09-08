@@ -8,9 +8,14 @@ let highlights = [], highlightsBroken = false;
 try { highlights = Reader.validateHighlights(JSON.parse(localStorage.getItem(highlightKey) || '[]')); }
 catch { highlightsBroken = true; }
 const validId = value => typeof value === 'string' && /^\d{4}\.\d{4,5}(v\d+)?$/.test(value);
-const validIssue = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{6}Z$/.test(value);
+const validIssue = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}(?:-r(?:[2-9]|[1-9]\d+)|T\d{6}Z)?$/.test(value);
 const date = value => new Date(value).toLocaleDateString('zh-CN', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit'});
-const issueLabel = value => date(value) + ' ' + new Date(value).toLocaleTimeString('zh-CN', {timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit'});
+const archiveLabel = issue => issue.id.slice(0, 10) + (/-r\d+$/.test(issue.id) ? ' · 修订 ' + issue.id.split('-r')[1] : '');
+function canonicalKey(value) {
+  const id = value.split(':')[0];
+  const issue = state.index.find(i => i.id === id || i.aliases?.includes(id));
+  return issue ? issue.id + value.slice(id.length) : value;
+}
 function el(tag, text, className) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -32,12 +37,12 @@ function markedParagraph(text, id, number) {
   const wrap = el('div', undefined, 'annotated-paragraph');
   const p = prose('p', text);
   const button = action('标记重点', () => {
-    const exists = highlights.some(h => h.key === id);
-    const next = exists ? highlights.filter(h => h.key !== id) : [...highlights, {key: id, text, saved_at: new Date().toISOString()}];
+    const exists = highlights.some(h => canonicalKey(h.key) === id);
+    const next = exists ? highlights.filter(h => canonicalKey(h.key) !== id) : [...highlights, {key: id, text, saved_at: new Date().toISOString()}];
     if (saveHighlights(next)) update();
   }, 'highlight-button');
   function update() {
-    const marked = highlights.some(h => h.key === id);
+    const marked = highlights.some(h => canonicalKey(h.key) === id);
     wrap.classList.toggle('user-highlight', marked);
     button.textContent = marked ? '取消标记' : '标记重点';
     button.setAttribute('aria-pressed', String(marked));
@@ -86,13 +91,13 @@ function persist(items) {
   try { localStorage.setItem(storageKey, JSON.stringify(items)); state.saved = items; return true; }
   catch { toast('浏览器未能保存收藏，可能空间不足；已有收藏未被删除。请导出备份。'); return false; }
 }
-function key(p, issueId) { return `${issueId}:${p.version}`; }
+function key(p, issueId) { return canonicalKey(`${issueId}:${p.version}`); }
 function bookmark(p, issueId) {
   const k = key(p, issueId);
-  const saved = state.saved.some(item => item.key === k);
+  const saved = state.saved.some(item => canonicalKey(item.key) === k);
   const button = action(saved ? '★ 已收藏' : '☆ 收藏', () => {
-    const exists = state.saved.some(item => item.key === k);
-    const next = exists ? state.saved.filter(item => item.key !== k) : [...state.saved, {key: k, issue_id: issueId, saved_at: new Date().toISOString(), paper: {...p, source_basis: p.source_basis || '仅摘要'}}];
+    const exists = state.saved.some(item => canonicalKey(item.key) === k);
+    const next = exists ? state.saved.filter(item => canonicalKey(item.key) !== k) : [...state.saved, {key: k, issue_id: k.split(':')[0], saved_at: new Date().toISOString(), paper: {...p, source_basis: p.source_basis || '仅摘要'}}];
     if (!persist(next)) return;
     toast(exists ? '已移出收藏' : '已收藏论文与当前简报');
     render();
@@ -177,8 +182,8 @@ function row(p, issueId) {
   const authors = p.authors.length > 5 ? p.authors.slice(0, 5).join(', ') + ' et al.' : p.authors.join(', ');
   const actions = el('div', undefined, 'actions');
   actions.append(link('arXiv ↗', `https://arxiv.org/abs/${p.version}`), el('span', p.brief ? p.source_basis : '候选论文 · 尚未精读', 'source-note'));
-  const edition = state.index.find(i => i.id === issueId);
-  if (state.view === 'saved' && edition) actions.append(el('span', `收藏版本：${issueLabel(edition.created_at)}${edition.edition_note ? ' · 扩充版' : ''}`, 'source-note'));
+  const edition = state.index.find(i => i.id === issueId || i.aliases?.includes(issueId));
+  if (state.view === 'saved' && edition) actions.append(el('span', `收藏版本：${archiveLabel(edition)}`, 'source-note'));
   article.append(meta, el('h2', p.title), prose('p', p.brief?.takeaway || '本期相关候选论文，展开查看原始摘要。', 'takeaway'), el('p', authors, 'authors'), actions, paperDetails(p, issueId));
   return article;
 }
@@ -192,7 +197,7 @@ function render() {
     $('intro').append(el('p', `共 ${state.index.length} 期。所有简报独立存档，新一期不会覆盖旧一期。`));
     for (const issue of state.index) {
       const line = el('article', undefined, 'archive-row'); const info = el('div');
-      info.append(el('h2', issueLabel(issue.window_end) + (issue.edition_note ? ' · 扩充版' : '')), el('p', `${date(issue.window_start)} — ${date(issue.window_end)} · ${issue.paper_count} 篇论文 · ${issue.brief_count} 份简报`));
+      info.append(el('h2', archiveLabel(issue)), el('p', `${date(issue.window_start)} — ${date(issue.window_end)} · ${issue.paper_count} 篇论文 · ${issue.brief_count} 份简报`));
       line.append(info, action('打开周报 →', () => { state.view = 'papers'; $('week').value = issue.id; loadIssue(issue.id); })); $('list').append(line);
     }
     if (!state.index.length) $('list').append(el('div', '首期周报正在准备。', 'empty'));
@@ -249,8 +254,8 @@ $('import-file').onchange = async event => {
     const data = JSON.parse(await file.text());
     if (data.version !== 1) throw Error('不支持的收藏备份版本');
     const items = validateSaved(data.items);
-    const merged = new Map(state.saved.map(item => [item.key, item]));
-    for (const item of items) if (!merged.has(item.key)) merged.set(item.key, item);
+    const merged = new Map(state.saved.map(item => [canonicalKey(item.key), item]));
+    for (const item of items) if (!merged.has(canonicalKey(item.key))) merged.set(canonicalKey(item.key), item);
     const next = validateSaved([...merged.values()]);
     if (persist(next)) { render(); toast(`已合并收藏，共 ${next.length} 条；已有条目保持原样。`); }
   } catch (error) { toast('导入失败：' + error.message + '。已有收藏未被修改。'); }
@@ -271,11 +276,11 @@ async function init() {
     const response = await fetch('data/index.json', {cache: 'no-store'});
     if (!response.ok) throw Error('Index unavailable');
     const data = await response.json(); state.index = data.issues;
-    $('week').replaceChildren(...state.index.map(issue => { const option = el('option', `${issueLabel(issue.window_end)} · ${issue.edition_note ? '扩充版 · ' : ''}${issue.brief_count} 份简报`); option.value = issue.id; return option; }));
+    $('week').replaceChildren(...state.index.map(issue => { const option = el('option', `${archiveLabel(issue)} · ${issue.brief_count} 份简报`); option.value = issue.id; return option; }));
     const params = new URLSearchParams(location.search);
     const requested = params.get('issue'); const paperId = params.get('paper');
     if (state.index.length) {
-      await loadIssue(state.index.some(i => i.id === requested) ? requested : state.index[0].id);
+      await loadIssue(state.index.find(i => i.id === requested || i.aliases?.includes(requested))?.id || state.index[0].id);
       const p = state.issue?.papers.find(p => p.id === paperId);
       if (p) { state.expanded.add(key(p, state.issue.id)); render(); $(`paper-${p.id}-${state.issue.id}`)?.scrollIntoView({block: 'start'}); }
       if (Date.now() - Date.parse(state.index[0].window_end) > 8 * 86400000) { $('notice').textContent = '最新一期已超过 8 天。更新依赖电脑与 Codex 可用；历史简报可以继续阅读。'; $('notice').hidden = false; }
@@ -297,8 +302,8 @@ $('highlights-file').onchange = async event => {
     const data = JSON.parse(await file.text());
     if (data.version !== 1) throw Error('不支持的高亮备份版本');
     const incoming = Reader.validateHighlights(data.highlights);
-    const merged = new Map(highlights.map(h => [h.key, h]));
-    for (const h of incoming) if (!merged.has(h.key)) merged.set(h.key, h);
+    const merged = new Map(highlights.map(h => [canonicalKey(h.key), h]));
+    for (const h of incoming) if (!merged.has(canonicalKey(h.key))) merged.set(canonicalKey(h.key), h);
     if (saveHighlights([...merged.values()])) { render(); toast(`高亮已合并，共 ${highlights.length} 段。`); }
   } catch (error) { toast('导入失败：' + error.message + '。已有高亮未被修改。'); }
   event.target.value = '';

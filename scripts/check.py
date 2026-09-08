@@ -27,6 +27,7 @@ with tempfile.TemporaryDirectory(prefix='plasma-archive-check-') as tmp:
     save_json(root / 'packet.json', packet)
     save_json(root / 'briefs.json', dict(overview='Test', briefs={papers[0]['id']: brief}))
     first = publish(root / 'packet.json', root / 'briefs.json', root / 'data')
+    assert first.stem == '2026-09-09'
     original = first.read_bytes()
     try:
         publish(root / 'packet.json', root / 'briefs.json', root / 'data')
@@ -36,6 +37,7 @@ with tempfile.TemporaryDirectory(prefix='plasma-archive-check-') as tmp:
     save_json(root / 'briefs.json', dict(overview='Test', edition_note='Expanded supplement', briefs={papers[0]['id']: brief}))
     supplement = publish(root / 'packet.json', root / 'briefs.json', root / 'data', revision_of=first.stem)
     revised = json.loads(supplement.read_text(encoding='utf-8'))
+    assert supplement.stem == '2026-09-09-r2'
     assert revised['revision_of'] == first.stem and revised['window_end'] == packet['window_end']
     assert first.read_bytes() == original
     packet['window_start'] = end.isoformat()

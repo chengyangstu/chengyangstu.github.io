@@ -197,7 +197,7 @@ def rebuild_index(data=DATA):
         issue = read_json(path)
         issues.append({k: issue[k] for k in ('id', 'window_start', 'window_end', 'created_at', 'overview')}
             | dict(paper_count=len(issue['papers']), brief_count=sum(bool(p.get('brief')) for p in issue['papers']))
-            | {k: issue[k] for k in ('revision_of', 'edition_note') if k in issue})
+            | {k: issue[k] for k in ('revision_of', 'edition_note', 'aliases') if k in issue})
     issues.sort(key=lambda i: (i['window_end'], i['created_at']), reverse=True)
     save_json(data / 'index.json', dict(issues=issues))
 
@@ -211,17 +211,20 @@ def publish(packet_path, briefs_path, data=DATA, revision_of=None):
         raise ValueError('Every selected paper must have a brief; no unknown IDs')
     for brief in briefs.values():
         validate_brief(brief)
-    issue_id = parse_time(packet['window_end']).strftime('%Y-%m-%dT%H%M%SZ')
+    issue_id = parse_time(packet['window_end']).strftime('%Y-%m-%d')
     created_at = datetime.now(timezone.utc)
     if revision_of:
-        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{6}Z', revision_of):
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}(?:-r(?:[2-9]|[1-9]\d+)|T\d{6}Z)?', revision_of):
             raise ValueError('Invalid revision source ID')
         original = read_json(data / 'issues' / (revision_of + '.json'))
         if any(parse_time(original[k]) != parse_time(packet[k]) for k in ('window_start', 'window_end')):
             raise ValueError('Editorial supplement must keep the original search window')
         if not result.get('edition_note', '').strip():
             raise ValueError('Editorial supplement must be explicitly labeled')
-        issue_id = created_at.strftime('%Y-%m-%dT%H%M%SZ')
+        revision = 2
+        while (data / 'issues' / f'{issue_id}-r{revision}.json').exists():
+            revision += 1
+        issue_id += f'-r{revision}'
     start, end = parse_time(packet['window_start']), parse_time(packet['window_end'])
     if end - start != timedelta(days=7):
         raise ValueError('Window must be exactly seven days')
