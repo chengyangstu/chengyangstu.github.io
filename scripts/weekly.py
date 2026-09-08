@@ -175,6 +175,20 @@ def validate_brief(brief):
         raise ValueError('Invalid method_tags')
     if brief.get('reading_scope') not in ('PDF 正文选读', 'PDF 全文阅读', '仅摘要'):
         raise ValueError('Actual reading_scope is required')
+    if brief.get('editorial_version') == 2:
+        if type(brief.get('relevance_tier')) is not int or not 0 <= brief['relevance_tier'] <= 5 or not brief.get('relevance_reason', '').strip():
+            raise ValueError('Reviewed relevance tier 0..5 and explanation required')
+        if brief['reading_scope'] != '仅摘要':
+            if any(len(re.split(r'\n\s*\n', brief[k])) < 2 for k in ('methods', 'findings')):
+                raise ValueError('Explain methods and findings in readable paragraphs')
+            if not re.search(r'第\s*\d+.*?页', brief['evidence']):
+                raise ValueError('PDF page locations required')
+        for field in FIELDS:
+            value = brief[field]
+            if value.count(r'\(') != value.count(r'\)') or value.count('**') % 2:
+                raise ValueError('Unclosed math or emphasis: ' + field)
+            if re.search(r'<(?:script|iframe|img)\b', value, re.I):
+                raise ValueError('Briefs use plain text and TeX, never embedded HTML')
 
 
 def rebuild_index(data=DATA):
@@ -182,12 +196,13 @@ def rebuild_index(data=DATA):
     for path in (data / 'issues').glob('*.json'):
         issue = read_json(path)
         issues.append({k: issue[k] for k in ('id', 'window_start', 'window_end', 'created_at', 'overview')}
-            | dict(paper_count=len(issue['papers']), brief_count=sum(bool(p.get('brief')) for p in issue['papers'])))
+            | dict(paper_count=len(issue['papers']), brief_count=sum(bool(p.get('brief')) for p in issue['papers']))
+            | {k: issue[k] for k in ('revision_of', 'edition_note') if k in issue})
     issues.sort(key=lambda i: (i['window_end'], i['created_at']), reverse=True)
     save_json(data / 'index.json', dict(issues=issues))
 
 
-def publish(packet_path, briefs_path, data=DATA):
+def publish(packet_path, briefs_path, data=DATA, revision_of=None):
     packet, result = read_json(packet_path), read_json(briefs_path)
     briefs = result['briefs']
     if not isinstance(result.get('overview'), str) or not result['overview'].strip():
@@ -197,6 +212,16 @@ def publish(packet_path, briefs_path, data=DATA):
     for brief in briefs.values():
         validate_brief(brief)
     issue_id = parse_time(packet['window_end']).strftime('%Y-%m-%dT%H%M%SZ')
+    created_at = datetime.now(timezone.utc)
+    if revision_of:
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{6}Z', revision_of):
+            raise ValueError('Invalid revision source ID')
+        original = read_json(data / 'issues' / (revision_of + '.json'))
+        if any(parse_time(original[k]) != parse_time(packet[k]) for k in ('window_start', 'window_end')):
+            raise ValueError('Editorial supplement must keep the original search window')
+        if not result.get('edition_note', '').strip():
+            raise ValueError('Editorial supplement must be explicitly labeled')
+        issue_id = created_at.strftime('%Y-%m-%dT%H%M%SZ')
     start, end = parse_time(packet['window_start']), parse_time(packet['window_end'])
     if end - start != timedelta(days=7):
         raise ValueError('Window must be exactly seven days')
@@ -213,9 +238,11 @@ def publish(packet_path, briefs_path, data=DATA):
                 raise ValueError('PDF-based brief requires a fetched PDF')
         papers.append(paper)
     issue = dict(id=issue_id, window_start=packet['window_start'], window_end=packet['window_end'],
-        created_at=datetime.now(timezone.utc).isoformat(), overview=result['overview'],
+        created_at=created_at.isoformat(), overview=result['overview'],
         query=packet['query'], reading_note='Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。', papers=papers,
         overall_report=[dict(id=p['id'], title=p['brief']['title_zh'], summary=p['brief']['takeaway']) for p in papers if p.get('brief')])
+    if revision_of:
+        issue.update(revision_of=revision_of, edition_note=result['edition_note'])
     path = data / 'issues' / (issue_id + '.json')
     save_json(path, issue, exclusive=True)  # Existing reports can never be replaced, even on retries.
     rebuild_index(data)
@@ -229,12 +256,13 @@ if __name__ == '__main__':
     parser.add_argument('--end', help='Exclusive UTC cutoff, default most recent Wednesday 09:00 Beijing')
     parser.add_argument('--limit', type=int, default=8)
     parser.add_argument('--briefs', type=Path, default=CACHE / 'briefs.json')
+    parser.add_argument('--revision-of', help='Archive a labeled supplement without changing the original window or file')
     args = parser.parse_args()
     if args.command == 'prepare':
         if not 1 <= args.limit <= 30:
             parser.error('--limit must be 1..30')
         prepare(parse_time(args.end) if args.end else scheduled_end(), args.limit)
     elif args.command == 'publish':
-        publish(CACHE / 'packet.json', args.briefs)
+        publish(CACHE / 'packet.json', args.briefs, revision_of=args.revision_of)
     else:
         rebuild_index()

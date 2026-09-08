@@ -45,3 +45,5 @@ if (matchMedia('(max-width:700px)').matches) contentsPanel.open = false;
 toc.addEventListener('click', event => {
   if (event.target.closest('a') && matchMedia('(max-width:700px)').matches) contentsPanel.open = false;
 });
+
+typesetMath(document.querySelector(".book-main"));

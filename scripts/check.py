@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import tempfile
-from weekly import DATA, FIELDS, classify, parse_feed, publish, rebuild_index, save_json, scheduled_end
+from weekly import DATA, FIELDS, classify, parse_feed, publish, rebuild_index, save_json, scheduled_end, validate_brief
 
 end = datetime(2026, 9, 9, 1, tzinfo=timezone.utc)
 assert scheduled_end(end) == end
@@ -33,6 +33,11 @@ with tempfile.TemporaryDirectory(prefix='plasma-archive-check-') as tmp:
         raise AssertionError('Existing report was overwritten')
     except FileExistsError:
         pass
+    save_json(root / 'briefs.json', dict(overview='Test', edition_note='Expanded supplement', briefs={papers[0]['id']: brief}))
+    supplement = publish(root / 'packet.json', root / 'briefs.json', root / 'data', revision_of=first.stem)
+    revised = json.loads(supplement.read_text(encoding='utf-8'))
+    assert revised['revision_of'] == first.stem and revised['window_end'] == packet['window_end']
+    assert first.read_bytes() == original
     packet['window_start'] = end.isoformat()
     packet['window_end'] = (end + timedelta(days=7)).isoformat()
     packet['papers'][0]['published'] = (end + timedelta(days=1)).isoformat()
@@ -40,7 +45,7 @@ with tempfile.TemporaryDirectory(prefix='plasma-archive-check-') as tmp:
     publish(root / 'packet.json', root / 'briefs.json', root / 'data')
     rebuild_index(root / 'data')
     assert first.read_bytes() == original
-    assert len(json.loads((root / 'data/index.json').read_text(encoding='utf-8'))['issues']) == 2
+    assert len(json.loads((root / 'data/index.json').read_text(encoding='utf-8'))['issues']) == 3
 if DATA.exists():
     index = json.loads((DATA / 'index.json').read_text(encoding='utf-8'))['issues']
     assert {i['id'] for i in index} == {p.stem for p in (DATA / 'issues').glob('*.json')}
@@ -48,6 +53,9 @@ if DATA.exists():
         issue = json.loads((DATA / 'issues' / (item['id'] + '.json')).read_text(encoding='utf-8'))
         assert len({p['id'] for p in issue['papers']}) == len(issue['papers'])
         assert item['brief_count'] == sum(bool(p.get('brief')) for p in issue['papers'])
+        for p in issue['papers']:
+            if p.get('brief'):
+                validate_brief(p['brief'])
         if 'overall_report' in issue:
             assert {r['id'] for r in issue['overall_report']} == {p['id'] for p in issue['papers'] if p.get('brief')}
 print('PASS: date boundaries, relevance, immutable reports, complete history index.')

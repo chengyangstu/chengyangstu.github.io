@@ -25,11 +25,13 @@ jobs:
         run: python scripts/check.py
       - name: Check textbook links and chapters
         run: python scripts/check_tutorial.py
+      - name: Check math, reading data and index examples
+        run: node scripts/check_reader.cjs
       - name: Stage public files only
         run: |
           mkdir _site
-          cp index.html style.css favicon.svg _site/
-          cp -r plasma cuda _site/
+          cp index.html style.css math.js favicon.svg _site/
+          cp -r plasma cuda vendor _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
