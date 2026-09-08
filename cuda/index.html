@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="面向聚变等离子体磁重联研究的 CUDA 与 GPU 高性能计算教材：24 章、PIC 与动理学方法、论文视频、代码训练与验证。"><title>CUDA 与 GPU 高性能等离子体计算 · Yancheng</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="book.css"><script src="book.js" defer></script></head>
+<body><a class="skip" href="#main">跳至正文</a>
+<header class="header"><a class="brand" href="../">Yancheng</a><nav aria-label="主导航"><a href="../">首页</a><a href="../plasma/">论文周报</a><a href="./" aria-current="page">计算教材</a></nav></header>
+<div class="book-layout">
+<aside class="book-sidebar"><details open><summary>全书目录</summary><label for="chapter-search" class="sr-only">搜索章节或正文</label><input id="chapter-search" type="search" placeholder="搜索章节或正文"><nav id="toc" aria-label="教材目录"><a href="#ch01">第一章 · 从物理问题出发</a><a href="#resources">资料与视频索引</a></nav><p id="search-status" role="status"></p></details><a href="labs/README.md">练习代码与运行说明 ↗</a><button id="print-book" type="button" hidden>打印 / 保存为 PDF</button></aside>
+<main id="main" class="book-main">
+<div class="book-title"><h1>CUDA 与 GPU<br>高性能等离子体计算</h1><p class="book-lead">从第一个并行内核，到能验证、能加速、能回答物理问题的动理学模拟。</p><p class="edition">面向聚变等离子体中的磁重联研究 · 24 章 · 2026 年 9 月版</p></div>
+<div class="preface"><p>这本教程把数值物理与 GPU 编程放在同一条学习路径上。你会先建立一个可以解释误差的 CPU 参考，再把粒子推进、沉积和场求解搬到 GPU，最后复现重联基准，并选择适合聚变撕裂与微撕裂问题的模型。每章都有正文推导、代码训练、验收要求和有目的的阅读任务。</p><p>建议按每周 8–12 小时安排约 24 周；这是学习计划，不是科研成果的工期承诺。有 C++ 和动理学基础可跳读前四章，但不要跳过验证。本书中的二维 Harris / GEM 问题是算法与物理基准；它不能自动代表托卡马克中的重联。后半部分专门补上强导向场、几何、碰撞、回旋动理学及尺度排序。</p><p><strong>代码状态：</strong>附带完整的 1D1V 静电 PIC Python 参考程序，以及 CUDA 向量运算、Boris 推进和 CIC 沉积练习。CPU 检查已运行；本机未发现 <code>nvcc</code>，CUDA 示例尚未编译或实机运行。完整电磁 PIC、守恒电流沉积与科研复现是分阶段训练任务，不能把几个独立内核当成已完成的重联求解器。</p></div>
+
+<article class="chapter" id="ch01" data-part="一 · 问题与基础">
+<h2>第一章　先决定要回答什么物理问题</h2>
+<p class="objective">学习目标：把“加速 PIC”拆成可检验的物理目标、适用模型与计算规模。</p>
+<h3>1.1　加速的对象是一项科学判断</h3>
+<p>假设你关心电子尺度耗散区中的非理想电场。需要的输出可能是电子压强张量散度与惯性项，而不是一张漂亮的磁力线图。若你关心托卡马克微撕裂引起的电子热输运，需要的则是线性增长率、模结构、磁随机化与热通量。两类问题都包含“重联”，但它们要求保留的频率、空间尺度、几何和自由能来源不同。</p>
+<p>动手前写一页“模型契约”：研究量是什么，哪些尺度必须解析，忽略了哪些过程，数值误差如何影响最后的判断。计算越快，越容易把一个不适用模型扫描得很精细。先用物理排序控制计算成本，再用硬件优化降低单位成本。</p>
+<div class="table-scroll"><table><thead><tr><th>问题</th><th>可考虑的起点</th><th>必须补上的限制</th></tr></thead><tbody><tr><td>电子扩散区、非陀螺压强、全轨道动力学</td><td>全动理学电磁 PIC / Vlasov–Maxwell</td><td>质量比、德拜长度、电子频率与粒子噪声</td></tr><tr><td>离子尺度重联、电子闭合模型作用</td><td>混合动理学：动理学离子、流体电子</td><td>闭合关系可能决定电子层与耗散</td></tr><tr><td>强磁化、低频、微撕裂与电磁湍流</td><td>电磁回旋动理学</td><td>低频与小扰动排序、背景几何及电子响应</td></tr><tr><td>宏观磁岛、慢时间演化和装置扫描</td><td>电阻 / 两流体 MHD，再逐层增加物理</td><td>动理学闭合、bootstrap 电流与装置边界</td></tr></tbody></table></div>
+<h3>1.2　三层成果，而不是一次写完大程序</h3>
+<p>第一层是教学程序：你能解释每个数组和时间层，能从测试发现错误。第二层是基准程序：用明确边界与参数复现已发表结果，比较收敛而不是逐粒子轨道。第三层才是研究程序：在成熟代码或充分验证的自研代码上改变一个物理假设，给出误差与代价。教材附带的代码属于第一层；最后几章给出到第二、三层的路线。</p>
+<p>建议保留三条工作线：<code>reference/</code> 保存小规模可读版本；<code>gpu/</code> 保存等价实现；<code>runs/</code> 保存输入、版本和诊断。它们是学习时的目录建议，不必先搭建复杂软件框架。CPU 与 GPU 必须使用相同方程、粒子权重和边界，才能解释性能差异。</p>
+<div class="assignment"><h3>训练 01 · 写下研究合同</h3><ol><li>选择“强导向场下电子压强张量对重联电场的贡献”或“微撕裂引起的磁扰动热输运”。</li><li>列出三个待测量量、三个控制参数、三个被忽略过程。</li><li>写出能推翻预期结论的观测，例如网格加密后增长率明显移动。</li></ol><p><strong>验收：</strong>让另一位研究者只读这一页，就能知道你为何选择该模型，以及哪一种结果不能被解释为装置预测。</p></div>
+<p class="reading-list">阅读：<a href="#r-gem">GEM Challenge</a> 的问题设置；<a href="#r-gkcompare">全动理学与回旋动理学比较</a> 的适用条件。视频：从 <a href="#r-pppl">PPPL 等离子体课程</a> 补齐单粒子轨道与动理学基础。</p>
+</article>
+
+<article class="chapter" id="ch02" data-part="一 · 问题与基础">
+<h2>第二章　量纲、尺度与显存预算</h2>
+<p class="objective">学习目标：在编译前估计模拟的时间步、网格与粒子数量。</p>
+<h3>2.1　把归一化写在输入文件最前面</h3>
+<p>以背景密度 n₀、重联磁场 B₀ 和离子质量 mᵢ 定义阿尔芬速度 v<sub>A</sub>。常用离子尺度归一化是长度 dᵢ、时间 Ωᵢ⁻¹、速度 v<sub>A</sub>、磁场 B₀、电场 v<sub>A</sub>B₀。因为 dᵢΩᵢ=v<sub>A</sub>，量纲转换可以直接交叉检查。SI 制与代码归一化制不能混写。</p>
+<div class="equation">ω<sub>ps</sub> = √(n₀q<sub>s</sub>² / ε₀m<sub>s</sub>)， d<sub>s</sub> = c / ω<sub>ps</sub><br>Ω<sub>s</sub> = |q<sub>s</sub>|B₀ / m<sub>s</sub>， v<sub>A</sub> = B₀ / √(μ₀n₀mᵢ)<br>λ<sub>De</sub> = √(ε₀T<sub>e</sub> / n₀e²)， β<sub>s</sub> = 2μ₀n₀T<sub>s</sub> / B₀²</div>
+<p>这里 T 以能量单位表示；若用开尔文须补 k<sub>B</sub>。热速度也有两种常见定义：√(T/m) 与 √(2T/m)。本书静电参考程序使用前者，即一维 Maxwell 分布的标准差。记录定义比记住某个数字更重要，尤其在比较 λ<sub>D</sub>、回旋半径和文献温度时。</p>
+<h3>2.2　网格可放入显存，不代表能解析物理</h3>
+<p>普通显式电磁 PIC 要同时处理场的 CFL 条件、电子振荡、回旋运动和有限网格误差。对均匀 Yee 网格，一个场传播限制是 cΔt√(Δx⁻²+Δy⁻²+Δz⁻²)≤1。其他约束还依赖推进器、形状函数、温度、滤波和物理目标；不要把“Δt 小于一个固定常数”当作所有 PIC 方法的定理。</p>
+<p>降低 mᵢ/mₑ 或 c/v<sub>A</sub> 可以降低成本，但会改变尺度分离。质量比从 25 改到 100，电子惯性长度相对离子长度会缩小一半。若保持网格不变，你其实改变了解析电子层的能力。参数扫描必须区分物理参数变化与分辨率变化。</p>
+<h3>2.3　先做一张字节账本</h3>
+<p>2D3V 的粒子通常保存 x、y、vₓ、vᵧ、v<sub>z</sub>；还可能保存权重、旧位置、ID、排序键与通信缓冲。按 3 个位置、3 个速度、1 个权重的 FP32 存储估算，仅主体就有 28 字节/粒子。1024×512 网格、每物种每格 100 粒子、两个物种，共约 1.05 亿粒子，主体约 2.94 GB（十进制），尚未计入排序副本与临时数组。</p>
+<p>本机 4 GB 显存应从 64–128 个网格的一维练习，以及 64×32 或 128×64 的二维教学问题开始，实际空闲显存还受桌面占用影响。全电子尺度、大质量比、长时间三维重联需要重新预算，通常转移到集群。先估算每步时间 × 总步数，再决定是否跑参数扫描。</p>
+<div class="assignment"><h3>训练 02 · 给模拟定价</h3><p>写一个 Python 脚本，输入网格、物种、每格粒子数和每粒子字节数，输出粒子总数、主体显存、加一份排序缓冲后的显存、场数组显存。分别计算 FP32 和 FP64。再根据 Δt 与目标终止时间计算步数。</p><p><strong>验收：</strong>把估计与程序实际分配逐项对上；必须单列排序、FFT 工作区、ghost cells 和 I/O 缓冲，不只报告粒子主体。</p></div>
+<p class="reading-list">阅读：<a href="#r-warpx">WarpX 电磁 PIC 算法</a> 的网格与时间推进；<a href="#r-gkeyll">Gkeyll</a> 的归一化单位说明。视频：<a href="#r-pppl">PPPL 课程</a> 中的等离子体基本参数与波。</p>
+</article>
+
+<article class="chapter" id="ch03" data-part="一 · 问题与基础">
+<h2>第三章　建立可以复现的 CUDA 环境</h2>
+<p class="objective">学习目标：区分驱动、Toolkit、编译器与设备能力，完成第一份运行记录。</p>
+<h3>3.1　四个组件，四种不同的问题</h3>
+<p>驱动负责操作系统与设备通信；CUDA Toolkit 提供编译器、运行时、库和开发工具；主机 C++ 编译器处理 CPU 代码；GPU 的计算能力决定可用指令与资源。<code>nvidia-smi</code> 显示的 CUDA 支持版本不能证明 <code>nvcc</code> 已安装。本机检查时驱动能识别 RTX 2050，但命令路径中未找到 nvcc。</p>
+<p>Windows 原生路线需要官方支持的 Visual Studio C++ 工具链；Linux / WSL2 路线更接近大多数科研集群。WSL 使用 Windows 侧的 NVIDIA 驱动，安装步骤应遵循 <a href="#r-wsl">NVIDIA WSL 指南</a>，避免把普通 Linux 驱动安装流程直接复制进去。本文不固定未来版本号，先核对当前 Toolkit 的主机编译器支持矩阵，再安装匹配组合。</p>
+<pre><code>nvidia-smi
+nvcc --version
+# 在 CUDA Toolkit 与支持的主机编译器配置完成后：
+nvcc -O3 -lineinfo -std=c++17 saxpy.cu -o saxpy
+# Linux / WSL
+./saxpy 1048576
+# Windows PowerShell
+.\saxpy.exe 1048576</code></pre>
+<h3>3.2　正确运行优先于追逐架构选项</h3>
+<p>第一次先用工具链默认设置完成编译和正确性检查。之后查询设备计算能力，再选择匹配的 <code>-arch</code> / <code>-gencode</code>；不要照抄另一个数据中心 GPU 的架构参数。发布科研二进制时记录目标架构、驱动、工具链、编译选项与库版本。目标集群已有软件模块时，优先使用管理员提供且经过验证的组合。</p>
+<p><code>-lineinfo</code> 让性能工具把内核位置映射回源码；<code>-G</code> 是设备调试选项，会明显改变生成代码，不应用来做正式性能比较。初学阶段不启用 <code>--use_fast_math</code>。先知道误差来自哪个运算，再判断近似数学是否允许。</p>
+<h3>3.3　建立实验日志</h3>
+<p>每次实验保存输入文件、Git 提交号、随机种子、设备名称、数值精度、运行命令和输出摘要。相同源码在不同粒子顺序、归约顺序和编译设置下，可能得到不同的最低位结果。可复现通常指统计量与物理结论在给定误差内一致，而非每个粒子的二进制状态永远相同。</p>
+<div class="assignment"><h3>训练 03 · 编译与越界检查</h3><p>下载 <a href="labs/common.cuh" download>common.cuh</a> 与 <a href="labs/saxpy.cu" download>saxpy.cu</a> 到同一目录。先运行 N=1、257、1048576、1048583，故意覆盖非整块数组长度，再执行 <code>compute-sanitizer --tool memcheck ./saxpy 1048583</code>。</p><p><strong>验收：</strong>所有规模退出码为 0，错误检查通过；日志包含编译与运行命令。当前网页仅验证了 CPU 参考，CUDA 训练的实机验收由配置好的 CUDA 环境完成。</p></div>
+<p class="reading-list">必读：<a href="#r-cuda">CUDA 官方入门</a>、<a href="#r-sanitizer">Compute Sanitizer</a>。视频：<a href="#r-olcf">OLCF 第 1 讲</a>，完成官方 exercises/hw1 后再改本站例子。</p>
+</article>
+
+<article class="chapter" id="ch04" data-part="一 · 问题与基础">
+<h2>第四章　面向数值计算的 C++ 与数据设计</h2>
+<p class="objective">学习目标：能够阅读数组内核，明确索引、所有权、边界和误差度量。</p>
+<h3>4.1　先掌握够用的一小部分 C++</h3>
+<p>起步需要的是变量类型、函数、循环、指针、引用、结构体、<code>std::vector</code> 与头文件，不是模板元编程。CPU 容器可以管理主机数组，但 GPU 内核接收的原始指针必须指向设备可访问的数据。<code>sizeof(pointer)</code> 不等于数组字节数；分配字节数应写成元素数量乘元素大小，并用足够宽的整数类型处理大规模数组。</p>
+<p>设网格在 x 方向有 Nₓ 点，行优先二维索引可写成 <code>j * Nx + i</code>。最常见错误不是微分公式，而是内部点与含 ghost 的总跨度混用。给每个数组写下注释：物理量、空间位置、时间层、形状、单位。电场三个分量的 Yee 位置不同，因此不能仅凭它们长度相似就使用同一套插值索引。</p>
+<pre><code>// row-major: x is contiguous; pitch includes ghost cells when present.
+size_t index = size_t(j) * pitch + i;
+double relative_L2 = std::sqrt(error_squared / reference_squared);
+// reference near zero: also report an absolute error scale.</code></pre>
+<h3>4.2　从数组布局看粒子操作</h3>
+<p>数组结构 AoS 把一个粒子的全部属性放在一起；结构数组 SoA 把所有粒子的 x 放在一段连续内存，所有 vₓ 放在另一段。GPU 中相邻线程常处理相邻粒子，SoA 使它们同时读取同一属性时更容易形成连续访问。AoSoA 则按小组组织粒子，常出现在可移植高性能框架中。是否更快仍要针对实际推进、沉积和迁移访问测量。</p>
+<p>不要在每步重新创建粒子数组。把容量与当前粒子数分开：迁移或注入可以改变数量，但不应反复分配整个空间。教学初期先固定粒子数，周期边界直接折回位置；涉及开放边界后，再增加删除、压缩、注入和随机数状态。</p>
+<h3>4.3　比较结果时报告什么</h3>
+<p>对场数组报告最大绝对误差和相对 L₂ 误差；对离散守恒报告相对初值的漂移；对增长率报告拟合窗口、分辨率和随机种子变化。零参考量不能直接放到分母。为每个阈值写明物理量和归一化尺度，例如“电荷连续性残差相对 n₀e/Δt”，而不是一个没有单位的神秘 <code>1e-6</code>。</p>
+<div class="assignment"><h3>训练 04 · 同一个粒子推进，三种布局</h3><p>先在 CPU 写 AoS 与 SoA 的匀速推进，用相同初值和边界比较全部位置。测试 x&lt;0、x=L、跨越多个盒长、N 不能整除块大小等情况。把分配与初始化放到计时区外，同时另计端到端耗时。</p><p><strong>验收：</strong>两个布局实现的物理结果一致；写出每次推进读取与写入的字节数，说明所有数组由谁分配、何时释放。</p></div>
+<p class="reading-list">代码阅读：<a href="#r-nvidia-hub">NVIDIA CUDA C++ 教程</a> 的数组练习；<a href="#r-vpic">VPIC-Kokkos</a> 中的数据布局设计。此阶段只追踪一个粒子循环，不必读完整框架。</p>
+</article>
+
+<article class="chapter" id="ch05" data-part="二 · CUDA 与性能">
+<h2>第五章　线程、线程块与第一个内核</h2>
+<p class="objective">学习目标：理解执行索引与异步启动，写出覆盖任意数组长度的内核。</p>
+<h3>5.1　把“谁处理哪个元素”说清楚</h3>
+<p>kernel 是在 GPU 上执行的函数。一次启动指定 grid 与 block；线程通过 blockIdx、blockDim、threadIdx 计算逻辑索引。初学可以把每个线程对应一个粒子，但这只是数据分工，不意味着所有粒子真的同时执行。线程块由硬件调度到多处理器，不能假设块之间按编号顺序运行。</p>
+<pre><code>__global__ void advance(float* x, const float* vx, int n, float dt) {
+    for (int i = blockIdx.x * blockDim.x + threadIdx.x;
+         i &lt; n; i += blockDim.x * gridDim.x) {
+        x[i] += dt * vx[i];
+    }
+}
+advance&lt;&lt;&lt;blocks, 256&gt;&gt;&gt;(x, vx, n, dt);
+CUDA(cudaGetLastError());
+CUDA(cudaDeviceSynchronize()); // during initial debugging</code></pre>
+<p>grid-stride loop 允许启动有限数量的线程，每个线程处理相隔固定跨度的元素。循环条件处理尾部元素。不要把 <code>i&lt;n</code> 删除来“省分支”，也不要默认粒子数总能被 256 整除。这里的 256 是合理起始值，不是任何设备与内核都最优的规则。</p>
+<h3>5.2　主机返回，不等于设备完成</h3>
+<p>内核启动通常异步返回。CPU 时钟包围一次启动，测到的可能只是提交开销。调试时，启动后检查立即错误，再同步捕获执行错误。正式流水线尽量只在确实需要结果的地方同步；同一 stream 内的顺序可表达许多依赖，无需每个内核之间都让 CPU 等待。</p>
+<h3>5.3　SAXPY 是显存实验，不是 PIC 性能证明</h3>
+<p>本站例子计算 out=2x+y，逻辑上每元素读两个 FP32 并写一个 FP32，即 12 字节，约 2 次浮点运算。用这个可解释的工作量建立计时习惯，然后观察小数组的启动开销与大数组的存储流量。有效带宽是算法字节数除以内核时间；缓存命中时它不等于 DRAM 的实际传输带宽。</p>
+<p>程序先预热，随后用 CUDA events 计时多次相同运算，最后回传结果验证。这避免把首次初始化混到稳定内核时间中，但也明确排除了 H2D/D2H 传输与分配。报告性能时必须同时注明这一点。</p>
+<div class="assignment"><h3>训练 05 · 从向量到粒子</h3><p>运行 <a href="labs/saxpy.cu">saxpy.cu</a>，扫描 N=2¹⁰ 到 2²⁴。随后改成周期匀速粒子推进，并分别用 128、256、512 线程/块测试。写出你观察到的启动主导区与大数组区。</p><p><strong>验收：</strong>先通过边界与数值检查，再提交一张包含 N、块大小、耗时和有效带宽的表。不要把失败或越界的最快一次当作结果。</p></div>
+<p class="reading-list">阅读：<a href="#r-model">CUDA Programming Model</a> 与 <a href="#r-cuda">Intro to CUDA C++</a>。视频：<a href="#r-olcf">OLCF 第 1 讲</a>，重点看启动配置与数组访问。</p>
+</article>
+
+<article class="chapter" id="ch06" data-part="二 · CUDA 与性能">
+<h2>第六章　让数据移动得少一点</h2>
+<p class="objective">学习目标：把寄存器、共享内存、缓存、显存与主机传输放进同一份成本分析。</p>
+<h3>6.1　连续访问是起点，复用才是理由</h3>
+<p>相邻线程访问相邻地址通常更有利于合并访存。因此，把 x[i]、vₓ[i] 等粒子属性分别连续存放，是一个容易验证的起点。若把线程映射到二维网格，优先让同一 warp 的线程沿连续维移动。访问步幅、对齐、有效线程数与实际缓存行为都会影响最后结果。</p>
+<p>共享内存适合多个线程重复使用同一块数据，例如 tile 内网格场的复用或局部沉积。它同时引入装载、同步、容量与 bank conflict 等成本。对于没有复用的一次性向量读取，把数据先搬到共享内存往往只是增加一次中转。判断是否使用共享内存前，先数一个网格值被多少粒子重复读取。</p>
+<h3>6.2　寄存器不够时会发生什么</h3>
+<p>Boris 推进需要多个速度、电场、磁场和临时向量。保留过多中间值可能提高寄存器需求，限制活跃线程块；溢出还可能产生设备内存访问。占用率 occupancy 是驻留资源的一个描述，不是性能目标本身。一个寄存器稍多但少读几次显存的内核，可能比“高占用率”版本更快。</p>
+<p>把推进、插值、边界和沉积全融合成一个巨大内核，可以减少读写，但也可能提高寄存器压力并使分支更复杂。先建立分开的正确版本，找到实际昂贵的数据往返，再尝试一次有理由的融合。每次只改一项，保留性能与误差对照。</p>
+<h3>6.3　PIC 的主要数据应留在设备上</h3>
+<p>一个时间步通常是场插值、粒子推进、沉积、场更新和边界处理。若每步都把全部粒子拷回 CPU，GPU 内核再快也会被传输吞掉。设备上完成电荷、能量、谱模等归约后，只回传少量诊断。全粒子输出应按研究需要稀疏采样，检查点也应与物理诊断区分。</p>
+<pre><code>// Allocation happens once, before the time loop.
+for (int step = 0; step &lt; steps; ++step) {
+    gather_and_push(...);
+    deposit_current(...);
+    update_fields(...);
+    if (step % diagnostic_stride == 0) reduce_diagnostics(...);
+}
+// Copy reduced diagnostics, not all particles at every step.</code></pre>
+<div class="assignment"><h3>训练 06 · 一张数据流量表</h3><p>对 SoA 推进与 CIC 沉积逐项列出全局读取、写入、原子更新和临时数组。比较“每步回传全部粒子”与“每 100 步回传 10 个标量”的端到端耗时。再尝试一个小网格 tile 的共享内存场缓存。</p><p><strong>验收：</strong>用计时证明收益来自哪里；若共享内存版本更慢，保留结果并解释复用不足、同步成本或资源限制。</p></div>
+<p class="reading-list">阅读：<a href="#r-best">CUDA Best Practices</a> 的数据传输与访存部分；<a href="#r-psc-paper">PSC 论文</a> 的粒子组织。视频：<a href="#r-olcf">OLCF 第 2–4 讲</a>。</p>
+</article>
+
+<article class="chapter" id="ch07" data-part="二 · CUDA 与性能">
+<h2>第七章　同步、归约与原子操作</h2>
+<p class="objective">学习目标：避免数据竞争，正确计算总电荷和能量，并理解浮点非确定性。</p>
+<h3>7.1　为什么沉积容易错</h3>
+<p>两个粒子可能同时向同一网格点累加。普通 <code>rho[j] += contribution</code> 包含读、加、写，多个线程可能互相覆盖。<code>atomicAdd</code> 保护该地址的一次更新，是最容易建立正确 GPU 基线的选择。但它不能自动保证整个 PIC 算法的离散电荷连续性，也不保证每次浮点累加顺序一致。</p>
+<p>同样，块内的 <code>__syncthreads()</code> 只同步当前线程块。它不是全网格屏障。不要让部分线程提前 return，而其余线程随后到达必须共同参与的屏障。若一个阶段需要全体线程写完，最直观的基线是在同一 stream 中使用两个顺序内核。</p>
+<h3>7.2　归约是树，不是一百万次串行相加</h3>
+<p>总动能 K=Σ½m w v² 是一个归约问题。教学实现可以让每个线程局部累加，然后块内归约，最后归约各块结果。warp shuffle 可交换线程寄存器值，但需要正确处理参与掩码和不足一个 warp 的尾部。生产实现优先评估 <a href="#r-cub">CUB 的归约与扫描</a>，不必维护多个脆弱的手写版本。</p>
+<p>浮点加法不满足结合律。即使所有 atomic 都正确，不同线程调度仍可能改变最低位。对跨许多数量级的能量总和，考虑 FP64 累加、分块或补偿求和，再量化误差。不同设备是否高效支持某种精度要查目标架构，而不能从“有 FP64 类型”推断吞吐。</p>
+<h3>7.3　最小反例胜过大规模重联调试</h3>
+<p>把所有粒子放在同一单元，最容易暴露沉积冲突与累加精度问题；把粒子放在边界，最容易暴露索引问题；令 N=33，最容易暴露 warp 尾部处理问题。先用这些故意不友好的数据集检查内核，再使用均匀随机分布测性能。</p>
+<div class="assignment"><h3>训练 07 · 电荷与能量归约</h3><p>从 <a href="labs/particles.cu">particles.cu</a> 的原子 CIC 出发，分别测均匀粒子与集中粒子。添加总电荷和动能归约，比较 FP32 与 FP64 的误差。把粒子顺序打乱五次，记录结果的散布。</p><p><strong>验收：</strong>总电荷与权重之和一致到声明的舍入误差；Compute Sanitizer 检查通过。误差随顺序变化应被报告，不能要求 GPU 全部逐位等同 CPU 的顺序求和。</p></div>
+<p class="reading-list">阅读：<a href="#r-sanitizer">Compute Sanitizer 的 memcheck / racecheck / synccheck</a>，注意它们检测范围不同。视频：<a href="#r-olcf">OLCF 第 5、12 讲</a>；练习官方归约例子。</p>
+</article>
+
+<article class="chapter" id="ch08" data-part="二 · CUDA 与性能">
+<h2>第八章　用证据定位性能瓶颈</h2>
+<p class="objective">学习目标：结合时间线、内核指标、Roofline 与端到端加速比做一次完整性能分析。</p>
+<h3>8.1　先看整步，再看最贵内核</h3>
+<p>先用 Nsight Systems 看 CPU、拷贝、GPU、同步和 MPI 的时间关系。若 GPU 经常空闲，可能是提交、通信或 I/O 问题，此时先优化某个已很快的算术表达式不会解决整体瓶颈。再用 Nsight Compute 查看最昂贵内核的访存、占用资源和指令情况。</p>
+<pre><code>nsys profile --trace=cuda,nvtx -o timeline ./saxpy 16777216
+ncu --set basic ./saxpy 16777216
+# Profiling changes execution; report final timing from an unprofiled run too.</code></pre>
+<p>不同系统的权限与工具支持不同；命令不能运行时先查官方部署说明。一个采样失败不代表程序没有瓶颈。可先用事件计时与 CPU 墙钟建立粗粒度性能表，再在目标集群获得正确的性能计数器访问。</p>
+<h3>8.2　Roofline 是上界模型</h3>
+<div class="equation">I = 运算数 / 传输字节数<br>P ≤ min(P<sub>peak</sub>, B<sub>memory</sub> × I)<br>S<sub>total</sub> = 1 / [(1−f) + f/S<sub>kernel</sub>]</div>
+<p>第一式的算术强度必须与带宽层级一致：基于 DRAM 字节的强度应与 DRAM 带宽比较。PIC 沉积还可能受原子冲突、散乱访问和负载不均衡限制，不能只按浮点乘加数量预测。第三式是 Amdahl 估算：若推进只占总时间 30%，即使它快十倍，总加速也只有约 1.37 倍。</p>
+<h3>8.3　怎样写一张可信的性能表</h3>
+<p>报告 GPU、精度、网格、粒子数、每格粒子数、算法、诊断频率和计时边界。区分“粒子推进吞吐”与“整个 PIC 周期粒子更新吞吐”。预热后独立运行多次，报告中位数和散布；同一结果必须同时给出正确性指标。不用一台 GPU 的优化程序与单线程 Python 作比较后宣称通用科研加速比。</p>
+<div class="assignment"><h3>训练 08 · 写一页性能诊断</h3><p>对 SAXPY 与粒子沉积分开采样。预测瓶颈，记录时间线与主要指标，然后只改数据布局、块大小或局部累加中的一项。用 Amdahl 估计整步收益，并和实际整步耗时比较。</p><p><strong>验收：</strong>你的报告能回答“慢在哪里、为什么这样判断、改动是否真的改善总运行时间”，而不只展示 GPU 利用率。</p></div>
+<p class="reading-list">阅读：<a href="#r-nsys">Nsight Systems</a> 与 <a href="#r-ncu">Nsight Compute Profiling Guide</a>。视频：<a href="#r-ncu-video">Nsight Compute 的 Roofline 与内存分析专题</a>，旧架构演示只用于理解方法。</p>
+</article>
+
+<article class="chapter" id="ch09" data-part="三 · 从动理学到 PIC">
+<h2>第九章　从 Vlasov 方程到宏粒子</h2>
+<p class="objective">学习目标：理解 PIC 近似了什么，以及权重、形状函数和噪声从哪里来。</p>
+<h3>9.1　沿特征线移动分布函数</h3>
+<div class="equation">∂f<sub>s</sub>/∂t + v·∇<sub>x</sub>f<sub>s</sub> + (q<sub>s</sub>/m<sub>s</sub>)(E+v×B)·∇<sub>v</sub>f<sub>s</sub> = 0<br>dx/dt = v， dv/dt = (q/m)(E+v×B)</div>
+<p>无碰撞 Vlasov 方程说明分布函数沿相空间特征线保持不变。PIC 用有限数量的带权样本表示分布，再由这些样本计算网格上的矩。宏粒子不是一颗被放大的真实电子，而是一份相空间样本。若一个宏粒子代表 w 个真实粒子，则其电荷和质量都乘 w，因此推进中的 Q/M 仍是物种的 q/m。</p>
+<p>位置沉积通常使用有限宽度形状函数。用归一化的 S 表示粒子对网格的分配，电荷密度可写成网格体积归一化后的 ΣQₚSᵢ(xₚ)。网格场再用插值作用于粒子。形状函数、场离散和时间推进共同决定数值性质，不能分别选“看上去更平滑”的方案而不检查整体一致性。</p>
+<h3>9.2　用一个粒子推导 CIC</h3>
+<p>在一维均匀网格上，粒子位于 xⱼ 与 xⱼ₊₁ 之间。令 ξ=(x−xⱼ)/Δx，则左点权重 1−ξ，右点权重 ξ。两者之和为 1，因此一个粒子的电荷不会凭空增加。密度需要除以 Δx；三维则除以单元体积。这一因子经常被错误地藏进权重，导致不同网格下比较失真。</p>
+<div class="equation">ρⱼ += Qₚ(1−ξ)/Δx， ρⱼ₊₁ += Qₚξ/Δx<br>E(xₚ) = (1−ξ)Eⱼ + ξEⱼ₊₁</div>
+<p>周期边界应先把位置折回 [0,L)，再计算索引。边界点 x=L 与 x=0 表示同一位置。GPU 上特别要测试负位置和跨越多个盒长的粒子，不能只处理“越过一点点”的情况。</p>
+<h3>9.3　粒子噪声不是实现错误的免罪符</h3>
+<p>独立随机采样时，许多统计误差随样本数的平方根改善，但实际 PIC 噪声还受形状函数、网格相关性、quiet start 和演化影响。增加每格粒子数与细化网格解决的是不同问题。若网格加倍而总粒子数固定，每格粒子数会下降，误差来源随之混合。</p>
+<p>δf 方法围绕已知背景只表示扰动，有机会降低近背景问题的噪声，但需要推导权重演化与背景响应，不能把全 f 粒子的权重简单改成负数就当作 δf。先理解 full-f 的守恒和噪声，再进入低噪声扰动方法。</p>
+<div class="assignment"><h3>训练 09 · 沉积与插值的四个小实验</h3><ol><li>一个粒子从一个网格点缓慢移到下一个点，画出两个节点权重。</li><li>均匀静止电子加均匀离子背景，检查总电荷。</li><li>常量网格电场插值到任意位置，必须仍是同一常量。</li><li>固定网格，粒子数增加四倍，比较噪声谱与统计量。</li></ol><p><strong>验收：</strong>前三个检查达到舍入精度；第四个用多种随机种子报告散布，不以一次偶然平滑的结果下结论。</p></div>
+<p class="reading-list">教材：<a href="#r-birdsall">Birdsall &amp; Langdon</a> 的静电粒子方法；文档：<a href="#r-smilei">Smilei 的 PIC 算法</a>。阅读时亲手推导一个粒子的两个权重。</p>
+</article>
+
+<article class="chapter" id="ch10" data-part="三 · 从动理学到 PIC">
+<h2>第十章　完成一个 1D1V 静电 PIC</h2>
+<p class="objective">学习目标：把沉积、泊松方程、插值与 leapfrog 连接成完整时间循环。</p>
+<h3>10.1　本章模型与归一化</h3>
+<p>参考程序采用周期一维电子动力学、静止均匀离子背景、无磁场和无碰撞。归一化后 n₀=e=mₑ=ε₀=1，因此电子 q/m=−1，ωₚₑ=1。盒长 L=4π，默认网格 64、每格 128 粒子。这个程序用于建立数值对照，不能描述磁重联。</p>
+<p>电荷沉积为电子负密度加离子 +1 背景。周期泊松问题要求净电荷为零。程序记录沉积后尚未去均值的 <code>mean_charge</code>，场求解再去除舍入残差。若净电荷明显非零，应检查初始化或边界；不能靠去均值掩盖丢粒子或权重错误。</p>
+<h3>10.2　谱空间泊松求解的符号</h3>
+<div class="equation">∂E/∂x = ρ， ikÊ(k) = ρ̂(k)<br>Ê(k) = ρ̂(k)/(ik)， k≠0； Ê(0)=0</div>
+<p>这与先求 φ̂=ρ̂/k²、再用 Ê=−ikφ̂ 一致。对 ρ=sin x，解析场为 E=−cos x，可以直接检查正负号。偶数网格的 Nyquist 模在这里设为零，以获得一致的实值谱微分约定；它不是一个可用于解析最短波长物理的自由通行证。</p>
+<h3>10.3　把速度的半步错位画出来</h3>
+<pre><code># x is x^n; vh is v^(n-1/2); e is E^n
+a = -gather(x, e, L)
+v_at_n = vh + 0.5 * dt * a   # diagnostics at integer time
+vh += dt * a                # v^(n+1/2)
+x = (x + dt * vh) % L       # x^(n+1)
+rho = deposit(x, cells, L)
+e = field(rho, L)           # E^(n+1)</code></pre>
+<p>输入通常给 v⁰。为了启动 leapfrog，需要先构造 v⁻¹ᐟ²=v⁰−a⁰Δt/2。能量诊断则使用回到整数时刻的速度。若把半步动能和整数步场能直接相加，可能把时间错位当成真实能量变化。</p>
+<h3>10.4　运行、分析、再移植</h3>
+<p>下载 <a href="labs/pic1d.py" download>pic1d.py</a> 与 <a href="labs/analyze.py" download>analyze.py</a>。先运行 <code>python pic1d.py --check</code>。发布时，默认冷等离子体检查得到相对能量漂移约 6.2×10⁻⁴；FFT 主频约 0.94，受短观测窗口频率分辨率限制，不应宣称物理频率就是 0.94。延长记录或做时域拟合才可精确比较 ωₚₑ=1。</p>
+<pre><code>python pic1d.py --case cold --output cold.csv
+python pic1d.py --case landau --ppc 512 --steps 1000 --output landau.csv
+python pic1d.py --case twostream --ppc 256 --output twostream.csv</code></pre>
+<div class="assignment"><h3>训练 10 · 第一份完整模拟报告</h3><p>画场能、动能、总能、主 Fourier 模和净电荷。保持物理初值，分别减半 Δt、加倍网格、增加粒子数。下一阶段把沉积与推进移植到 GPU，再用 cuFFT 替换 NumPy FFT，保持相同变换归一化与 k=0 处理。</p><p><strong>验收：</strong>CPU 与 GPU 的谱模、能量和电荷在约定误差内一致；提交完整循环耗时。不能只展示独立沉积内核速度。</p><details><summary>提示：为什么 Landau 阻尼难以用默认小样本验证？</summary><p>衰减信号会逐渐进入噪声底。场幅值还有振荡零点，直接对所有 |Eₖ| 取对数拟合会偏差很大。增加粒子数，比较独立种子，选取早期线性包络峰；同时检查速度分布与波数约定。分析脚本的 <code>--peaks</code> 可辅助选峰，但不会替你判断物理阶段。</p></details></div>
+<p class="reading-list">阅读：<a href="#r-birdsall">静电 PIC 教材</a> 与 <a href="#r-cufft">cuFFT 文档</a> 的变换方向、归一化和 plan。先算对一个正弦源，不要一开始就测试复杂湍流。</p>
+</article>
+
+<article class="chapter" id="ch11" data-part="三 · 从动理学到 PIC">
+<h2>第十一章　Boris 推进器与带电粒子轨道</h2>
+<p class="objective">学习目标：推导非相对论 Boris 旋转，分别验证能量、相位与漂移。</p>
+<h3>11.1　电场半步、磁场旋转、电场半步</h3>
+<p>设当前位置插值得到 E 与 B。非相对论 Boris 方法先用电场加速半步，再对速度做一个保持长度的磁旋转，最后再加半步电场。这里 v 是速度，不是相对论动量；相对论推广中的 γ 与旋转参数不能直接省略。</p>
+<div class="equation">v⁻ = v<sup>n−½</sup> + (qΔt/2m)E<br>t = (qΔt/2m)B， s = 2t/(1+t·t)<br>v′ = v⁻ + v⁻×t<br>v⁺ = v⁻ + v′×s<br>v<sup>n+½</sup> = v⁺ + (qΔt/2m)E</div>
+<p>纯磁场下，Cayley 旋转保持速度模长到浮点舍入误差；但它对应的单步转角是 2 arctan(ΩΔt/2)，并不等于连续轨道的 ΩΔt。于是“动能不漂移”与“轨道相位准确”是两种不同的测试。很大的时间步可能能量好看但相位错误。</p>
+<h3>11.2　从二维旋转练习到完整推进器</h3>
+<p><a href="labs/particles.cu">particles.cu</a> 使用 E=0、B沿 z、q/m=−1，验证 vₓ、vᵧ 的二维旋转。先和离散旋转角比较代码正确性，再和连续回旋角比较时间离散误差。这个文件还测试独立电荷沉积，但没有把轨道和场自洽连接。</p>
+<p>把它推广到三分量时，手写叉乘并用至少三个方向的均匀 B 测试。再加入均匀电场：E∥B 时检查平行加速，E⊥B 时检查足够长时间平均的 E×B 漂移。非均匀 B 中，磁矩只是适当缓变条件下的绝热不变量；不能在任意强梯度电流片里要求它严格守恒。</p>
+<h3>11.3　轨道测试如何支持重联研究</h3>
+<p>重联中电子可能经历弱磁化区、强电场、很窄的电流层。先把单粒子响应校准，可以排除“加热其实来自推进误差”的简单原因。但自洽模拟中的总能量还由场更新、沉积和边界决定。独立 Boris 测试通过，不等于整个电磁 PIC 能量守恒。</p>
+<div class="assignment"><h3>训练 11 · 三张轨道误差图</h3><p>扫描 ΩΔt=0.4、0.2、0.1、0.05，固定总物理时间。画速度模长误差、回旋相位误差和 E×B 平均漂移误差。CUDA 练习从 <code>./particles 65536</code> 开始，再增加粒子规模做性能测试。</p><p><strong>验收：</strong>区分实现误差、时间截断误差与舍入误差；在精度主导区展示相位误差随时间步减小的趋势。任何“推进器稳定”的说法都要说明测试的场与时间尺度。</p></div>
+<p class="reading-list">阅读：<a href="#r-smilei">Smilei 推进器与 PIC 时间层</a>；进阶读 <a href="#r-warpx">WarpX 的粒子推进文档入口</a> 比较相对论场景。不要把非相对论练习直接用于相对论电子束。</p>
+</article>
+
+<article class="chapter" id="ch12" data-part="三 · 从动理学到 PIC">
+<h2>第十二章　Maxwell 方程与 Yee 网格</h2>
+<p class="objective">学习目标：理解空间与时间交错，构造保持离散散度结构的场推进。</p>
+<h3>12.1　交错排列是为了让算子相容</h3>
+<div class="equation">B<sup>n+½</sup> = B<sup>n−½</sup> − Δt ∇<sub>h</sub>×Eⁿ<br>E<sup>n+1</sup> = Eⁿ + c²Δt ∇<sub>h</sub>×B<sup>n+½</sup> − (Δt/ε₀)J<sup>n+½</sup></div>
+<p>Yee 网格把不同分量放在不同空间位置，使旋度使用邻近的交错差分。若边界与离散算子相容，离散散度作用于离散旋度为零。这种代数性质比“差分是二阶”更值得先验证：它是磁散度和 Gauss 约束演化的基础。</p>
+<p>先画 2D 的一个单元，标明 Eₓ、Eᵧ、E<sub>z</sub>、Bₓ、Bᵧ、B<sub>z</sub> 与 J 的位置，再决定数组大小和 ghost 宽度。不同代码的标号约定可以不同，但你自己的旋度、插值、边界交换和诊断必须保持同一个约定。</p>
+<h3>12.2　一份明确的时间循环</h3>
+<ol class="flow"><li>Eⁿ、B<sup>n−½</sup></li><li>更新 B<sup>n+½</sup></li><li>构造推进所需居中 Bⁿ</li><li>v半步与x整步推进</li><li>路径沉积 J<sup>n+½</sup></li><li>更新 E<sup>n+1</sup></li></ol>
+<p>这里使用 Bⁿ≈(B<sup>n−½</sup>+B<sup>n+½</sup>)/2 为粒子提供时间居中的磁场。具体实现可以采用等价的半步组织方式，但必须完整写出初始化和最后一次诊断所在时刻。不要把来自两份代码的推进顺序各取一半拼接。</p>
+<h3>12.3　先传播真空波，再放进等离子体</h3>
+<p>J=0 的真空波是场求解器最便宜的测试。周期平面波应按数值色散关系传播；改变 Δx 和 Δt，比较相位速度与振幅误差。脉冲经过周期边界后应正确回到域内。开放边界或吸收层需单独测反射系数，不能只凭屏幕上波离开就宣布无反射。</p>
+<p>最后加入解析指定电流，检查 Ampère 项的符号和量纲，再接入粒子电流。ghost 数据交换后何时更新边界点应明确；MPI 通信顺序错误可能首先表现为边界附近异常加热。</p>
+<div class="assignment"><h3>训练 12 · 一维电磁波与二维散度恒等式</h3><p>先写一维 Eᵧ/B<sub>z</sub> 真空传播，再扩展到二维。对随机网格矢量计算 div(curl)，其内部残差应接近舍入误差；之后在周期边界也检查同一恒等式。</p><p><strong>验收：</strong>报告 CFL、分辨率、波频率、相位误差与磁散度。故意把一个差分索引错开，确认测试确实会失败。</p></div>
+<p class="reading-list">阅读：<a href="#r-warpx">WarpX 电磁 PIC</a> 与 <a href="#r-smilei">Smilei 算法说明</a>。画网格位置图是必做任务，不能以读过文档替代。</p>
+</article>
+
+<article class="chapter" id="ch13" data-part="三 · 从动理学到 PIC">
+<h2>第十三章　守恒电流沉积与 Gauss 约束</h2>
+<p class="objective">学习目标：从离散连续性理解为何 J=qv 的点采样通常不足以支撑电磁 PIC。</p>
+<h3>13.1　关键是离散连续性，而不只是总电荷</h3>
+<div class="equation">(ρ<sup>n+1</sup>−ρⁿ)/Δt + ∇<sub>h</sub>·J<sup>n+½</sup> = 0<br>Gⁿ = ∇<sub>h</sub>·Eⁿ − ρⁿ/ε₀<br>G<sup>n+1</sup>−Gⁿ = −(Δt/ε₀)[∇<sub>h</sub>·J + (ρ<sup>n+1</sup>−ρⁿ)/Δt]</div>
+<p>对 Ampère 更新取散度即可得到最后一行。如果电流与粒子位置变化不满足同一套离散连续性，即使总电荷在全域积分上不变，局部 Gauss 误差仍会积累。用原子操作正确累加一个不相容的电流公式，得到的仍然是不相容的电流。</p>
+<p>守恒方法通过粒子从 xⁿ 到 xⁿ⁺¹ 的轨迹构造网格电流，让电荷形状的变化等于流出通量。跨单元、跨分区、跨周期边界的粒子必须保留正确路径信息。只保存折回后的两个端点，可能丢失真实穿越方向。</p>
+<h3>13.2　一维推导是理解多维方法的入口</h3>
+<div class="equation">J<sub>j+½</sub> = J<sub>j−½</sub> − (Δx/Δt)(ρⱼ<sup>n+1</sup>−ρⱼⁿ)</div>
+<p>这是离散连续性在一维的递推关系，可以用作测试诊断。周期域中它只确定电流的空间变化，平均电流这个常数仍需由粒子运动确定。因此，仅用前缀和从密度变化反推出 J 并不是完整物理算法。它适合检查局部通量是否与你的沉积一致。</p>
+<p>二维张量形状的变化可写成 Δ(SₓSᵧ)=ΔSₓ·平均Sᵧ+平均Sₓ·ΔSᵧ。这展示了如何把电荷变化拆给不同方向电流。真正的多维实现还要处理形状阶数、跨单元路径和网格交错。应逐式阅读 <a href="#r-esirkepov">Esirkepov 原文</a> 并与成熟代码对照，不靠一行 J=qv 的直觉替代。</p>
+<h3>13.3　滤波也必须接受同一检查</h3>
+<p>对电流滤波可以减少噪声，但滤波算子、边界处理和密度处理应与离散连续性兼容。仅仅把 E 平滑后看到噪声消失，不说明误差被正确处理。使用散度清理时，也要报告清理前后的约束、引入的能量变化与清理参数。</p>
+<div class="assignment"><h3>训练 13 · 一个粒子的局部连续性</h3><p>先在一维实现路径一致电流，测试留在单元内、跨一个单元、跨多个单元和周期穿越。再移植二维守恒沉积。对每个网格点计算连续性残差，而不仅是全域总和。</p><p><strong>验收：</strong>舍入允许范围内满足所采用差分算子的连续性；Gauss 误差不出现无解释的长期增长。测量 GPU 优化前后同一个残差。<a href="labs/particles.cu">本站 CIC 练习</a> 只沉积电荷，不能用它替代本章电流算法。</p></div>
+<p class="reading-list">必读论文：<a href="#r-esirkepov">Esirkepov 的精确电荷守恒</a>。进阶：<a href="#r-ez">EZ 沉积算法</a>，关注它优化的是哪段路径处理及适用形状函数。</p>
+</article>
+
+<article class="chapter" id="ch14" data-part="四 · 自洽模拟与重联">
+<h2>第十四章　从散乱粒子到完整 GPU PIC 周期</h2>
+<p class="objective">学习目标：用分箱、排序与局部累加改善沉积，同时保持粒子与网格耦合一致。</p>
+<h3>14.1　为什么粒子排序会同时影响多个内核</h3>
+<p>初始相邻粒子可能随时间分散。若同一线程块处理空间上相邻的粒子，它们读取的网格场更相似，沉积也集中到较小区域。按 cell 或 tile 分箱，可以增加场复用并减少局部累加的工作范围。但排序自身需要键、计数、前缀和、重排与缓冲，不能忽略这段时间。</p>
+<pre><code>cell_id[p] = locate_cell(position[p])
+count[cell_id[p]] += 1                 # atomics or histogram primitive
+offset = exclusive_scan(count)
+reorder_all_particle_attributes(...)   # x, v, weight, id stay paired
+push_and_deposit_by_tile(...)</code></pre>
+<p>重排必须覆盖所有粒子属性，包括物种、权重、随机数状态和旧位置。漏掉一个数组可能得到平滑但错误的结果。为粒子加入稳定 ID，在小样本测试中检查排序前后的属性配对。</p>
+<h3>14.2　局部沉积与竞争</h3>
+<p>基线使用全局 atomicAdd；改进版可在共享内存中累计一个 tile 的电流，再写回全局。tile 边界需要 halo 或明确的归属规则。粒子轨迹可能跨越 tile，特别是热电子；假设所有粒子每步只影响本 tile，必须有严格的时间步/形状支持约束，否则要拆分路径或回退处理。</p>
+<p>重联会把粒子聚集到磁岛和电流层。均匀分布下表现良好的分块方案，可能在非线性阶段严重不均衡。计时至少选初始化、线性阶段、重联峰值和岛内聚集阶段的快照，而不是只用初态宣布吞吐。</p>
+<h3>14.3　一次完整 GPU 移植的顺序</h3>
+<p>先把粒子位置和速度常驻设备，完成 gather + push；再加入已验证的守恒沉积；最后把场求解、ghost 与诊断归约搬到设备。静电 FFT 的 plan 在时间循环外创建，场与粒子使用一致 stream 或显式依赖。每增加一个组件，都与 CPU 相同输入逐步对照。</p>
+<div class="assignment"><h3>训练 14 · 三种沉积策略的真实成本</h3><p>比较未排序原子沉积、每步排序、每 K 步排序（K=2、5、10）。报告排序、推进、沉积、场更新及整个时间步耗时。再增加共享内存 tile 版本，分别测试均匀和聚集粒子。</p><p><strong>验收：</strong>性能改进必须包含排序成本，且全部属性保持配对，电荷连续性与能量诊断无退化。若没有收益，保留较简单的基线。</p></div>
+<p class="reading-list">论文：<a href="#r-psc-paper">PSC：patch 与 GPU</a>、<a href="#r-vpic-paper">VPIC 2.0</a>。代码：<a href="#r-picongpu">PIConGPU</a> 的粒子组织与沉积，先追踪数据流再阅读模板细节。</p>
+</article>
+
+<article class="chapter" id="ch15" data-part="四 · 自洽模拟与重联">
+<h2>第十五章　验证：从单粒子到动理学不稳定性</h2>
+<p class="objective">学习目标：建立不会被一张“合理图像”替代的验证层级。</p>
+<h3>15.1　代码验证与物理有效性不同</h3>
+<p>代码验证回答“是否正确求解选定的离散方程”；模型有效性回答“这些方程是否足以解释目标物理”。CPU/GPU 一致性是代码检查的一部分，但两个实现共享同一个符号错误时仍可能一致。解析解、制造解、守恒恒等式与跨代码对照各自补不同的缺口。</p>
+<div class="table-scroll"><table><thead><tr><th>层级</th><th>测试</th><th>检查量</th></tr></thead><tbody><tr><td>内核</td><td>常量插值、单粒子沉积、排序前后配对</td><td>权重和、索引、守恒与尾部长度</td></tr><tr><td>轨道 / 场</td><td>回旋、E×B、真空电磁波</td><td>能量、相位、色散与反射</td></tr><tr><td>线性等离子体</td><td>冷等离子体振荡、Landau 阻尼、双流</td><td>频率、增长/阻尼率、模结构</td></tr><tr><td>非线性基准</td><td>GEM 重联</td><td>重联磁通、率、能量和层结构</td></tr><tr><td>聚变研究</td><td>导向场、碰撞、几何与 MTM</td><td>排序适用性、输运与误差预算</td></tr></tbody></table></div>
+<h3>15.2　增长率拟合的两个陷阱</h3>
+<p>若幅值 A∝exp(γt)，则 ln A 的斜率是 γ；场能量正比 A²，其对数斜率是 2γ。很多“增长率差一倍”来自混淆。另一个陷阱是拟合窗口：初始瞬态、线性增长、非线性饱和和噪声底不能用同一条直线描述。</p>
+<p><a href="labs/analyze.py">分析脚本</a> 要求显式输入拟合区间，并输出对数残差。它不会自动挑最漂亮的窗口。把起止时间分别移动，观察 γ 的稳定区；再比较网格、时间步、粒子数、速度域或形状阶数。复杂数据需要画图检视，而不是只接受一个回归系数。</p>
+<h3>15.3　一次只改变一种数值尺度</h3>
+<p>时间收敛时固定足够细的网格和粒子数；空间收敛时保持粒子噪声可比；噪声收敛时固定网格、增加每格粒子数并比较种子。对于非线性混沌动力学，逐点轨迹差异会放大，应比较统计量和物理阶段，避免要求每个涡旋出现在完全相同位置。</p>
+<div class="assignment"><h3>训练 15 · 完成一张验证矩阵</h3><p>至少完成五项测试：CIC、Boris、真空波、冷等离子体振荡、双流增长。每项记录参考答案、误差度量、接受标准和失败例子。Landau 阻尼作为进阶，检查速度采样噪声或 Eulerian 速度网格复现时间。</p><p><strong>验收：</strong>阈值有量纲说明与依据；提交一例确实被检查抓到的错误。只打印“PASS”而没有可追踪指标，不算验证报告。</p></div>
+<p class="reading-list">练习：<a href="#r-smilei-tutorials">Smilei 的热等离子体、双流与 Weibel 教程</a>；<a href="#r-gkeyll-start">Gkeyll 的双流示例</a>。比较不同离散表示对同一物理问题的验证方式。</p>
+</article>
+
+<article class="chapter" id="ch16" data-part="四 · 自洽模拟与重联">
+<h2>第十六章　Harris 平衡与 GEM 重联基准</h2>
+<p class="objective">学习目标：构造有物理约束的电流片，并把重联复现变成可重复实验。</p>
+<h3>16.1　从力平衡算出密度与电流</h3>
+<p>取电流片法向 y，重联磁场沿 x，电流沿 z。一个简单 Harris 设置为 Bₓ=B₀tanh(y/λ)、n=n<sub>h</sub>sech²(y/λ)+n<sub>b</sub>。若两物种片内温度均匀，标量压强平衡要求下式成立。均匀背景密度可提供额外常量压强，但不能改变片内梯度平衡。</p>
+<div class="equation">n<sub>h</sub>(Tᵢ+Tₑ) = B₀²/(2μ₀)<br>J<sub>z</sub> = −B₀ sech²(y/λ)/(μ₀λ)<br>U<sub>zs</sub> = −2T<sub>s</sub>/(q<sub>s</sub>B₀λ)</div>
+<p>最后一行是此坐标与符号约定下片内漂移的一种标准 Harris 选择；它使物种电流之和满足 Ampère 定律。背景粒子应单独处理其漂移与分布。若反转坐标或定义 A<sub>z</sub> 的符号，电流与漂移符号也必须同步改变。不要只初始化 tanh 磁场，再随意放一组无漂移 Maxwell 粒子。</p>
+<h3>16.2　边界条件是平衡的一部分</h3>
+<p>单个 tanh 电流片不能不加处理就沿法向周期连接；常见选择是适当的法向场/粒子边界，或构造周期双电流片。双片间距过小会相互影响。施加磁通扰动时从 δA<sub>z</sub> 求离散旋度生成 δB，有助于保持磁散度，而不是分别手改两个磁分量。</p>
+<p>先做“不加触发扰动”的平衡保持测试，观察噪声与离散调整。无噪声粒子系统不存在于实际 PIC；微小自发演化不一定是实现错误，但强烈初始波、整体膨胀或能量漂移应先解释，不能全部算作重联物理。</p>
+<h3>16.3　怎样复现 GEM，而不是借一个名字</h3>
+<p><a href="#r-gem">GEM Challenge</a> 用共享初值比较不同模型对无碰撞重联的描述。复现时从原文及所选代码的正式输入逐项抄录盒长、片厚、背景密度、质量比、温度比、c/v<sub>A</sub>、边界和扰动。本文不把未完整核对的参数拼成一份“标准输入”。质量比、归一化或边界不同的算例，应标明是变体。</p>
+<p>先跑小规模确认诊断，再做分辨率检查。用重联磁通随时间、归一化重联率、流出速度和能量分配与参考比较。不同算法初始噪声可能移动触发时刻，必要时同时比较绝对时间和相同重联磁通下的结构。</p>
+<div class="assignment"><h3>训练 16 · 第一份重联复现包</h3><p>选 <a href="#r-psc">PSC</a> 或 <a href="#r-vpic">VPIC-Kokkos</a>，固定一个实际存在的 release 或 commit，按其文档编译并选电流片输入。保存源码版本、输入、归一化对照表、运行日志与五张诊断图。再改变 Δx、Δt 或每格粒子数中的一项。</p><p><strong>验收：</strong>平衡测试、磁散度、Gauss 约束与能量账本通过；能说清与原始 GEM 的每一处差异。一个磁岛图不等于复现完成。</p></div>
+<p class="reading-list">必读：<a href="#r-gem">Birn 等，GEM Challenge（2001）</a>；代码对照：<a href="#r-psc-paper">PSC 方法论文</a>。下一章再解释应该如何从这些输出判断重联机制。</p>
+</article>
+
+<article class="chapter" id="ch17" data-part="四 · 自洽模拟与重联">
+<h2>第十七章　从模拟输出识别重联机制</h2>
+<p class="objective">学习目标：测量重联率、能量转换与广义欧姆定律，避免把可视化当作机制证明。</p>
+<h3>17.1　重联磁通与重联率</h3>
+<p>二维且 z 方向不变时，可用 A<sub>z</sub> 描述面内磁场。明确采用 Bₓ=∂ᵧA<sub>z</sub>、Bᵧ=−∂ₓA<sub>z</sub> 后，定义 X 点与 O 点的磁通差，并固定符号或取绝对值。重联率可由该磁通差随时间的导数获得，常用 B₀v<sub>A</sub> 归一化。多岛阶段需要追踪磁拓扑，不能一直在初始中心坐标取一个电场值。</p>
+<p>在符合对称性与规范条件的二维设置里，X 点的 E<sub>z</sub> 可与磁通变化互相校验；它并不在所有三维复杂场景中都是完整重联率。数值求导会放大输出噪声，先检查输出时间间隔，报告使用的差分或平滑窗口。</p>
+<h3>17.2　把电子动量方程放到同一位置</h3>
+<div class="equation">E + uₑ×B = −(∇·Pₑ)/(enₑ)<br>　　　　　 − (mₑ/e)[∂uₑ/∂t + uₑ·∇uₑ] + Rₑ/(enₑ)</div>
+<p>这里 e&gt;0，Rₑ 是电子动量方程中的碰撞/摩擦力密度。要比较右侧各项，必须将 nₑ、uₑ、Pₑ、E 和 B 插值到一致的位置与时刻，并明确差分算子。压强张量使用随机速度 v−u，而不是把总二阶矩直接当作热压强。</p>
+<p>先验证各项加总的闭合残差，再讨论哪一项支撑非理想电场。电流片中的密度小、导数大，除以 nₑ 会放大统计噪声。空间平均、时间平均和粒子数都影响结果，应报告平均窗口并检查结论对窗口的敏感性。</p>
+<h3>17.3　能量转换与不可逆加热</h3>
+<p>J·E 描述电磁场与粒子之间的局部功率交换，不自动等于不可逆热化。体流能、热能、压强–应变、Poynting 通量及边界粒子能量通量需要组成完整账本。某处 J·E&gt;0 可以同时存在能量随后流走或返回电磁场的情况。</p>
+<p>分析电子分布函数时，先选择有物理意义的采样区域和速度坐标，例如沿局部磁场的平行/垂直分解。固定实验室坐标中的“温度各向异性”可能混入磁场方向变化或不同流束。把原始分布、矩量与采样粒子数一起保留。</p>
+<div class="assignment"><h3>训练 17 · 五张图回答一个问题</h3><p>输出重联磁通与率、磁场/流线、电流与电子层、欧姆定律各项、全局能量账本。只围绕一个问题写结论：例如某参数变化下电子压强项与惯性项的相对作用是否改变。</p><p><strong>验收：</strong>每张图标明单位、时间、平均范围与分辨率；闭合残差必须小于你据以判断机制的差异。残差过大时结论应是“尚不能区分”，而不是选择最符合预期的一项。</p></div>
+<p class="reading-list">阅读：<a href="#r-gem">GEM 原文及伴随研究入口</a>；<a href="#r-gkcompare">导向场 PIC / GK 比较</a>，关注作者实际比较的物理量与初始化差异。</p>
+</article>
+
+<article class="chapter" id="ch18" data-part="五 · 高性能与多 GPU">
+<h2>第十八章　Streams、事件、Graphs 与精度选择</h2>
+<p class="objective">学习目标：用明确依赖组织流水线，在不改变物理误差的前提下优化整步执行。</p>
+<h3>18.1　先画依赖图</h3>
+<p>J 必须等粒子轨迹产生后才能沉积，E 更新必须等 J 完成。不同 stream 并不自动知道这些数据依赖。可以把主推进放在一个 stream，把已完成快照的诊断复制放在另一个 stream，用 event 表示快照已准备完成。</p>
+<pre><code>push_and_deposit&lt;&lt;&lt;grid, block, 0, compute_stream&gt;&gt;&gt;(...);
+cudaEventRecord(particles_ready, compute_stream);
+cudaStreamWaitEvent(diagnostic_stream, particles_ready, 0);
+reduce_diagnostics&lt;&lt;&lt;grid, block, 0, diagnostic_stream&gt;&gt;&gt;(...);
+// Do not overwrite data still read by the diagnostic stream.</code></pre>
+<p>双缓冲只有在读写对象真正分离时才有效。若下一步推进覆盖了诊断正在读的速度数组，即使复制本身异步正确，统计量也可能来自混合时间层。先用简单同步版本验证，再逐条删除不必要同步。</p>
+<h3>18.2　异步传输和图捕获各自解决什么</h3>
+<p>页锁定主机缓冲与异步拷贝有助于形成传输/计算重叠，但硬件、stream 安排和实际数据依赖决定能否同时执行。固定形状、重复大量小内核的循环可评估 CUDA Graphs，以降低主机提交开销。粒子迁移导致数量或缓冲改变时，图节点更新与捕获限制必须按当前文档处理。</p>
+<p>当沉积已经占绝大部分时间时，Graphs 不会消除原子竞争。先根据时间线选择优化目标。对很长的单个内核，提交开销也可能可以忽略。不要用更复杂的异步结构掩盖一个本可直接修正的数据布局问题。</p>
+<h3>18.3　混合精度需要物理验收</h3>
+<p>一种待测试方案是粒子主体 FP32、能量和关键矩量 FP64 累加；但位置精度、强导向场下小扰动相减、低幅值 A∥ 与长期能量漂移可能对精度敏感。先做 FP64 小规模参考，逐项降低精度，检查重联率、增长率和闭合残差。</p>
+<p>Tensor Cores 对某些稠密张量运算有价值，但普通 PIC 的散射沉积和不规则插值不自动变成矩阵乘法。若在 DG 局部算子或批量小矩阵中尝试使用它们，必须把数据重排成本与混合精度误差一起计入。不要为了使用某硬件单元而改变未验证的数值方法。</p>
+<div class="assignment"><h3>训练 18 · 一次有约束的优化</h3><p>在已通过验证的循环中，分别测试诊断双缓冲、固定内核图和混合精度。每项只改变一个因素；写明前置数据依赖和允许误差。</p><p><strong>验收：</strong>给出时间线证明实际重叠，并报告整步收益和物理量变化。吞吐上升而误差超过预算时，该版本不能作为研究基线。</p></div>
+<p class="reading-list">阅读：<a href="#r-async">CUDA Asynchronous Execution</a>。视频：<a href="#r-olcf">OLCF 第 7、10、13 讲</a>；<a href="#r-ncu-video">Nsight 视频</a> 用于核对瓶颈。</p>
+</article>
+
+<article class="chapter" id="ch19" data-part="五 · 高性能与多 GPU">
+<h2>第十九章　多 GPU：从双卡边界交换到云端运行</h2>
+<p class="objective">学习目标：理解域分解、粒子迁移、守恒交换、通信重叠与 2 / 4 / 8 卡扩展性；附完整 MPI + CUDA 练习。</p>
+<h3>19.1　一个 MPI rank 对应一张 GPU</h3>
+<p>先采用每 GPU 一个 MPI rank 的清晰映射。一个 rank 管理自己的网格子域、粒子、ghost cells、诊断与通信缓冲。节点内 rank 序号可以通过 <code>MPI_Comm_split_type(..., MPI_COMM_TYPE_SHARED,...)</code> 获取。调度器可能为每个进程只暴露一张 GPU，此时进程内设备编号是 0；若全部 GPU 可见，则按本地 rank 选择。</p>
+<p>不要只打印“使用 GPU 0”。同时记录主机名、世界 rank、本地 rank 与 GPU PCI 标识或 UUID，确认同节点各 rank 没有意外挤到同一物理设备。CUDA_VISIBLE_DEVICES 会重新编号可见设备；逻辑序号不等于服务器上的物理序号。</p>
+<h3>19.2　先完成场的 halo，再迁移粒子</h3>
+<p>将二维域沿 x 分为 P 份，内部点只依赖本地数据，边界点依赖邻居的 ghost。场 ghost 通常需要复制相邻子域的有效值；粒子在共享网格边界沉积的电流贡献，则可能需要加和归并。把“复制场”与“累加沉积贡献”当作同一种交换，会丢失或重复电流。</p>
+<p>附带 <a href="labs/halo_mpi.cu" download>halo_mpi.cu</a> 用周期一维扩散方程训练这一流程。它用解析的离散 Fourier 模验证每步结果：先发布邻居通信，同时计算不依赖 ghost 的内部；等待接收完成后计算边界。默认使用页锁定主机中转，可在不支持设备指针的 MPI 中使用。<code>--device</code> 才启用设备指针通信，必须先确认该 MPI 构建支持 CUDA-aware 功能。</p>
+<div class="equation">uⱼ<sup>n+1</sup> = uⱼⁿ + α(uⱼ₋₁ⁿ−2uⱼⁿ+uⱼ₊₁ⁿ)， α=0.2<br>uⱼⁿ = [1−4α sin²(π/N)]ⁿ sin(2πj/N)</div>
+<p>这个明确的离散解能检查跨 rank 索引与通信，不必把误差归因于 PDE 时间截断。程序不是 PIC，也不包含粒子迁移；它提供的是后续场交换可复用的、独立可验收的最小训练。</p>
+<h3>19.3　云端编译和 1 / 2 / 4 / 8 卡验证</h3>
+<p>将 <a href="labs/CMakeLists.txt" download>CMakeLists.txt</a> 与 halo_mpi.cu 放在同一目录。服务器需有 CUDA Toolkit、匹配的 C++ 编译器、CMake 和 MPI。以下为普通 Linux MPI 环境命令；如果云端使用 Slurm，采用站点文档中的启动器，避免未经配置就把 mpirun 嵌套在 srun 中。</p>
+<pre><code>cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+# 下列每条命令需要对应数量的可用 GPU
+mpirun -np 1 ./build/halo_mpi 256 100
+mpirun -np 2 ./build/halo_mpi 256 100
+mpirun -np 4 ./build/halo_mpi 256 100
+mpirun -np 8 ./build/halo_mpi 256 100
+# 仅在 CUDA-aware MPI 已配置并验证后：
+mpirun -np 2 ./build/halo_mpi 256 100 --device</code></pre>
+<p>这是正确性规模，不是带宽 benchmark：每步只交换两个标量，启动延迟主导。默认总网格固定，各卡数应得到相同离散解，最大误差低于代码声明的 FP32 教学阈值。随后扩大消息与网格，再讨论性能。本教材发布时没有多卡服务器可用，MPI/CUDA 示例尚未完成编译和集群实测。</p>
+<h3>19.4　粒子迁移需要一份完整协议</h3>
+<ol><li><strong>分类：</strong>推进后按目标子域计算粒子归属；保留跨界前后轨迹，以完成当前步守恒沉积。</li><li><strong>计数：</strong>为每个邻居生成发送数量，先交换计数，确认接收容量。</li><li><strong>打包：</strong>把位置、速度、权重、ID 和必要随机状态一起写入连续缓冲。</li><li><strong>发送与接收：</strong>使用明确标签；缓冲在通信完成前不得重用、重排或释放。</li><li><strong>本地压缩与插入：</strong>删除已转移副本，把接收粒子放入拥有者子域，检查全局粒子数和权重。</li><li><strong>归并边界电流：</strong>依据采用的轨迹分割和网格拥有规则，完成守恒贡献归并，再推进场。</li></ol>
+<p>“先迁移再沉积”或“先沉积再迁移”都可能在完整算法中成立，但各自依赖不同轨迹和 ghost 约定；不能混用。若一步跨越多个子域，只向左右邻居发一次不够。可以通过严格位移约束、重复转发或直接目标发送解决，并针对最快粒子测试。</p>
+<h3>19.5　CUDA-aware 不等于自动高速网络</h3>
+<p>CUDA-aware MPI 表示 MPI 能接受设备内存指针；它不保证使用 GPUDirect RDMA，也不保证通信/计算自动重叠。节点内可能经过 PCIe 或 NVLink，节点间可能走支持 RDMA 的网络或普通网络。用 <code>nvidia-smi topo -m</code> 和集群文档查看拓扑，再测设备缓冲 ping-pong 的延迟和带宽。</p>
+<p>GPU 生产发送缓冲的 stream 必须先完成，MPI 才能读取。MPI 接收完成后再启动消费该数据的 GPU 内核。传统 MPI 通常不理解任意 CUDA stream 的隐式依赖；不要以为 Isend 是非阻塞就可以立刻覆盖发送区。通信进展还取决于 MPI 实现，时间线上没有重叠就不能声称实现了重叠。</p>
+<pre><code>pack_boundary_on_gpu(...);
+cudaStreamSynchronize(pack_stream);  // conservative producer handoff
+MPI_Irecv(recv_buffer, ...);
+MPI_Isend(send_buffer, ...);
+compute_interior_on_gpu(...);        // independent data only
+MPI_Waitall(...);
+unpack_or_accumulate_boundary_on_gpu(...);
+compute_boundary_on_gpu(...);</code></pre>
+<h3>19.6　强扩展、弱扩展和负载不均衡</h3>
+<div class="equation">强扩展效率 η<sub>strong</sub>(P) = T₁ / [P·T<sub>P</sub>]<br>弱扩展效率 η<sub>weak</sub>(P) = T₁ / T<sub>P</sub>，每卡工作量近似不变<br>时间步成本 ≈ max<sub>rank</sub>(计算 + 无法隐藏的通信) + 全局同步</div>
+<p>强扩展保持全局问题固定；弱扩展保持每卡工作量近似固定。若同一科学问题已放不进单卡，以最小可运行卡数 P₀ 作基线，效率写为 P₀T<sub>P₀</sub>/(PT<sub>P</sub>)，不要虚构 T₁。输出最慢 rank 时间，因为全局推进最终受慢者限制。</p>
+<p>重联中的磁岛和电流片会形成粒子热点。均匀网格分域未必等工作量，动态 patch 迁移可以改善，但也增加元数据、通信和重分配成本。先记录每 rank 的粒子数与沉积耗时，确认不均衡确实显著，再评估动态平衡。</p>
+<h3>19.7　把云端运行做成可恢复实验</h3>
+<p>选实例时先看每卡显存、卡间拓扑、节点网络和存储吞吐；“八张 GPU”不能说明适合强耦合 PIC。先单节点双卡，随后同节点四/八卡，最后跨节点。相同总卡数下比较单节点与多节点，可分离网络代价。具体机型、价格与可用性在租用时重新核对，本书不承诺固定费用。</p>
+<pre><code>#!/bin/bash
+# Slurm 示例；分区、账户和 GPU 资源写法以云端站点为准。
+#SBATCH --job-name=halo-check
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=2
+#SBATCH --gpus-per-task=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=00:10:00
+#SBATCH --output=halo-%j.log
+set -euo pipefail
+srun ./build/halo_mpi 256 100</code></pre>
+<p>检查点要保存位置、速度半时间层、场时间层、权重、随机状态、网格与分域信息。先在短作业中比较连续运行与中断重启后的诊断，再开始长跑。代码版本、环境清单、输入与必要诊断应放到持久存储。估算一次运行成本时用总卡时加存储/网络开销，避免把一张卡的小时价直接当作整个实验费用。</p>
+<div class="assignment"><h3>训练 19 · 多 GPU 毕业阶梯</h3><ol><li>halo 示例在 1/2/4/8 卡通过离散解检查；验证每个 rank 绑定。</li><li>实现只迁移粒子的周期自由流，检查全球粒子数、总权重、ID 唯一性及属性配对。</li><li>接入电流沉积与场交换，比较一域与多域的局部连续性和 Gauss 残差。</li><li>以完全相同物理设置跑重联，比较重联磁通、能量与统计误差。</li><li>提交强/弱扩展曲线和最慢 rank 的时间分解，再测试检查点重启。</li></ol><p><strong>验收：</strong>多卡结果不能因分域数量改变而出现系统性物理偏差。性能表必须包含打包、等待、迁移与 I/O；标注哪些结果来自真实测量，哪些仍是计划。</p></div>
+<p class="reading-list">必读：<a href="#r-mpi">Open MPI CUDA 支持</a>、<a href="#r-slurm">Slurm GPU 资源文档</a>。方法论文：<a href="#r-vpic-paper">VPIC 2.0</a> 与 <a href="#r-psc-paper">PSC 负载平衡</a>。视频：<a href="#r-olcf">OLCF 的并发与 Streams 讲座</a>，再读 <a href="#r-kokkos">Kokkos MPI 互操作</a> 的同步说明。</p>
+</article>
+
+<article class="chapter" id="ch20" data-part="六 · 走向聚变研究">
+<h2>第二十章　Eulerian Vlasov：另一条动理学路线</h2>
+<p class="objective">学习目标：比较粒子采样与相空间网格，并建立一个可验证的 1X1V 训练方案。</p>
+<h3>20.1　没有粒子噪声，也有数值代价</h3>
+<p>Eulerian 方法在 (x,v) 网格上直接离散 f。它可以清楚展示相混合与速度空间细结构，但需要面对高维存储、速度域截断、数值耗散、负值与守恒。没有宏粒子采样噪声不等于没有误差。细丝尺度逐渐变细时，固定速度网格最终会失去解析能力。</p>
+<p>1X1V 足以训练 Landau 阻尼与双流，不足以表达一般二维电磁重联。2X2V 的 128²×64² 个 FP64 值约 512 MiB，仅存一个分布数组；多个物种、Runge–Kutta 阶段与诊断很快增加用量。完整 3X3V 的维数灾难更严重，因此模型降维和稀疏/低秩方法需要自己的适用性分析。</p>
+<h3>20.2　用 Strang 分裂理解两种平流</h3>
+<div class="equation">∂f/∂t + v∂f/∂x + a(x)∂f/∂v = 0<br>一时间步：x 平流 Δt/2 → 由密度求 E → v 平流 Δt → x 平流 Δt/2</div>
+<p>x 平流是在每个速度切片上平移分布；v 平流是在每个空间点按局部加速度平移速度分布。静电情况下 v 平流保持该位置的密度积分，适当的时间中心组织可构造二阶分裂。但子步骤的插值与边界处理仍决定质量、正性与耗散。</p>
+<pre><code># Teaching sketch: low-order semi-Lagrangian interpolation.
+for j, velocity in enumerate(v):
+    half[:, j] = np.interp((x - velocity*dt/2) % L,
+                           x, f[:, j], period=L)
+# rho = ion_density - velocity_integral(half); then solve E
+for i, electric in enumerate(E):
+    kicked[i, :] = np.interp(v + electric*dt, v, half[i, :],
+                             left=0.0, right=0.0)  # electron a=-E
+# Finish the x half-step. Monitor mass lost at velocity boundaries.</code></pre>
+<p>这段是教学骨架，不是已验证求解器。线性插值会引入耗散；速度边界的零外推可能损失质量。要做精确阻尼率研究，应进一步选择守恒半拉格朗日、有限体积或 DG，并验证其数值性质。</p>
+<h3>20.3　GPU 上的主要工作不同了</h3>
+<p>PIC 的困难常是散乱沉积与粒子迁移；Vlasov 的困难常是高维数组平流、内存带宽与分布式转置。不同方向的连续访问需求可能冲突。DG 局部算子可能具有可复用的规则小矩阵结构，但跨单元通量和阶段数组仍消耗带宽。先从 1X1V 的一个方向平流建立 GPU 原型。</p>
+<div class="assignment"><h3>训练 20 · 与 PIC 对照同一个线性问题</h3><p>实现周期 1X1V Vlasov–Poisson，先验证平移后回到原状的误差，再比较 Landau 阻尼与双流增长。扫描 Δv、速度上界和 Δx，并记录质量、动量、能量与 f 的最小值。</p><p><strong>验收：</strong>解释 PIC 的噪声底与 Eulerian 的耗散/复现时间；不能把二者某一时刻的曲线差异直接解读为新物理。</p></div>
+<p class="reading-list">主线代码：<a href="#r-gkeyll">Gkeyll</a> 与 <a href="#r-gkeyll-start">Vlasov 双流教程</a>；从输入追踪相空间维度、边界、矩量与时间推进。</p>
+</article>
+
+<article class="chapter" id="ch21" data-part="六 · 走向聚变研究">
+<h2>第二十一章　回旋动理学、微撕裂与聚变重联</h2>
+<p class="objective">学习目标：理解从 Harris 电流片到托卡马克微撕裂之间必须补上的物理。</p>
+<h3>21.1　回旋平均换取更长时间尺度</h3>
+<p>强磁化、低频与适当小扰动排序下，可以消去快速回旋相位，使用回旋中心分布描述动力学。常见排序涉及 ω/Ωᵢ≪1、平行与垂直尺度分离以及受控扰动幅度。它不是“把质量比调小”的别名，而是一套经过推导的降维方程、极化/磁化响应与守恒结构。</p>
+<p>电磁问题中 φ、A∥，以及是否保留 δB∥，会影响所覆盖的物理。电子平行动力学、碰撞算子和背景梯度同样重要。<a href="#r-gk-theory">Brizard–Hahm 综述</a> 可用于建立整体理论地图，不要求第一次就从头推完全部变分推导。</p>
+<h3>21.2　强导向场不自动等于 GK 适用</h3>
+<p><a href="#r-gkcompare">Muñoz 等的 PIC/GK 比较</a> 专门研究强导向场电流片中的适用范围，并指出初始化剪切流、β 和局部流动对比较的影响。阅读时应提取其平衡、排序和诊断，而不能把某个算例中的导向场比值当作所有聚变问题的通用阈值。</p>
+<p>对于你关心的研究，关键问题是：需要全轨道电子扩散区，还是低频电磁不稳定性及输运？若后者更重要，电磁回旋动理学可能比把完整装置硬塞进显式 PIC 更有效。若局部非绝热轨道是核心，则需保留能描述它的模型并承担相应尺度成本。</p>
+<h3>21.3　微撕裂不是任意电磁涨落</h3>
+<p>识别 MTM 时，应结合模宇称、电子温度梯度驱动、A∥ 结构、频率、碰撞依赖及几何响应。只看到磁扰动或电子热通量增加不足以命名微撕裂。不同参数区间的驱动机制可以不同，不能把“MTM 必须在有限碰撞率处最强”当作无条件规则。</p>
+<p>按顺序阅读 <a href="#r-mtm-applegate">Applegate 等的 MAST 微撕裂研究</a>、<a href="#r-mtm-dickinson">Dickinson 等的 pedestal-top MTM</a>、<a href="#r-mtm-nonlinear">MAST 非线性 MTM 与随机层研究</a>。每篇制作同一张参数表：几何、β、碰撞率、梯度、磁剪切、质量比、速度空间分辨率和诊断。不同论文之间的差异本身就是学习内容。</p>
+<h3>21.4　从线性模到非线性输运</h3>
+<p>先做 kᵧ 扫描，拟合增长率与实频率，检查沿场线和速度空间收敛。再比较 A∥ 与 φ 的模结构和宇称。非线性阶段检查磁岛重叠、磁力线统计与电子热通量；同时区分磁涨落和静电涨落对输运的贡献。通量管、全局径向域和装置几何并不是可以无成本互换的选项。</p>
+<div class="assignment"><h3>训练 21 · 一份 MTM 阅读与复现方案</h3><p>选一篇与你参数最接近的 MTM 文献，列出原始输入所需的全部量；用 <a href="#r-gene">GENE</a> 或课题组已有的成熟电磁 GK 代码建立线性复现。先检查访问条件、GPU 支持与具体版本，不能仅凭代码名字假定能直接部署。</p><p><strong>验收：</strong>完成一个已收敛的线性点，再扩展 kᵧ、碰撞率或电子温度梯度扫描。需要清楚解释与参考文献的差异，随后才能提出新的物理问题。</p></div>
+<p class="reading-list">核心论文：<a href="#r-gk-theory">GK 理论综述</a>、<a href="#r-gkcompare">PIC/GK 适用性比较</a>、三篇 <a href="#r-mtm-applegate">MAST 微撕裂研究</a>。视频：<a href="#r-pppl">PPPL 动理学与聚变课程</a> 用于补充物理背景。</p>
+</article>
+
+<article class="chapter" id="ch22" data-part="六 · 走向聚变研究">
+<h2>第二十二章　碰撞、隐式方法与尺度分离</h2>
+<p class="objective">学习目标：知道何时需要新增物理或算法，以及它们必须通过哪些守恒检查。</p>
+<h3>22.1　把碰撞写成可验证的交换</h3>
+<p>聚变重联不总是完全无碰撞。电子电阻性、半碰撞电子层、微撕裂驱动与能量弛豫都可能涉及碰撞。简单 Krook 松弛、BGK、Fokker–Planck 和二元 Monte Carlo 算法保留的守恒量不同，不能仅调一个“碰撞频率”就认为模型等价。</p>
+<p>首先用均匀无场问题测试两个物种的温度弛豫、各向异性弛豫、总动量与总能量。区分物理摩擦和随机采样误差。粒子配对、随机数状态和 MPI 分域变化不应引入系统性偏差，尤其在每格粒子数不足时。</p>
+<h3>22.2　随机数也是可复现性的一部分</h3>
+<p>每个线程重复使用相同种子会产生相关噪声。为粒子或配对建立可追踪的随机状态；重排和迁移时一起搬运，或使用基于稳定 ID、时间步与子步骤的计数式方案。全局 rank 改变后随机路径不必逐位相同，但统计性质与守恒应可比。</p>
+<h3>22.3　隐式方法降低某些限制，也增加求解工作</h3>
+<p>隐式电磁或半隐式方法可以放宽某些显式稳定性限制，但必须解析目标物理的时间尺度。即使某时间步数值稳定，也可能抹掉想研究的电子动力学。每步的非线性迭代、线性求解与预条件开销，需要和减少的总步数一起比较。</p>
+<p>在 GPU 上，稀疏求解、全局归约与跨节点通信可能成为主要瓶颈。不能只报告粒子推进变快。求解容差也是物理误差预算的一部分：把容差收紧，若能量或重联率仍明显改变，说明迭代误差还未受控。</p>
+<h3>22.4　混合模型与 δf 的合理入口</h3>
+<p>若目标是离子尺度而电子细节可由受控闭合表示，可评估混合动理学。若目标是已知背景附近的小扰动，可进一步学习 δf 方法降低噪声。二者都需要单独的方程推导和验证，不能在 full-f 电磁 PIC 中随意删一组变量后沿用原有守恒结论。</p>
+<div class="assignment"><h3>训练 22 · 增加一种物理，一套新检查</h3><p>只选择碰撞、隐式场推进或 δf 中的一项。写明新增方程与离散算法，先完成均匀或线性测试，再放进重联。对碰撞扫描 νΔt；对隐式方法扫描步长和求解容差；对 δf 检查背景与扰动恢复。</p><p><strong>验收：</strong>新增模块的收益有物理或性能证据，守恒量与适用范围有明确说明。没有验证时，保持原始模型作为可信基线。</p></div>
+<p class="reading-list">资料：<a href="#r-gkeyll">Gkeyll 的碰撞模型与守恒说明</a>；<a href="#r-smilei-tutorials">Smilei 二元碰撞教程</a>。结合上一章文献讨论为什么不同 MTM 参数区间需要不同碰撞处理。</p>
+</article>
+
+<article class="chapter" id="ch23" data-part="六 · 走向聚变研究">
+<h2>第二十三章　把训练收束成三个研究项目</h2>
+<p class="objective">学习目标：从“学完 CUDA”转向可以复核的物理结果与性能成果。</p>
+<h3>项目 A　强导向场重联中的电子非理想电场</h3>
+<p>从成熟全动理学 PIC 的已验证电流片开始，固定 β、质量比、片厚、边界与触发方式，选择一个导向场扫描。注意保持哪些归一化量不变：若总磁场变化而温度不变，总场 β 也会变化。把这一差别写进设计，不要同时无意扫描多个物理量。</p>
+<p>主要输出为重联磁通、率、电子层宽度、电子压强张量与惯性项、粒子分布。至少在两个扫描点做额外数值收敛。性能工作围绕实际最昂贵的沉积或诊断内核，优化后重新检查欧姆定律闭合。该项目可衔接 PIC/GK 适用性研究，但不能直接声称预测托卡马克全局输运。</p>
+<h3>项目 B　聚变微撕裂的线性到非线性路线</h3>
+<p>选择一篇 MAST 或与你装置参数相关的电磁 GK 论文。第一阶段复现一个线性模式；第二阶段做碰撞率、电子温度梯度或磁剪切中的一维扫描；第三阶段才考虑非线性磁随机化与热通量。每阶段都要保留几何和数值分辨率表。</p>
+<p>性能工作可以是速度空间算子、通信、场求解或诊断的 GPU 优化，取决于实际代码。你不必从零写完整 GK 求解器才能做计算研究；在成熟代码中抽出一个代表内核，验证等价实现，再回到完整应用测收益，往往更可控。</p>
+<h3>项目 C　面向重联负载的 GPU 沉积与多卡效率</h3>
+<p>用同一个正确的守恒电流算法，对比粒子排序间隔、tile 尺寸、局部累加和通信安排。测试均匀态与真实重联非线性快照，保持物理输入、精度和诊断一致。若目标是计算方法论文，速度以外还需证明守恒、误差与不同负载下的适用性。</p>
+<p>云端先完成 2 卡正确性，再进行 4/8 卡强弱扩展。输出卡时、总耗时、最慢 rank 分解与检查点恢复成本。某个内核局部加速十倍而整步只快 5%，仍是有价值的分析，但应如实报告。</p>
+<h3>共同的成果包</h3>
+<div class="table-scroll"><table><thead><tr><th>文件</th><th>必须包含</th></tr></thead><tbody><tr><td>研究说明</td><td>问题、假设、方程、适用范围与对照设计</td></tr><tr><td>输入与版本</td><td>Git commit、编译与环境、单位、边界、种子、诊断频率</td></tr><tr><td>验证报告</td><td>解析/跨代码对照、收敛、守恒、误差预算</td></tr><tr><td>性能报告</td><td>计时边界、硬件、重复测量、整步与各阶段、卡时</td></tr><tr><td>分析脚本</td><td>从保留数据到最终图的完整过程，拟合窗口可见</td></tr><tr><td>研究结论</td><td>观察支持什么、仍不能排除什么、下一项最小实验</td></tr></tbody></table></div>
+<div class="assignment"><h3>训练 23 · 选题答辩</h3><p>从 A/B/C 中选一个，写两页计划与一张误差预算表。让同伴指出一个可能的混淆因素，再设计最便宜的对照实验。把“提高分辨率看看”落实成具体参数、预期变化与算力预算。</p><p><strong>验收：</strong>最终结论有反例检验，且用保存的版本和脚本可以重做。漂亮图、单次快跑或未经收敛的参数扫描不能单独构成完成标准。</p></div>
+<p class="reading-list">项目 A：<a href="#r-gkcompare">PIC/GK 比较</a>；项目 B：<a href="#r-mtm-nonlinear">非线性 MTM</a>；项目 C：<a href="#r-vpic-paper">VPIC 2.0</a>、<a href="#r-psc-paper">PSC</a>、<a href="#r-ez">EZ</a>。</p>
+</article>
+
+<article class="chapter" id="ch24" data-part="六 · 走向聚变研究">
+<h2>第二十四章　24 周训练表与阅读方法</h2>
+<p class="objective">学习目标：把全书变成每周有代码、图和解释的持续训练。</p>
+<h3>24.1　按成果过关，不按播放时长过关</h3>
+<div class="table-scroll"><table><thead><tr><th>周次</th><th>章节与任务</th><th>当周成果</th></tr></thead><tbody><tr><td>1–2</td><td>1–4 章：模型、单位、环境与数组</td><td>研究合同、显存表、编译日志、CPU 推进</td></tr><tr><td>3–4</td><td>5–7 章：CUDA、布局与同步</td><td>可检查的内核、原子沉积、归约</td></tr><tr><td>5–6</td><td>8–10 章：性能与静电 PIC</td><td>CPU 完整循环、三类测试、计时表</td></tr><tr><td>7–8</td><td>10–11 章：GPU 移植与 Boris</td><td>GPU 静电 PIC、轨道误差图</td></tr><tr><td>9–10</td><td>12–13 章：Yee 与守恒电流</td><td>电磁波测试、局部连续性检查</td></tr><tr><td>11–12</td><td>14–15 章：完整循环与验证</td><td>GPU 电磁教学循环、验证矩阵</td></tr><tr><td>13–14</td><td>16–17 章：重联基准与诊断</td><td>平衡保持、GEM 对照、能量账本</td></tr><tr><td>15–16</td><td>18 章：性能与精度</td><td>时间线、误差约束下的整步优化</td></tr><tr><td>17–18</td><td>19 章：双卡到云端</td><td>halo、粒子迁移、2/4/8 卡验证</td></tr><tr><td>19–20</td><td>20–22 章：模型拓展</td><td>Vlasov 或 GK 路线报告、一个新模块测试</td></tr><tr><td>21–22</td><td>23 章：选题与最小复现</td><td>收敛的基线、参数表、算力预算</td></tr><tr><td>23–24</td><td>研究项目的第一轮对照</td><td>可复现成果包与下一步问题</td></tr></tbody></table></div>
+<p>第 11–12 周的自研电磁循环若进展较慢，可以继续完成局部守恒训练，同时使用成熟代码推进 GEM 复现。学习完整算法与从零实现全部生产功能不是同一件事。后续科研所需时间取决于题目、代码和验证结果，不应为赶进度省略约束检查。</p>
+<h3>24.2　每篇论文读三遍，但目的不同</h3>
+<p>第一遍只看问题、结论图与适用模型，判断与研究合同的关系。第二遍提取方程、参数、边界、初始化和诊断，做成复现表。第三遍围绕一个关键结果追踪证据：它用什么分辨率、如何拟合、误差是否可能解释差异。读完要留下一个可以编码验证的小问题。</p>
+<p>不要用“本文首次提出一种高效方法”这样的句子替代阅读。写出加速了哪个循环、基线是什么、在哪种硬件与负载下、牺牲了什么，以及这件事如何影响你的重联计算。理论论文则把假设、排序与关键推导保留下来。</p>
+<h3>24.3　视频、文档与代码各自怎么用</h3>
+<p>视频用于建立直觉，官方文档用于确认 API 与限制，代码实验用于发现自己是否真的理解。看 OLCF 一讲后，应离开视频写一个最小实验；遇到工具版本差异，回到当前官方文档。物理课程补充概念，不能替代原始论文中的参数与模型。</p>
+<p>优先阅读顺序：Birdsall–Langdon 的静电部分 → CUDA 入门与性能工具 → Esirkepov 守恒 → GEM 基准 → PSC / VPIC 的实现 → PIC/GK 比较 → MAST 微撕裂线性与非线性工作。资料索引标明每项的用途，避免把长书单当作必须一次读完的任务。</p>
+<h3>24.4　最常见问题的排查顺序</h3>
+<div class="table-scroll"><table><thead><tr><th>症状</th><th>先检查</th></tr></thead><tbody><tr><td>GPU 快但物理结果不同</td><td>单位、时间层、权重、数组配对、边界、浮点归约</td></tr><tr><td>能量缓慢增长</td><td>沉积/场相容性、Δt、有限网格误差、边界通量</td></tr><tr><td>重联一开始就猛烈爆发</td><td>平衡分布、漂移、压力平衡、扰动幅值与边界连接</td></tr><tr><td>多卡才出现电荷误差</td><td>跨界轨迹、沉积贡献的加和、重复拥有与丢粒子</td></tr><tr><td>多卡没有变快</td><td>GPU 绑定、消息规模、拓扑、最慢 rank、全局归约、输出</td></tr><tr><td>MTM 复现失败</td><td>几何、碰撞定义、归一化、模宇称与速度空间收敛</td></tr></tbody></table></div>
+<div class="assignment"><h3>训练 24 · 写给未来自己的复现实验说明</h3><p>把一份通过验证的结果整理成五分钟可启动的小实验，另附完整科研规模命令。说明预计输出、检查失败时的定位顺序、所需 GPU/内存和未验证范围。</p><p><strong>验收：</strong>未来换一台云端服务器，你能依据文档重建环境、确认绑定、跑过检查并恢复计算，而不依赖记忆里的某条终端命令。</p></div>
+<a class="back-top" href="#main">返回书首 ↑</a>
+</article>
+<section id="resources" class="resources"><h2>资料、论文与视频索引</h2>
+<p>按学习用途整理，而非按“必须全部读完”的顺序堆书单。文档和项目入口核对于 2026-09-08；软件接口仍应以你使用的版本为准。论文链接指向作者预印本或正式出版页面。下面的“阅读任务”是本教程建议，不是原作者对你的研究要求。</p>
+<h3>官方教材、文档与工具</h3>
+<ol>
+<li id="r-cuda"><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html">NVIDIA · Intro to CUDA C++</a>。第 3、5 章必读。重点：编译、kernel、启动与主机/设备数据。读完从空文件写出带结果检查的向量程序。</li>
+<li id="r-model"><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/programming-model.html">NVIDIA · Programming Model</a>。画出 grid、block、thread 与数据索引，解释哪些操作可以独立执行。</li>
+<li id="r-best"><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a>。按需查访存、传输与优化，不整本背诵。为自己的内核写字节账本，再用测量判断。</li>
+<li id="r-wsl"><a href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html">CUDA on WSL User Guide</a>。用于 Windows 到 Linux 学习环境的配置；先区分 Windows 驱动与 WSL Toolkit。</li>
+<li id="r-sanitizer"><a href="https://docs.nvidia.com/compute-sanitizer/ComputeSanitizer/index.html">Compute Sanitizer</a>。学习 memcheck、racecheck、initcheck、synccheck 各自检测什么。通过工具检查不等于物理验证通过。</li>
+<li id="r-nsys"><a href="https://docs.nvidia.com/nsight-systems/UserGuide/index.html">Nsight Systems User Guide</a>。第 8、18、19 章使用：找提交、同步、拷贝和通信间隙；先看整步时间线。</li>
+<li id="r-ncu"><a href="https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html">Nsight Compute Profiling Guide</a>。在最昂贵内核上分析资源与带宽。说明采样可能如何改变执行，再回到无 profiler 的计时。</li>
+<li id="r-cub"><a href="https://nvidia.github.io/cccl/cub/">CUB / CUDA Core Compute Libraries</a>。学习 device reduction、scan 和排序的使用接口。先验证临时存储生命周期与 stream，再替换手写教学实现。</li>
+<li id="r-cufft"><a href="https://docs.nvidia.com/cuda/cufft/index.html">cuFFT</a>。第 10 章 GPU 泊松求解使用。重点核对 R2C/C2R 数组布局、变换归一化、plan 与工作区。</li>
+<li id="r-async"><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html">CUDA · Asynchronous Execution</a>。第 18 章必读。给每个 event 标明它保护的数据，而不是机械添加多个 stream。</li>
+<li id="r-floats"><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/mathematical-functions.html">CUDA · Floating-Point Computation</a>。用于解释精度、舍入与数学运算。列出哪些研究量可能对抵消误差敏感。</li>
+<li id="r-mpi"><a href="https://docs.open-mpi.org/en/main/tuning-apps/accelerators/cuda.html">Open MPI · CUDA 支持</a>。第 19 章必读。查所用 MPI 版本与构建方式，先主机中转，再验证设备指针；不要默认存在 GPUDirect RDMA。</li>
+<li id="r-slurm"><a href="https://slurm.schedmd.com/gres.html">Slurm · GPU / GRES 资源管理</a>。把作业脚本中的 GPU 数、任务数与绑定对应起来。分区、账户和资源写法按云端站点修改。</li>
+<li id="r-kokkos"><a href="https://kokkos.org/kokkos-core-wiki/ProgrammingGuide/Interoperability.html">Kokkos · Interoperability and Legacy Codes</a>。理解设备内存与 MPI 互操作时的同步和访问要求，再阅读 VPIC-Kokkos。</li>
+<li id="r-birdsall"><a href="https://www.routledge.com/Plasma-Physics-via-Computer-Simulation-1st-Edition/Birdsall-Langdon/p/book/9781315275048">Birdsall &amp; Langdon · Plasma Physics via Computer Simulation</a>。主教材，优先静电 PIC、形状函数、场求解、噪声和数值效应，再读电磁方法。书籍访问可能需要购买或图书馆；本教程不提供未经授权的扫描本。</li>
+<li id="r-mit"><a href="https://ocw.mit.edu/courses/22-611j-introduction-to-plasma-physics-i-fall-2003/">MIT OCW · Introduction to Plasma Physics I</a>。用公开讲义和习题补充轨道、波与动理学；这里推荐的是课程资料，不把它标成完整视频课。</li>
+</ol>
+<h3>论文：按“算法 → 基准 → 聚变物理”阅读</h3>
+<ol>
+<li id="r-esirkepov"><a href="https://arxiv.org/abs/physics/9901047">Esirkepov · 精确电荷守恒的 PIC 沉积方法</a>（1999 预印本；期刊题名与预印本略有不同）。任务：从粒子形状变化推导离散连续性，再追踪一条跨格轨迹；不只阅读摘要。</li>
+<li id="r-gem"><a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/1999JA900449">Birn 等 · Geospace Environmental Modeling Magnetic Reconnection Challenge</a>（2001）。任务：提取初始电流片、触发、边界和模型差异，建立自己的参数对照表。它是重联基准，不是托卡马克装置输入。</li>
+<li id="r-psc-paper"><a href="https://arxiv.org/abs/1310.7866">Germaschewski 等 · The Plasma Simulation Code</a>（2013 预印本，后续修订）。任务：理解 patch 负载平衡、粒子组织和 GPU 实现；把论文性能条件与自己的负载逐项比较。</li>
+<li id="r-vpic-paper"><a href="https://arxiv.org/abs/2102.13133">Bird 等 · VPIC 2.0: Next Generation Particle-in-Cell Simulations</a>（2021）。任务：提取性能可移植性的取舍与硬件对照，不把其中的加速比当作本机预期值。</li>
+<li id="r-ez"><a href="https://arxiv.org/abs/2309.09873">EZ: An Efficient, Charge Conserving Current Deposition Algorithm for Electromagnetic Particle-In-Cell Simulations</a>（2023）。任务：先理解传统守恒沉积，再看新算法减少了哪些操作；检查形状函数和基准范围。</li>
+<li id="r-gk-theory"><a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.79.421">Brizard &amp; Hahm · Foundations of nonlinear gyrokinetic theory</a>（2007）。任务：整理排序、回旋中心变量、场方程和能量结构；为研究问题标出可能违反的假设。</li>
+<li id="r-gkcompare"><a href="https://arxiv.org/abs/1504.01351">Muñoz 等 · Gyrokinetic and kinetic particle-in-cell simulations of guide-field reconnection. I</a>（2015）。任务：比较相同与不同的初始化成分、β 与导向场条件，理解模型趋同的范围。</li>
+<li id="r-mtm-applegate"><a href="https://arxiv.org/abs/1110.3277">Applegate 等 · Micro-tearing modes in the Mega Ampere Spherical Tokamak</a>（此 arXiv 版本提交于 2011）。任务：跟踪电子温度梯度、磁漂移、静电势与 β，记录作者如何检验驱动机制。</li>
+<li id="r-mtm-dickinson"><a href="https://arxiv.org/abs/1209.3695">Dickinson 等 · Microtearing modes at the top of the pedestal</a>（2012）。任务：与上一项比较碰撞依赖、磁剪切与俘获粒子效应，避免将单一参数区间的结论普遍化。</li>
+<li id="r-mtm-nonlinear"><a href="https://arxiv.org/html/2303.02379v2">MAST 非线性微撕裂与随机层形成研究</a>（arXiv:2303.02379，链接固定 v2）。任务：依次阅读参考算例、线性收敛、非线性饱和和磁岛相互作用；把诊断映射到自己的研究计划。</li>
+</ol>
+<h3>视频：看完必须留下一个实验</h3>
+<ol>
+<li id="r-olcf"><a href="https://www.olcf.ornl.gov/cuda-training-series/">OLCF / NVIDIA CUDA Training Series</a>，配套 <a href="https://github.com/olcf/cuda-training-series">公开练习仓库</a>。课程页逐讲提供活动与录播入口；基础录制于 2020–2021 年，API 细节以当前文档为准。建议顺序：第 1 讲入门 → 第 2 讲共享内存 → 第 3–4 讲优化 → 第 5 讲原子与归约 → 第 8 讲性能分析 → 第 12 讲调试 → 第 7/10/13 讲并发、Streams 与 Graphs。第 6、9、11 讲按项目需要补看。</li>
+<li><a href="https://www.olcf.ornl.gov/calendar/introduction-to-cuda-c/">OLCF · CUDA 入门单讲</a>。页面内有 slides 和 recording。观看后不看答案重写向量程序，并解释每次内存分配和拷贝。</li>
+<li><a href="https://www.olcf.ornl.gov/calendar/cuda-debugging/">OLCF · CUDA 调试单讲</a>。观看后故意制造一次越界、未初始化读取或错误同步，确认工具能发现，再修复。</li>
+<li id="r-ncu-video"><a href="https://developer.nvidia.com/nsight-compute-videos">NVIDIA · Nsight Compute 视频专题</a>。优先选 Roofline、内存系统和基础 profiling；页面也有较新的专题。先用自己的 SAXPY 与沉积练习复现分析步骤，不把 Tensor Core 专题当作 PIC 的必修起点。</li>
+<li id="r-pppl"><a href="https://suli.pppl.gov/2025/course/index.html">PPPL · Introduction to Plasma and Fusion Energy Science（2025）</a>。官方课程保留讲义与录播，按单粒子运动、波、动理学与聚变背景逐步学习。每次看完推导一个公式或验证一个轨道，不只记录观看进度。</li>
+</ol>
+<h3>代码库与官方教程：选择一条主线深入</h3>
+<ol>
+<li id="r-nvidia-hub"><a href="https://github.com/NVIDIA/accelerated-computing-hub/tree/main/tutorials/cuda-cpp">NVIDIA Accelerated Computing Hub · CUDA C++</a>。用于现代 CUDA 基础练习，与 OLCF 的历史课程互补。</li>
+<li id="r-warpx"><a href="https://warpx.readthedocs.io/en/latest/theory/models_algorithms/electromagnetic_pic.html">WarpX · Electromagnetic PIC</a>，以及 <a href="https://github.com/BLAST-WarpX/warpx">代码库</a>。用于学习电磁算法、工程验证与高性能组织；具体重联算例和物理模块应另行确认。</li>
+<li id="r-smilei"><a href="https://smileipic.github.io/Smilei/Understand/algorithms.html">Smilei · PIC algorithms</a>。适合交叉检查推进、时间层、插值和沉积概念。</li>
+<li id="r-smilei-tutorials"><a href="https://smileipic.github.io/tutorials/site.html">Smilei Tutorials</a>。先做热等离子体、双流/Weibel，再看并行与碰撞；教程名称不是对本站 CUDA 实现的验证。</li>
+<li id="r-psc"><a href="https://github.com/psc-code/psc">PSC</a>。重联全动理学路线可优先阅读。已核对仓库存在 <a href="https://github.com/psc-code/psc/blob/master/src/psc_harris.cxx">Harris 源码入口</a>；构建与输入语法以固定版本为准。</li>
+<li id="r-vpic"><a href="https://github.com/lanl/vpic-kokkos">VPIC-Kokkos</a> 与 <a href="https://lanl.github.io/vpic-kokkos/comp.html">官方编译说明</a>。用于学习大规模全动理学、Kokkos 与 GPU；从官方 sample/deck 开始，先验证小规模。</li>
+<li id="r-picongpu"><a href="https://github.com/ComputationalRadiationPhysics/picongpu">PIConGPU</a>。重点参考高性能粒子组织、守恒沉积与可移植设计，不需要为了学 CUDA 立即掌握全部 C++ 模板体系。</li>
+<li id="r-gkeyll"><a href="https://gkeyll.readthedocs.io/en/latest/">Gkeyll</a>。适合直接 Vlasov 与其他动理学路线；官方文档说明其 CUDA / 多 GPU 能力。按当前版本选择相空间维度、方程和边界。</li>
+<li id="r-gkeyll-start"><a href="https://gkeyll.readthedocs.io/en/latest/quickstart.html">Gkeyll Quick Start</a>。从双流问题学习输入、物种分布、网格和矩量输出，再与 PIC 参考比较。</li>
+<li id="r-gene"><a href="https://www.genecode.org/">GENE</a> 与 <a href="https://genecode.org/license.html">获取与许可说明</a>。面向电磁回旋动理学研究；获取方式、硬件支持和版本配置先向项目文档核实。本教程不假定它与所有 PIC 开源仓库有相同安装流程。</li>
+</ol>
+<h3>本站练习文件</h3>
+<p><a href="labs/README.md">运行说明</a> · <a href="labs/pic1d.py" download>1D 静电 PIC</a> · <a href="labs/analyze.py" download>模幅值分析</a> · <a href="labs/check.py" download>CPU 练习检查</a> · <a href="labs/common.cuh" download>CUDA 错误检查</a> · <a href="labs/saxpy.cu" download>向量内核</a> · <a href="labs/particles.cu" download>Boris 与 CIC</a> · <a href="labs/halo_mpi.cu" download>多 GPU halo</a> · <a href="labs/CMakeLists.txt" download>MPI/CUDA 构建文件</a></p>
+<p>讲解与练习代码为本站原创；所列项目供阅读与对照，采用其代码时应保留相应许可证和引用。教学起点的 CPU 检查已通过；GPU、MPI、云端与完整科研项目的验收步骤列在各章，尚未执行的部分不标为已验证。</p>
+<a class="back-top" href="#main">返回书首 ↑</a></section>
+</main></div><footer><span>Yancheng · 计算教材</span><span>原创讲解与教学代码 · 原始资料链接见各章</span></footer></body></html>

@@ -23,11 +23,13 @@ jobs:
           python-version: '3.12'
       - name: Check archival guarantees
         run: python scripts/check.py
+      - name: Check textbook links and chapters
+        run: python scripts/check_tutorial.py
       - name: Stage public files only
         run: |
           mkdir _site
           cp index.html style.css favicon.svg _site/
-          cp -r plasma _site/
+          cp -r plasma cuda _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

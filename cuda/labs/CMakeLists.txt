@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.24)
+project(gpu_plasma_labs LANGUAGES CXX CUDA)
+find_package(MPI REQUIRED COMPONENTS CXX)
+add_executable(halo_mpi halo_mpi.cu)
+target_link_libraries(halo_mpi PRIVATE MPI::MPI_CXX)
+set_target_properties(halo_mpi PROPERTIES CUDA_STANDARD 17 CUDA_STANDARD_REQUIRED ON)

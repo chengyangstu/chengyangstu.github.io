@@ -1,8 +1,8 @@
 # Plasma weekly publication
 
-This repo is the user's public GitHub Pages site. Keep the homepage and one subpage `/plasma/`.
+This repo is the user's public GitHub Pages site. It contains the homepage, weekly reports `/plasma/`, and the textbook `/cuda/`. The user requested the second subpage after the original weekly site was completed.
 
-UI preferences: the only page heading is **文章每周简报**, with no subtitle. Use Songti/SimSun as the main font, pale purple background, restrained scholarly styling and fine separators. Briefs open with native inline disclosures below the article, never in a modal or another page. Every issue begins with **本周总体报告**, a synthesis plus one short description for every included brief. Keep this overview with the permanent issue archive.
+UI preferences: the weekly page heading is **文章每周简报**, with no subtitle. Use Songti/SimSun as the main font, pale purple background, restrained scholarly styling and fine separators. Briefs open with native inline disclosures below the article, never in a modal or another page. Every issue begins with **本周总体报告**, a synthesis plus one short description for every included brief. Keep this overview with the permanent issue archive. The CUDA textbook shares the typography and palette, with a chapter directory and continuous text. It includes multi-GPU and cloud training; GPU/MPI examples must not be described as executed until actually compiled and run on the relevant hardware.
 
 ## Research priorities
 
