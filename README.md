@@ -6,6 +6,14 @@
 
 计算教材：https://chengyangstu.github.io/cuda/
 
+## 价值投资教材
+
+[在线阅读](https://chengyangstu.github.io/investing/)：48 章中文讲义与盐湖股份完整研究附录。覆盖微观宏观、货币银行、财报附注、公司金融、行业周期、估值、巴菲特/李录/达利欧/马克斯思想，以及命名为「投机技术」的第八部分（多空、因子、期权、回测、EVT 等）。附 QuantWiki 19 个入门主题的章节对照、逐章练习答案与原始来源。
+
+复用 CUDA 阅读布局、目录搜索、打印与本地 KaTeX；增加原生 DCF 计算器。案例数据截止 2026-09-08，保留财务原值、报告版本/页码/PDF 校验值与冻结行情。区分 2025 原口径和 2026 重述比较，明确税项、少数权益、现金代理与有限年限估值假设；不使用混合口径 TTM。
+
+配套程序均仅用 Python 标准库：`python investing/labs/quant_lab.py` 验证人工数据多空实验；`python investing/labs/yanhu_model.py` 复算财务与估值。`python scripts/check_tutorial.py` 检查两本教材目录、链接与代码语法；`node scripts/check_reader.cjs` 同时检查公式与 DCF 边界。完整财报和临时研究文件不发布。
+
 ## CUDA 与 GPU 高性能等离子体计算教材
 
 24 章中文教材，正文为宋体、标题为黑体，英文优先 Times New Roman，淡紫色学术排版，配章节/正文搜索、连续阅读与打印。各章增加入门概念解释，第五章用线程分组图和具体索引演算解释 thread/block/grid。公式采用 TeX / KaTeX，代码使用带语言标识的独立代码块，可在手机局部横向滚动。覆盖量纲与硬件、CUDA 内核与性能、静电与电磁 PIC、守恒电流沉积、Harris/GEM、重联诊断、MPI 多 GPU 与云端、Vlasov、回旋动理学与微撕裂，并提供论文、官方文档、视频与 24 周代码训练。
@@ -45,7 +53,7 @@ python -X utf8 scripts/weekly.py publish
 python -X utf8 scripts/check.py
 ```
 
-临时文件和 PDF 不发布。Pages 工作流只上传公开主页、阅读样式与脚本、图标、`plasma/`、`cuda/` 与 `vendor/`，网页无需服务器或前端构建。KaTeX 固定版本、自托管脚本与字体，不依赖第三方 CDN；版本和 MIT 许可证位于 `vendor/katex/`。`node scripts/check_reader.cjs` 检查数学语法、字体文件、排序、高亮数据和索引练习。
+临时文件和 PDF 不发布。Pages 工作流只上传公开主页、阅读样式与脚本、图标、`plasma/`、`cuda/`、`investing/` 与 `vendor/`，网页无需服务器或前端构建。KaTeX 固定版本、自托管脚本与字体，不依赖第三方 CDN；版本和 MIT 许可证位于 `vendor/katex/`。`node scripts/check_reader.cjs` 检查数学语法、字体文件、排序、高亮数据和索引练习。
 
 ## 信息来源
 

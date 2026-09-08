@@ -18,7 +18,7 @@ function renderContents() {
     toc.append(a); ++count;
   }
   const resources = document.createElement('a'); resources.href = '#resources';
-  resources.textContent = '资料、论文与视频索引'; toc.append(resources);
+  resources.textContent = document.getElementById('resources').dataset.tocLabel || '资料、论文与视频索引'; toc.append(resources);
   status.textContent = query ? `找到 ${count} 章；点击目录跳至正文。` : '';
   updateCurrent();
 }

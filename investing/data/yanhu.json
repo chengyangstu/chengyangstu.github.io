@@ -1,0 +1,281 @@
+{
+  "company": "青海盐湖工业股份有限公司",
+  "ticker": "000792.SZ",
+  "as_of": "2026-09-08",
+  "financial_unit": "CNY yuan; scenario amounts separately use CNY 100 million",
+  "source_pages": "PDF page numbers count the cover as page 1",
+  "sources": {
+    "fy2025": {
+      "title": "2025 年年度报告",
+      "published": "2026-03-31",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-3/2026-03-31/12046427.PDF",
+      "crosscheck": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-03-31/3467fa7a-008a-4216-b862-26d0236a8c20.PDF",
+      "pages": [
+        4,
+        8,
+        18,
+        28,
+        29,
+        79,
+        89,
+        139,
+        158,
+        169,
+        182
+      ],
+      "basis": "As reported in FY2025, before 2026 common-control acquisition restatement",
+      "audit": "Standard unqualified opinion, Tianzhi International",
+      "sha256": "7b0a93a75d1956235137f94cee3106054524e058ebda42f5850e1a981f24518d"
+    },
+    "h12026": {
+      "title": "2026 年半年度报告",
+      "published": "2026-08-26",
+      "issuer_web_page_date": "2026-08-31",
+      "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-8/2026-08-26/12538308.PDF",
+      "crosscheck": "https://www.qhyhgf.com/newsinfo/11310210.html?templateId=1133604",
+      "pages": [
+        7,
+        8,
+        19,
+        22,
+        23,
+        25,
+        49,
+        50,
+        52,
+        53,
+        54,
+        56,
+        79,
+        115,
+        118,
+        119
+      ],
+      "basis": "Current consolidation; H12025 and opening 2025 year-end balances restated",
+      "audit": "Unaudited",
+      "sha256": "7dffb768395a615d67af497501511c056c2aaae77eec86fcdf2eaaf65fc47955"
+    }
+  },
+  "quote": {
+    "source": "https://qt.gtimg.cn/q=sz000792",
+    "source_type": "Third-party public quote; not an exchange-direct feed",
+    "timestamp": "2026-09-08T16:14:51+08:00",
+    "price_cny": 26.83,
+    "shares": 5291572541,
+    "shares_source": "h12026 PDF page 50; no later share change assumed",
+    "raw_file": "quote-2026-09-08.txt",
+    "raw_fields": {
+      "price": 3,
+      "timestamp": 30
+    },
+    "raw_fields_note": "Zero-based tilde-separated fields inside the quoted provider string"
+  },
+  "historical_original": {
+    "source": "fy2025 pages 8 and 89",
+    "warning": "Do not combine this series with latest restated H12025 to synthesize TTM",
+    "2023": {
+      "revenue": 21578504361.18,
+      "parent_profit": 7913614646.24,
+      "adjusted_parent_profit": 8723801243.59,
+      "cfo": 12104618721.68,
+      "assets": 46407287224.03,
+      "parent_equity": 31906238592.42
+    },
+    "2024": {
+      "revenue": 15134119500.89,
+      "parent_profit": 4663116528.38,
+      "adjusted_parent_profit": 4400518590.09,
+      "cfo": 7819152860.43,
+      "capex_cash": 1221806223.1,
+      "assets": 45782850934.85,
+      "parent_equity": 36574787737.51
+    },
+    "2025": {
+      "revenue": 15501243782.06,
+      "parent_profit": 8475535262.69,
+      "adjusted_parent_profit": 8410569740.26,
+      "cfo": 10160860737.41,
+      "capex_cash": 1641483902.99,
+      "assets": 55781587198.78,
+      "parent_equity": 44959155289.94
+    }
+  },
+  "interim_comparable": {
+    "source": "h12026 pages 8, 54 and 56",
+    "2025H1_restated": {
+      "revenue": 7256070390.62,
+      "parent_profit": 2593155200.29,
+      "adjusted_parent_profit": 2551344707.7,
+      "group_profit": 2862478141.8,
+      "cfo": 6196536712.45,
+      "capex_cash": 675575337.4
+    },
+    "2026H1": {
+      "revenue": 13052166200.79,
+      "parent_profit": 6168537120.45,
+      "adjusted_parent_profit": 6000549265.36,
+      "group_profit": 7250130115.73,
+      "minority_profit": 1081592995.28,
+      "cfo": 6282200914.52,
+      "capex_cash": 630315492.54,
+      "investing_cashflow": 6293019423.04,
+      "financing_cashflow": -5520666928.74,
+      "fx_effect": -816899.66,
+      "cash_equivalents_change": 7053736509.16
+    },
+    "2025H1_before_adjustment": {
+      "revenue": 6780620522.27,
+      "parent_profit": 2515130477.62
+    }
+  },
+  "balance_2026H1": {
+    "source": "h12026 pages 49, 50, 52, 79, 118 and 119",
+    "assets": 61565890136.29,
+    "liabilities": 8660900029.76,
+    "parent_equity": 47751402269.74,
+    "minority_equity": 5153587836.79,
+    "current_assets": 41742721193.19,
+    "current_liabilities": 6463228944.93,
+    "cash_funds": 32271117704.25,
+    "cash_equivalents": 26638121686.34,
+    "cash_equivalents_beginning": 19584385177.18,
+    "excluded_cash_listed": 5472359805.54,
+    "excluded_components": {
+      "acceptance_margin": 3274641.43,
+      "environmental_margin": 56993958.35,
+      "frozen_by_court": 0,
+      "time_deposits_and_interest": 5329005333.33,
+      "futures_margin": 83085872.43
+    },
+    "cash_note_unresolved": "cash_funds minus cash_equivalents minus excluded_cash_listed leaves CNY 160636212.37; not filled with an invented balancing item",
+    "accounts_receivable": 159361417.61,
+    "notes_receivable": 4191003743.61,
+    "inventory": 1442913459.02,
+    "short_borrowings": 7500000,
+    "long_borrowings": 215900031,
+    "current_noncurrent_liabilities": 1157924126.98,
+    "lease_liabilities": 97300569.01,
+    "long_payables": 1456168262.31,
+    "parent_company_retained_earnings": -4016210647.58
+  },
+  "opening_balance_restated": {
+    "source": "h12026 pages 8, 49 and 50",
+    "assets": 61163911528.91,
+    "parent_equity": 46274967430.36,
+    "notes_receivable": 2401331918.09,
+    "cash_funds": 24413658914.66
+  },
+  "tax": {
+    "source": "fy2025 page 158; h12026 page 115",
+    "2025_original": {
+      "pretax_profit": 7192441673.84,
+      "current_tax": 291614949.55,
+      "deferred_tax": -2045744615.89,
+      "total_tax": -1754129666.34,
+      "prior_unrecognized_losses_tax_bridge": -2896510995.01
+    },
+    "2026H1": {
+      "pretax_profit": 8451538040.62,
+      "current_tax": 502037978.85,
+      "deferred_tax": 699369946.04,
+      "total_tax": 1201407924.89
+    }
+  },
+  "products": {
+    "source": "fy2025 pages 28-29; h12026 pages 19, 22-23",
+    "warning": "Different consolidation bases across annual and interim disclosures; K product revenue != physical KCl row revenue",
+    "2025_original": {
+      "potash_revenue": 12029974941.34,
+      "potash_cost": 4726052147.6,
+      "lithium_revenue": 2912357179.09,
+      "lithium_cost": 1396963724.32,
+      "kcl_production_tonnes": 4900200,
+      "kcl_sales_tonnes": 3814700,
+      "kcl_inventory_tonnes": 1171600,
+      "kcl_inventory_2024_tonnes": 518900,
+      "kcl_physical_row_revenue": 10257837467.57,
+      "lithium_production_tonnes": 46543,
+      "lithium_sales_tonnes": 45564
+    },
+    "2026H1": {
+      "potash_revenue": 7137325157.33,
+      "potash_cost": 2669915188.59,
+      "lithium_revenue": 5601493180.25,
+      "lithium_cost": 926427554.59,
+      "kcl_production_tonnes": 1681700,
+      "kcl_sales_tonnes": 2247400,
+      "lithium_carbonate_production_tonnes": 49400,
+      "lithium_carbonate_sales_tonnes": 39100
+    }
+  },
+  "acquisition": {
+    "source": "h12026 pages 19 and 25; fy2025 page 182",
+    "target": "五矿盐湖有限公司",
+    "stake": 0.51,
+    "consideration_cny": 4605162300,
+    "transfer_date": "2026-01-31",
+    "accounting": "Common-control acquisition; comparative figures adjusted"
+  },
+  "industry": {
+    "source_lithium": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf",
+    "source_potash": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-potash.pdf",
+    "li_2025_production_tonnes_excluding_us_estimate": 290000,
+    "li_2024_production_tonnes_excluding_us_revised": 222000,
+    "li_2025_consumption_tonnes_estimate": 263000,
+    "li_2024_consumption_tonnes_estimate": 220000,
+    "potash_2025_capacity_tonnes_k2o_estimate": 66100000,
+    "potash_2029_capacity_tonnes_k2o_projection": 77400000,
+    "warning": "Metal Li != LCE; K2O nutrient equivalent != KCl physical tonnes; capacity != output; production/consumption coverage differs"
+  },
+  "model_assumptions": {
+    "status": "Author-designed educational scenarios, not disclosed company forecasts",
+    "years": 20,
+    "growth": 0,
+    "terminal_residual": 0,
+    "tax_rate": 0.15,
+    "potash_parent_weight": 0.97,
+    "lithium_parent_weight": 0.7,
+    "unit_cost_scope": "Operating cost including depreciation, operating overhead and resource levies; excludes income tax and financing",
+    "cash_deduction_scope": "Parent-attributable net capex above depreciation, normal working capital and net financing cash costs; no recurring new borrowing",
+    "extra_scope": "Assumed parent-attributable net nonoperating assets after restrictions, operating reserves, minority allocation and relevant claims; not all balance-sheet cash",
+    "resource_life_note": "20-year valuation visibility assumption, not a verified remaining mine life; additional terminal cleanup obligations would reduce value",
+    "scenarios": [
+      {
+        "name": "偏弱",
+        "k_volume_10kt": 430,
+        "k_price_cny_t": 2200,
+        "k_cost_cny_t": 1400,
+        "li_volume_10kt": 6,
+        "li_price_10kcny_t": 6,
+        "li_cost_10kcny_t": 4.5,
+        "cash_deduction_100m": 6,
+        "discount_rate": 0.12,
+        "extra_assets_100m": 100
+      },
+      {
+        "name": "中周期",
+        "k_volume_10kt": 480,
+        "k_price_cny_t": 2600,
+        "k_cost_cny_t": 1350,
+        "li_volume_10kt": 8,
+        "li_price_10kcny_t": 8,
+        "li_cost_10kcny_t": 4.2,
+        "cash_deduction_100m": 8,
+        "discount_rate": 0.1,
+        "extra_assets_100m": 150
+      },
+      {
+        "name": "偏强",
+        "k_volume_10kt": 510,
+        "k_price_cny_t": 3100,
+        "k_cost_cny_t": 1300,
+        "li_volume_10kt": 9.5,
+        "li_price_10kcny_t": 12,
+        "li_cost_10kcny_t": 4,
+        "cash_deduction_100m": 10,
+        "discount_rate": 0.09,
+        "extra_assets_100m": 180
+      }
+    ]
+  }
+}

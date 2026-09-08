@@ -6,7 +6,6 @@ import re
 from urllib.parse import unquote, urlsplit
 
 root = Path(__file__).resolve().parents[1]
-page = root / 'cuda/index.html'
 
 
 class Book(HTMLParser):
@@ -22,6 +21,8 @@ class Book(HTMLParser):
             self.ids.add(a['id'])
         if 'href' in a:
             self.links.append(a['href'])
+        if 'src' in a:
+            self.links.append(a['src'])
         if tag == 'article' and 'chapter' in a.get('class', '').split():
             self.chapters.append(a['id'])
 
@@ -29,21 +30,23 @@ class Book(HTMLParser):
         self.text.append(data)
 
 
-book = Book()
-html = page.read_text(encoding='utf-8')
-book.feed(html)
-assert book.chapters == [f'ch{i:02d}' for i in range(1, 25)], 'Missing/reordered chapters'
-assert 'CONTINUE -->' not in html, 'Unfinished authoring placeholder'
-for href in book.links:
-    url = urlsplit(href)
-    if url.scheme:
-        assert url.scheme in ('http', 'https'), 'Unexpected link protocol'
-    elif not url.path:
-        assert unquote(url.fragment) in book.ids, 'Missing chapter/reference: ' + href
-    else:
-        target = (page.parent / unquote(url.path)).resolve()
-        assert target.is_relative_to(root) and target.exists(), 'Missing local asset: ' + href
-for source in (root / 'cuda/labs').glob('*.py'):
-    ast.parse(source.read_text(encoding='utf-8'), filename=str(source))
-han = len(re.findall(r'[\u4e00-\u9fff]', ''.join(book.text)))
-print(f'PASS: {len(book.chapters)} chapters, {len(book.links)} links, {han} Chinese characters; local references and Python syntax valid.')
+for directory, count, appendix in [('cuda', 24, []), ('investing', 48, ['appendix-yh'])]:
+    page = root / directory / 'index.html'
+    book = Book()
+    html = page.read_text(encoding='utf-8')
+    book.feed(html)
+    assert book.chapters == [f'ch{i:02d}' for i in range(1, count + 1)] + appendix, 'Missing/reordered chapters'
+    assert not re.search(r'<!-- (?:CONTINUE|NEXT_CHAPTERS|RESOURCES)', html), 'Unfinished authoring placeholder'
+    for href in book.links:
+        url = urlsplit(href)
+        if url.scheme:
+            assert url.scheme in ('http', 'https'), 'Unexpected link protocol'
+        elif not url.path:
+            assert unquote(url.fragment) in book.ids, 'Missing chapter/reference: ' + href
+        else:
+            target = (page.parent / unquote(url.path)).resolve()
+            assert target.is_relative_to(root) and target.exists(), 'Missing local asset: ' + href
+    for source in (root / directory / 'labs').glob('*.py'):
+        ast.parse(source.read_text(encoding='utf-8'), filename=str(source))
+    han = len(re.findall(r'[\u4e00-\u9fff]', ''.join(book.text)))
+    print(f'PASS {directory}: {len(book.chapters)} chapters, {len(book.links)} links, {han} Chinese characters; local references and Python syntax valid.')

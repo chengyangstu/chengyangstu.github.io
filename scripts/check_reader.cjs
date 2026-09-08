@@ -27,12 +27,23 @@ function checkMath(text) {
   assert.equal((text.match(/\\\[/g) || []).length, (text.match(/\\\]/g) || []).length, 'Unbalanced display math');
   for (const m of text.matchAll(/\\\((.*?)\\\)|\\\[(.*?)\\\]/gs)) {
     const tex = (m[1] ?? m[2]).replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
-    katex.renderToString(tex, {throwOnError: true, strict: 'error', trust: false, maxExpand: 100, displayMode: m[2] !== undefined});
+    try {
+      katex.renderToString(tex, {throwOnError: true, strict: 'error', trust: false, maxExpand: 100, displayMode: m[2] !== undefined});
+    } catch (error) { throw new Error('Invalid TeX: ' + tex + '\n' + error.message); }
     formulaCount++;
   }
 }
 const html = fs.readFileSync(path.join(root, 'cuda/index.html'), 'utf8');
 checkMath(html);
+checkMath(fs.readFileSync(path.join(root, 'investing/index.html'), 'utf8'));
+const dcfValue = require('../investing/calculator.js');
+const dcfInput = {cashflow:10, growth:0, discount:10, terminal:0, extra:20, shares:10};
+assert(Math.abs(dcfValue(dcfInput).perShare - 12) < 1e-10);
+assert(dcfValue({...dcfInput, discount:12}).perShare < 12);
+assert.equal(dcfValue({...dcfInput, cashflow:0}).perShare, 2);
+for (const change of [{shares:0}, {discount:0}, {terminal:10}, {growth:-100},
+                      {extra:Infinity}, {cashflow:NaN}, {shares:Number.MIN_VALUE}])
+  assert.throws(() => dcfValue({...dcfInput, ...change}));
 assert.equal((html.match(/class="equation"/g) || []).length, 14);
 assert(!/<div class="equation"[^>]*>[^\\]/.test(html), 'Every equation panel must use TeX');
 assert.equal((html.match(/<pre\b/g) || []).length, (html.match(/<pre[^>]*data-language="[^"]+"[^>]*><code>/g) || []).length);

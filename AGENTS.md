@@ -4,9 +4,15 @@
 
 Typography now uses Times New Roman for Latin, Songti/SimSun for Chinese body, and Heiti for Chinese headings. Body text is enlarged and adapts to phones. Paragraph highlights are browser-local, separate from bookmark snapshots, and have their own validated export/import. Preserve both stores. The CUDA textbook explains new technical terms before code, using definitions, small worked examples, and boundary cases; mathematical expressions use TeX and code uses labeled `<pre><code>` blocks. Avoid assuming the reader already knows grid/block, warp, stream, memory spaces, or MPI ranks.
 
-This repo is the user's public GitHub Pages site. It contains the homepage, weekly reports `/plasma/`, and the textbook `/cuda/`. The user requested the second subpage after the original weekly site was completed.
+This repo is the user's public GitHub Pages site. It contains the homepage, weekly reports `/plasma/`, the computing textbook `/cuda/`, and the investment textbook `/investing/`.
 
 UI preferences: the weekly page heading is **文章每周简报**, with no subtitle. Use Songti/SimSun as the main font, pale purple background, restrained scholarly styling and fine separators. Briefs open with native inline disclosures below the article, never in a modal or another page. Every issue begins with **本周总体报告**, a synthesis plus one short description for every included brief. Keep this overview with the permanent issue archive. The CUDA textbook shares the typography and palette, with a chapter directory and continuous text. It includes multi-GPU and cloud training; GPU/MPI examples must not be described as executed until actually compiled and run on the relevant hardware.
+
+## Investment textbook
+
+`/investing/` has 48 chapters plus the Yanhu (000792) fundamental-analysis appendix. The user explicitly names part eight **投机技术**; preserve this title. Match the CUDA textbook's detailed explanations, worked examples, typography and continuous reading. Reuse the reader and local KaTeX; do not add a framework. Financial facts require original sources, report dates and consistent consolidation bases. Keep disclosed data separate from assumptions and derived values. The frozen case includes source-traceable JSON and a dated quote; do not silently refresh prices without updating the analysis. Do not mix 2025 original-scope profits with 2026 restated comparatives to construct TTM.
+
+Run `python scripts/check_tutorial.py`, `node scripts/check_reader.cjs`, `python investing/labs/quant_lab.py` and `python investing/labs/yanhu_model.py` after relevant edits. Check desktop/mobile reading, directory search, exercises, calculator validation and print. The appendix states unreconciled cash-note differences and model limitations explicitly; do not invent balancing figures.
 
 ## Research priorities
 
