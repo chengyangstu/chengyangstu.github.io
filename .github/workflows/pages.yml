@@ -32,6 +32,15 @@ jobs:
           mkdir _site
           cp index.html style.css math.js favicon.svg _site/
           cp -r plasma cuda vendor _site/
+          python - <<'PY'
+          import os, re
+          from pathlib import Path
+          version = os.environ['GITHUB_SHA'][:12]
+          assets = re.compile(r'((?:href|src)=")((?!https?://)[^"?#]+\.(?:css|js))(?:\?[^"#]*)?"')
+          for page in Path('_site').rglob('*.html'):
+              html = page.read_text(encoding='utf-8')
+              page.write_text(assets.sub(lambda m: f'{m[1]}{m[2]}?v={version}"', html), encoding='utf-8')
+          PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
