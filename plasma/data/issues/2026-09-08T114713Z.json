@@ -1,0 +1,479 @@
+{
+  "id": "2026-09-08T114713Z",
+  "window_start": "2026-09-01T11:47:13+00:00",
+  "window_end": "2026-09-08T11:47:13+00:00",
+  "created_at": "2026-09-08T11:48:58.685476+00:00",
+  "overview": "本周共整理 10 篇相关新论文，形成 9 份阅读简报。与你的方向最相关的是 STEP 全局模拟中的微撕裂电流片与磁随机化，以及 DIII-D 误差场穿透的实验—模型对照；MRX 研究则提供半碰撞电子层的理论和动力学模拟参考。其余文章分别讨论重联中的粒子加速、能量输运概念理论、回旋动理学计算加速、质子硼束靶反馈和模拟数据复用。本周直接涉及聚变重联的新文数量有限，下面按相关性优先逐篇说明，不以旧论文补足数量。",
+  "query": "(cat:physics.plasm-ph OR ti:\"magnetic reconnection\" OR abs:\"magnetic reconnection\" OR ti:tokamak OR ti:stellarator OR abs:\"fusion plasma\" OR abs:\"tearing mode\" OR abs:microtearing OR abs:\"magnetic island\" OR abs:sawtooth OR abs:\"internal kink\") AND submittedDate:[202609011147 TO 202609081147]",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2609.02803",
+      "version": "2609.02803v1",
+      "title": "Global Gyrokinetic Simulations of Electromagnetic Turbulence in STEP",
+      "authors": [
+        "Daniel Kennedy",
+        "Facundo Sheffield",
+        "Tobias Görler",
+        "Colin Roach",
+        "Maurizio Giacomin",
+        "Arka Bokshi",
+        "David Dickinson",
+        "Harry Dudding",
+        "Bhavin Patel"
+      ],
+      "abstract": "This paper presents gradient-driven global electromagnetic gyrokinetic simulations for a conceptual burning flat-top operating point of STEP [1], STEP-EC-HD, and investigates how non-local effects influence the nonlinear saturation and transport of the electromagnetic turbulence at finite $β$. Local gyrokinetic simulations have shown that including $δB_{\\parallel}$ is essential for the dominant hybrid kinetic ballooning modes, or hKBMs, to be unstable in STEP [2]. Using the long-wavelength $δB_{\\parallel}$ solver [3] implemented in GENE [4], this work demonstrates that the linear mode spectrum can be accurately captured in global geometry, which results in good agreement with an ensemble of local flux-tube simulations. The global framework reproduces the hKBMs identified in [5], while microtearing modes remain challenging to resolve due to their shorter radial scales. Nonlinear simulations reveal clear evidence of an electromagnetic transition to states with extremely large heat fluxes, consistent with local simulations and with the predicted loss of zonal-flow regulation for this proposed operating point [6]. These findings establish the capability of global gyrokinetics to capture finite-$β$ dynamics in STEP-like plasmas and motivate future work to identify the conditions governing this transition.",
+      "published": "2026-09-02T16:38:24Z",
+      "updated": "2026-09-02T16:38:24Z",
+      "topics": [
+        "聚变中的重联",
+        "磁场重联",
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.02803v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.02803v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 56,
+      "source_sha256": "745d5aedc938d2a271863e7fc216ba268ae28237a7b5877c1ada7bb5e1f52590",
+      "brief": {
+        "title_zh": "STEP 全局电磁回旋动理学：微撕裂电流片、磁随机化与湍流输运转变",
+        "takeaway": "全局 GENE 模拟仍发现 STEP 指定运行点的高输运状态，并讨论微撕裂模的窄电流片与解析难点；同时解析微撕裂和 hKBM 非线性湍流仍是开放问题。",
+        "question": "局部磁通管模型预言的极高电磁热输运，是否因忽略全局效应而产生？在高 β 球形托卡马克中，微撕裂模的有理面电流片及磁力线随机化如何进入这一图景？",
+        "methods": "针对 STEP-EC-HD 概念燃烧平台运行点，开展梯度驱动的全局电磁 GENE 模拟，保留包括 δB∥ 在内的电磁响应，并与多个局部磁通管计算比较。通过开关 δB∥、检查平行电流的有理面局域结构及微撕裂驱动参数识别模态，再用非线性、降低 β、剖面控制和流剪切对照研究输运。",
+        "findings": "保留 δB∥ 时，全局计算能重现局部结果中的主导混合动理学气球模 hKBM。省略 δB∥ 后得到的次主导模态具有有理面附近的窄平行电流片等微撕裂特征。全局非线性结果仍出现高热通量转变，不能简单归咎于局部近似。降低 β 的对照恢复较温和、受带状流调节的状态；磁力线随机化被认为是高输运状态削弱带状流作用的重要因素。",
+        "limitations": "这篇主线是电磁湍流及全局效应，不是已完成的聚变宏观重联理论。微撕裂模径向尺度更短，在全局域内同时解析其电流片和 hKBM 湍流的成本过高，全球框架下微撕裂非线性输运是否仍温和尚未解决。模型针对特定运行点，主要包含热电子和氘，未完整包含快粒子、杂质及自洽平衡演化；不能据此否定所有 STEP 运行方案。",
+        "reading": "与你的方向直接相关，建议优先精读微撕裂模识别和分辨率分析，并对照非线性磁随机化诊断。后续可追问：电子电流层宽度、质量比和径向网格怎样共同影响重联拓扑及电子热输运？哪些低输运结论能在充分解析的全局域中保持？这些是简报提出的研究问题。",
+        "evidence": "PDF 第 1–3 页：问题与局部/全局背景；第 22–30 页附近：§4.2 后续 δB∥ 对照、图 9–10 与微撕裂电流片识别；第 40–42 页：§6 结论及未解决问题；第 48–50 页：附录 C 的磁随机化与带状结构讨论。正文和图注选读，未逐图复核全部材料。PDF 共 56 页，早版简报的 55 页标注为笔误。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.04546",
+      "version": "2609.04546v1",
+      "title": "Assessing the effect of error field penetration during plasma current ramp-up in the DIII-D tokamak",
+      "authors": [
+        "C. F. B. Zimmermann",
+        "E. M. Bursch",
+        "C. Paz-Soldan",
+        "J. M. Hanson",
+        "N. Leuthold",
+        "N. C. Logan",
+        "A. O. Nelson"
+      ],
+      "abstract": "This work provides evidence that established error field penetration threshold scalings remain applicable during plasma current ramp-up. In dedicated DIII-D experiments with imposed $n=1$ perturbations during extended $I_p$ ramps, an apparent empirical threshold is found between $2$ and $3$~kA of applied 3D coil current, above which MHD modes are seeded. The imposed perturbation couples to the rational surfaces present during the ramp, seeding near the $q=4$ surface and penetrating as an $m/n=3/1$ mode by the end of the perturbation phase. To interpret these observations, multi-machine penetration threshold scalings are combined with equilibrium-based overlap metrics from the GPEC code, including the in-situ error fields of the device. This modeling reproduces the observed onset in the amplitude scan and classifies mode seeding across a database of 12 ramp-up discharges spanning a range of plasma currents and densities. Across this database, the seeding appears to be controlled primarily by the applied 3D coil current rather than by the plasma current or its ramp rate. Accounting for the in-situ error fields is found to be important for reliable prediction. These results are consistent with the robustness of scaling-based penetration metrics when coupled to detailed 3D field modeling under transient ramp-up conditions, and suggest the importance of accounting for in-situ error fields when assessing additional externally induced perturbations. This work is motivated by future tokamaks in which transient, non-axisymmetric error fields can arise during startup, for example from runaway electron mitigation coils.",
+      "published": "2026-09-03T23:04:51Z",
+      "updated": "2026-09-03T23:04:51Z",
+      "topics": [
+        "聚变中的重联",
+        "磁场重联",
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2609.04546v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.04546v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 16,
+      "source_sha256": "a0506681cf77ce8fcf9aebe7559a938238ba8f147121a12733220834cd7facd1",
+      "brief": {
+        "title_zh": "DIII-D 电流爬升阶段的误差场穿透：准稳态阈值标度是否仍适用？",
+        "takeaway": "DIII-D 的 12 次爬升放电支持将既有穿透阈值标度与三维场建模结合使用，设备自身误差场对预测尤其重要。",
+        "question": "主要在电流平台阶段验证的误差场穿透标度，能否用于电流剖面和有理面快速演化的爬升阶段？",
+        "methods": "在 DIII-D 延长的电流爬升过程中施加 n=1 三维扰动，扫描线圈电流并诊断 MHD 模态。把多装置经验穿透阈值与基于平衡的 GPEC 重叠指标结合，通过 SURFMN 纳入本机固有误差场，再与 12 次放电的模态出现情况比较。",
+        "findings": "专门幅值扫描中，施加三维线圈电流约 2–3 kA 之间出现经验阈值。扰动早期响应于较高 q 面，随后主要表现为 m/n=3/1 模态。包含固有误差场时，该工作流能正确区分研究数据库中的模态播种情况；忽略它时仅约一半正确。这为使用成本较低的准稳态流程预估瞬态风险提供了有限范围的实验支持。",
+        "limitations": "样本仅 12 次放电，经验阈值带有显著不确定性，不应作为无误差的锐利边界。2–3 kA 是本次装置和线圈配置的观察值，不可直接移用到其他装置。模型不等于完整的时变非线性 MHD 演化计算，边界状态和模态恢复机制仍有待解释。",
+        "reading": "建议作为理论与模拟的实验对照阅读。重点看外加误差场和原位误差场如何合成，以及所谓预测成功是否依赖特定平衡重建和参数覆盖。",
+        "evidence": "PDF 第 2–3 页：§2 方法、式 (1) 与阈值不确定性；第 10–12 页：数据库结果、图 6–7；第 13 页：§5 总结。已选读正文与图注，未重新拟合实验数据。",
+        "method_tags": [
+          "数值模拟",
+          "实验 / 观测"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.01793",
+      "version": "2609.01793v1",
+      "title": "Revisiting the MRX Electron Current Sheet Width with Semi-Collisional Kinetic Simulations at Hydrogen Mass Ratio",
+      "authors": [
+        "Sung Hyun Son",
+        "Adam Stanier",
+        "William Daughton",
+        "Jongsoo Yoo",
+        "Tongnyeol Rhee",
+        "Hantao Ji"
+      ],
+      "abstract": "For over eighteen years, the electron current sheet measured in the Magnetic Reconnection Experiment (MRX) has stood a factor of 2--5 wider than predicted by MRX-like kinetic simulations, and the measured electron force balance has not closed with the classical terms alone. As a consequence, the dominant nonideal terms responsible for breaking the frozen-in condition have remained unexplained. Here, two-dimensional kinetic simulations with binary Coulomb collisions are performed in a cylindrical geometry representative of MRX, at the realistic hydrogen mass ratio $m_i/m_e = 1836$ and at MRX-relevant collisionality. For the first time, these simulations reproduce the measured electron current sheet half-width. The simulated value, $δ_{BT} = 0.744 \\pm 0.054$~cm or $6.26 \\pm 0.45$ electron skin depths ($d_e$), lies within the experimental range of 5.5--7.5~$d_e$. The electron force balance closes through the classical channels alone: the pressure-tensor divergence supports 76\\% of the nonideal electric field and collisional friction the remainder. The historical force-balance deficit reappears only when the simulated layer is sampled at the experimental 3~cm outflow resolution, suggesting that the deficit reflects probe resolution rather than anomalous dissipation. Beyond this reproduction, an analytic model of the layer width is developed that orders the meandering electrons by the coherence of their orbits against collisions. In this model, the Dreicer ratio $E_D/|E_y|$ selects the electrons whose current-carrying motion survives, and the resulting width prediction brackets the measured values across a wide collisionality scan. A discrepancy remains in the width normalized to the local electron gyroradius ($ρ_e$), whose measured value lies a factor of 3--6 above both the model and the simulations.",
+      "published": "2026-09-01T19:07:19Z",
+      "updated": "2026-09-01T19:07:19Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.01793v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.01793v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 16,
+      "source_sha256": "37f96d0cf2853f9904291113c9d9a1d8d334a4ea08fbfc733d8fd74a34636600",
+      "brief": {
+        "title_zh": "以真实氢质量比的半碰撞动力学模拟重新检验 MRX 电子电流层宽度",
+        "takeaway": "真实质量比与库仑碰撞共同帮助模拟重现 MRX 的电子层宽度；历史力平衡缺口可能与探针分辨率有关，但回旋半径归一化后的差异仍未解决。",
+        "question": "为什么 MRX 测到的电子电流层长期比早期动力学模拟宽 2–5 倍？重联电场是否必须由额外的反常耗散来支撑？",
+        "methods": "采用二维轴对称圆柱几何 VPIC 模拟，包含 MRX 型磁通芯驱动、边界和二元库仑碰撞，主算例使用 mi/me = 1836。用电子出流降至峰值 40% 的半宽与实验对照，并扫描质量比和碰撞率。进一步以电子游走轨道能否抵抗碰撞保持相干为条件，构造由 Dreicer 比值 ED/|Ey| 控制的层宽模型。",
+        "findings": "主算例的出流层半宽为 0.744 ± 0.054 cm，即 6.26 ± 0.45 de，落在经探针阻塞修正的实验范围 5.5–7.5 de 内。压力张量散度承担约 76% 的非理想支撑，其余主要归于残余碰撞通道；以局部 Spitzer 摩擦估算也能近似闭合。把模拟按实验沿出流方向 3 cm 的间距降采样，会低估中心速度剪切并重新出现力平衡缺口。层宽与支撑份额分别更好地按 Dreicer 比值和归一化碰撞频率组织，说明减小质量比无法同时匹配两者。",
+        "limitations": "这是二维反平行、pull 阶段模型；电子等离子体频率与回旋频率之比仍被缩减。按局部电子回旋半径归一化，模拟与实验仍存在数倍差异。人为电子冷却只说明热力学状态能影响归一化宽度，并未消除差异。残余通道还吸收未解析贡献，不能把它毫无条件地等同于直接测得的纯碰撞摩擦。三维输运、中性粒子和辐射等尚需进一步研究。",
+        "reading": "建议优先阅读。先核对两种半宽定义和归一化位置，再读力平衡降采样实验。可继续追问：若同时匹配实验温度、密度剖面与探针响应，de 和 ρe 两套比较是否仍能同时成立？这是简报提出的后续问题。",
+        "evidence": "PDF 第 2–4 页：§II 设置及诊断；第 5–8 页：§III、表 II、图 3–4；第 9–11 页：§IV、式 (10)–(17)、图 10；第 12–14 页：§V–VI、表 III。正文与图注已选读，未独立重算数据或逐图核验。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.02151",
+      "version": "2609.02151v1",
+      "title": "Electron acceleration by turbulent reconnection in solar flares",
+      "authors": [
+        "Zining Ren",
+        "Xin Cheng",
+        "Yulei Wang",
+        "Mingde Ding"
+      ],
+      "abstract": "Solar flares can release magnetic energy explosively in the corona and produce high-energy particles on short timescales. However, how and where these particles are accelerated remains an open question. Here, we investigate the acceleration and transport of electrons during self-developed three-dimensional turbulent reconnection of solar flares by solving Parker's transport equation in the framework of high-resolution MHD simulations. We find that thermal electrons at both the flare current sheet and loop top are rapidly accelerated up to ~90keV, with energy spectra exhibiting a power-law feature. Although the population of accelerated electrons at the flare loop top is larger than that at the current sheet, their spectral indices are similar, close to the values usually observed. More importantly, the acceleration is achieved by turbulence-driven compression structures of various scales rather than the supposed termination shock, particularly at the flare loop top. A portion of compression structures even forms shocks. These results highlight the critical role of turbulent reconnection in accelerating electrons, thereby shedding new light on the acceleration and transport of particles in other high-energy phenomena.",
+      "published": "2026-09-02T06:05:26Z",
+      "updated": "2026-09-02T06:05:26Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.02151v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.02151v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 13,
+      "source_sha256": "b7ab090ee8dd012a32c390008240475f11311e0a416255665cded129156f39c1",
+      "brief": {
+        "title_zh": "太阳耀斑湍流重联中的电子加速：电流片也能主动加速粒子",
+        "takeaway": "三维湍流重联里的分散压缩结构可以把电子加速到约 90 keV；在该模型中，完整的大尺度终止激波并非高效加速的必要条件。",
+        "question": "太阳耀斑的高能电子究竟主要在哪里获得能量？电流片只负责把电子输运到环顶，还是本身就是加速区？",
+        "methods": "在高分辨率三维 MHD 耀斑背景中求解 Parker 输运方程，使用随机微分方程与伪粒子统计表示电子分布。对比充分湍流的静态背景、保留较完整终止激波的较早背景，以及从准二维向三维湍流演化的背景。扩散系数按既有准线性表达式设定，电子初始能量分布约对应 2 keV。",
+        "findings": "三个算例均可把热电子加速至约 90 keV，并在指定能段形成幂律谱。充分湍流时，压缩结构和碎片化激波遍布电流片与环顶；两处电子谱斜率相近，环顶高能电子更多。电流片贡献的电子总能量增量约为环顶的 21%，部分电子在电流片获得的能量甚至更多。因此电流片可以是主动加速区，而不只是被动通道。",
+        "limitations": "Parker 方程假定动量分布近似各向同性；强湍流下准线性扩散系数的有效性仍待检验。非热粒子不反馈改变 MHD 背景，故论文不能给出绝对非热粒子能量预算。计算域也没有包含完整 CME–耀斑结构。约 90 keV 和幂律指数均是特定背景与输运参数下的结果。",
+        "reading": "适合与动力学 PIC 加速研究对读。重点比较压缩项、扩散假设和粒子反馈处理，避免将输运模型中的加速机制直接等同于电子尺度动力学中的全部能量转换通道。",
+        "evidence": "PDF 第 2–4 页：§2 MHD 与 Parker 输运模型、三组背景、§3.1；第 7–9 页：§4 结论与局限，图 6 的能量贡献讨论。正文和图注选读；部分图内字体提取异常，未据此读取额外数值。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.04987",
+      "version": "2609.04987v1",
+      "title": "Impact of ion-beam stopping power on proton-boron fusion yield in the pitcher-catcher scheme driven by ultra-intense laser",
+      "authors": [
+        "J. Y. Hua",
+        "X. F. Li",
+        "J. X. Wang",
+        "Y. X. Leng",
+        "Y. Tian",
+        "R. X. Li"
+      ],
+      "abstract": "The effect of stopping power on proton-boron fusion is investigated for a proton beam propagating through boron plasma. Due to the stopping power, the electron temperature of the boron target rises as the proton beam deposits energy. Consequently, a feedback mechanism becomes significant when the trailing part of the beam propagates into the preheated plasma. By coupling this phenomenon with the proton-boron fusion process, fusion yields are systematically investigated by varying the central energy of the proton beam, as well as the thickness and density of the boron target. It is found that, under the influence of stopping power, the optimal central energy for fusion deviates from the intrinsic 672 keV resonance and shifts to approximately 900 keV. Moreover, the present results are substantiated by particle-in-cell simulations, which provides a valuable reference for subsequent high-yield hydrogen-boron fusion.",
+      "published": "2026-09-04T10:45:39Z",
+      "updated": "2026-09-04T10:45:39Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.04987v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.04987v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 8,
+      "source_sha256": "1fc190140da69a9e5ea44e2499fa9cf4521ab89768ff05c76d9e5312a14f51e1",
+      "brief": {
+        "title_zh": "质子硼聚变中阻止本领与靶加热反馈改变最优束流能量",
+        "takeaway": "在研究的 pitcher–catcher 参数下，束流减速与电子加热反馈使最优质子中心能量从截面共振附近移至约 900 keV。",
+        "question": "如果入射质子束会一边减速、一边加热硼靶，选择 672 keV 的反应截面共振能量是否仍能最大化总聚变产额？",
+        "methods": "用一维束流输运方程描述质子受阻止本领作用的演化，并用能量沉积更新背景电子温度，再对沿程反应率积分得到产额。扫描束流中心能量、靶密度和厚度；通过含与不含阻止效应的 PIC 模拟对照检验反馈。模型假定靶离子静止，并给定束流空间及能谱分布。",
+        "findings": "高能质子在减速过程中扫过较高反应截面区间；前沿束流加热靶电子，又降低后续质子的平均阻止本领。在指定靶条件下，约 900 keV 束流的产额高于 672 keV 束流。阻止效应并不总是有利：以 672 keV 入射的对照中，加入阻止效应反而降低产额。最优值取决于束靶条件，而非一个固定核反应能量。",
+        "limitations": "约 900 keV 是本文参数条件下的最优值，不是所有质子硼聚变装置的通用设定。论文的增益定义以注入质子束能量为分母，不能等同于包含激光与装置效率的工程净能量增益。静止靶离子和给定束流分布等假设限制了对更完整实验条件的直接外推。",
+        "reading": "推荐先看模型耦合方式，再对比 900 keV 和 672 keV 两组 PIC 结果。若用于自己的方案，优先复查束流谱宽、靶预热与密度的敏感性，而非直接采用其最优能量。",
+        "evidence": "PDF 第 2–3 页：§II、式 (1)–(5) 与束靶假设；第 6–7 页：图 5–7 对照的正文解释及 §IV 结论。未独立复算截面或模拟产额。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.03354",
+      "version": "2609.03354v1",
+      "title": "Minute-Scale High-Fidelity Gyrokinetic Simulations with Portability from Laptop to Supercomputer",
+      "authors": [
+        "Jian Bao",
+        "Huasheng Xie",
+        "Ming Yang",
+        "Zhixin Lu",
+        "Haotian Chen",
+        "Zhihong Lin",
+        "Feng Zhang"
+      ],
+      "abstract": "Global gyrokinetic particle simulations remain computationally expensive, as they demand both adequate marker statistics and three-dimensional field solvers. In this work, we present a hybrid spectral method within the particle-in-Fourier (PIF) framework and implement it in the electrostatic model of GTC. Charge scatter and field gather are performed between particles and fields on a two-dimensional poloidal mesh, while the corresponding Poisson solver is discretized using radial finite differences and poloidal $m$-harmonics. Truncated spectral transforms are employed to connect multiple representations for fields, avoiding costly particle-grid operations for each individual $m$-harmonic within the particle loop. Benchmarks against conventional particle-in-cell (PIC) simulations successfully reproduce single-$n$ ion temperature gradient (ITG) mode structures and dispersion relations, as well as multi-$n$ nonlinear ITG transport and its regulation by zonal flows. Compared to conventional PIC, the proposed method reduces the effective problem size by more than a factor of 48 and achieves a speedup of over two orders of magnitude for single-$n$ cases. A 2000-step single-$n$ simulation with approximately 2 million markers completes in 78.2 seconds on a laptop GPU, while multi-$n$ turbulence simulation also completes within minutes. Furthermore, the elimination of toroidal particle-shift communication yields promising preliminary scaling performance on multiple NVIDIA A100 GPUs. The numerical scheme is broadly applicable for accelerating particle simulations on platforms ranging from laptops to supercomputers.",
+      "published": "2026-09-03T04:23:39Z",
+      "updated": "2026-09-03T04:23:39Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.03354v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.03354v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 19,
+      "source_sha256": "96dc6e04687b6d9a8a5015f531c574554fc450e5f3c36a5cae423bb9b61bb382",
+      "brief": {
+        "title_zh": "从笔记本到超算：用混合谱方法加速回旋动理学粒子模拟",
+        "takeaway": "GTC 静电模型中的混合谱 PIF 方法显著压缩粒子–场耦合问题规模，在给定 ITG 基准中实现笔记本 GPU 上的分钟级运行。",
+        "question": "怎样减少全局回旋动理学粒子模拟的标记粒子和三维场计算负担，同时保留关心的模态结构与非线性输运？",
+        "methods": "在 particle-in-Fourier 框架中，散射电荷和采集场使用二维极向网格上的环向 Fourier 系数；Poisson 求解器结合径向有限差分和选定极向 m 谐波，并用截断谱变换连接不同表示。通过单 n ITG、多个 n 模式、含与不含带状流的非线性热输运，以及多 GPU 计算进行验证。",
+        "findings": "论文报告单 n 基准有效问题规模缩减超过 48 倍，结合这一缩减得到超过两个数量级的整体加速。约 200 万标记粒子的 2000 步算例，在 RTX 4090 笔记本 GPU 上为 78.2 秒；保留六个环向谐波的线性算例为 272.9 秒。非线性案例重现了带状流对 ITG 输运的抑制，方法还消除了传统方案的环向粒子迁移通信。",
+        "limitations": "当前实现与验证限于静电 GTC；电磁模型、动力学电子的 cancellation problem 等是后续工作。大幅加速同时来自物理相关谐波截断与问题规模缩减，不是同一离散问题换硬件的纯加速比。模式较弱时仍可见粒子噪声，跨尺度宽谱问题需检查截断收敛性；文中多 GPU 扩展结果仍属初步测试。",
+        "reading": "如果你主要做理论与模拟，这篇值得收藏。建议先对照保留的 n、m 范围和 PIC 基准的粒子数，再看输运时间序列，而不只看运行秒数。可进一步验证谐波截断是否改变自己研究的非线性耦合。",
+        "evidence": "PDF 第 1–3 页：方法与静电模型；第 9–12 页：图 6–10、单 n 与多 n 耗时及输运比较；§4 Conclusion：适用范围与电磁扩展计划。基于正文及图注选读，未复现实机性能。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.03132",
+      "version": "2609.03132v1",
+      "title": "MGKDB: An IMAS-aligned multicode gyrokinetic simulation database for reproducible fusion turbulence modeling and data-driven analysis",
+      "authors": [
+        "Craig Michoski",
+        "David R. Hatch",
+        "Dongyang Kuang",
+        "Matthew Waller",
+        "Chris Holland",
+        "M. J. Pueschel",
+        "Joseph McClenaghan",
+        "Tom F. Neiser",
+        "Max T. Curie",
+        "Venkitesh Ayyar",
+        "Joseph Schmidt",
+        "Leonhard A. Leppin",
+        "Aaron Ho",
+        "Nathan T. Howard",
+        "Tapan Ganatma Nakkina",
+        "Bhavin Patel",
+        "Yann Camenen"
+      ],
+      "abstract": "Expensive fusion simulations are commonly preserved in code-specific formats that limit discovery, comparison, and reuse. We present the Multiscale GyroKinetic DataBase (MGKDB), an open-source software framework and curated archive that converts heterogeneous simulation campaigns into traceable scientific records. Each record links code-native inputs and outputs to provenance and quality metadata, an IMAS-aligned physics representation, and derived diagnostics, preserving model-specific evidence while enabling common-field queries. Production pathways support linear and nonlinear GENE and CGYRO calculations and reduced quasilinear TGLF evaluations. At the September 1, 2026 snapshot, MGKDB contained 1,068,089 records, nearly all of which included a populated gyrokinetics IMAS branch. The software is openly available, while access to the NERSC-hosted production records is managed. Three demonstrations show how these linked representations support scientific reuse. Standardized quantities stored in the Diagnostics branch enable population-scale analysis of archived linear modes; common input coordinates reveal coverage, redundancy, and campaign-driven sampling structure across a multicode collection; and record-level retrieval of native CGYRO inputs drives matched TGLF calculations and produces a traceable dataset for exploratory surrogate modeling. Together, these examples demonstrate how MGKDB supports archive characterization, candidate cross-code and cross-fidelity comparisons, campaign planning, and reproducible data-driven modeling without treating different models as automatically equivalent.",
+      "published": "2026-09-02T20:15:04Z",
+      "updated": "2026-09-02T20:15:04Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.03132v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.03132v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 40,
+      "source_sha256": "05b1ba90adfb1208f262c4f4403c68c568c72cba4d032aa296a51bf0d296bf09",
+      "brief": {
+        "title_zh": "MGKDB：保留物理来源的多代码回旋动理学模拟数据库",
+        "takeaway": "MGKDB 将原生模拟文件、来源与质量信息、IMAS 对齐物理字段和派生诊断连接起来，让昂贵的聚变模拟更容易检索和复用。",
+        "question": "不同代码和模拟活动的数据格式、归一化及物理假设不同，怎样在保留可复现证据的前提下开展跨代码分析和代理模型训练？",
+        "methods": "通过代码专用读取器及 Pyrokinetics 标准化，把 GENE、CGYRO 和 TGLF 结果组织成包含四类分支的记录：来源与质量、原生文件、IMAS 对齐字段和诊断。演示线性模态指纹分析、参数空间覆盖与重复性分析，以及由 CGYRO 原生输入产生匹配工作点的 TGLF 数据用于探索性代理建模。",
+        "findings": "论文的 2026-09-01 快照含 1,068,089 条记录；99.99% 含已填充的 gyrokinetics IMAS 分支。三个演示分别涉及 6,053 个不稳定 GENE 线性模态、24,563 条线性 GENE/CGYRO 记录，以及匹配工作点的跨保真度数据。贡献重点是把群体分析结果追溯到源模拟记录，而不是提出一种新的湍流物理模型。",
+        "limitations": "代码开源不等于生产数据可匿名下载：NERSC 生产档案需要授权和 MGKDB 凭据。统一字段也不意味着模型天然等价，TGLF 是约化准线性模型。三个演示使用不同冻结数据集，不能相加推断同一快照的组成。代理训练仍需防止同一模拟活动或重复记录造成数据泄漏。",
+        "reading": "如果计划积累自己的模拟数据库或训练湍流代理模型，这篇很实用。先关注来源记录、归一化与物理假设，再看百万级记录数量；复现前确认具体冻结数据集的访问权限。",
+        "evidence": "PDF 第 1–2 页：目标与快照；第 4–5 页：图 1、模型分类和 IMAS 表示；第 21–23 页：访问条件、版本与复现、§8 结论；第 24 页：表 S1 的冻结数据集区别。方法和讨论选读，未复现数据库演示。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.01471",
+      "version": "2609.01471v1",
+      "title": "A Magnetothermodynamic Theory of Energy Transport In Collisionless Plasmas",
+      "authors": [
+        "Dominic Payne"
+      ],
+      "abstract": "Presented here is an exploratory conceptual framework with the aim of describing electromagnetic and thermal energy transport and transfer in collisionless plasmas in a coherent way, starting from an arrow-of-time perspective. That is, arguments about the transport of energy are fundamentally based on the idea that systems tend to fill the phase space available to them. First, we describe electric fields, magnetic fields, and plasma particles as interacting subsystems that are thermodynamically linked in specific ways. Second, we discuss the importance of the stochastic electric field in the transport of plasma particles down energy density gradients until the energy flux contributions from so-called electrothermodynamic (ETD) interactions become sufficiently uniform. Third, the logic of ETD transport is extended to a magnetized system invoking 2 types of magnetothermodyamic (MTD) transport: 1) transport of electromagnetic energy through stochastic Poynting flux and 2) plasma energy transport through stochastic drift energy fluxes associated with local ExB drift motion. The magnitudes of the ETD and MTD mechanisms are tied to local characteristic scales of the electric field fluctuations and critical scales are derived beyond which ETD mechanisms dominate MTD mechanisms. Finally, we discuss the interplay between electrothermodynamic and magnetothermodynamic equilibria (ETE and MTE), dynamics in the small critical scale (MTD) limit, and the potential relevance of this type of description to the problem of reconnection onset and scale coupling.",
+      "published": "2026-09-01T16:05:51Z",
+      "updated": "2026-09-01T16:05:51Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2609.01471v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.01471v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 23,
+      "source_sha256": "af5a1fd2a7258249b4857dac8db08b440366f0b8257a88c360f8840d016f3c9e",
+      "brief": {
+        "title_zh": "无碰撞等离子体能量输运的磁热力学概念框架",
+        "takeaway": "作者从能量守恒与随机电场的特征尺度出发，提出电热力学和磁热力学输运的划分，并尝试用其解释反平行重联的起始。",
+        "question": "在微观方程原则上可逆的无碰撞体系中，如何把场能、粒子能及看似不可逆的宏观输运放到同一个概念图景下？",
+        "methods": "把磁场、电场、粒子体运动和热能划为可交换能量的子系统，以能量连续性限制允许的交换路径。围绕随机电场的时空尺度，比较直接电场作用、随机 Poynting 通量和 E×B 漂移携带的能流，构建 ETD/MTD 输运与相应临界尺度。随后分析简化反平行磁场反转区从起始前到扩散区形成的演化。",
+        "findings": "框架强调磁场对粒子能量的转移需要电场作中介。不同临界尺度与波动尺度的排序，对应不同能流项占优及趋近平衡的方式。在简化反平行构型中，能量向磁场反转中心汇聚可改变局部临界尺度，推动输运机制转换；作者将这一过程解释为重联起始的候选机制。",
+        "limitations": "这是作者明确定位为探索性的概念理论，并非经系统实验或数值基准验证的普适重联理论。起始推理采用多项简化；热输运与动力学极限的联系、有导引场情形和闭合关系仍需发展。简报不将所提图景视为已证实的新定律。",
+        "reading": "适合偏理论的延伸阅读，优先检查定义是否可从 Vlasov–Maxwell 或粒子模拟诊断中唯一测量。可尝试在现有 PIC 数据中分别计算各能流项，检验提出的尺度排序是否能预测重联起始；这是待验证建议。",
+        "evidence": "PDF 第 1–2 页：定位、能量子系统与守恒；第 10–12 页：§IV–V 的平衡与起始讨论；第 14–15 页：适用范围、导引场讨论及 §VII 结论。未逐项复核附录推导。",
+        "method_tags": [
+          "理论"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.02982",
+      "version": "2609.02982v1",
+      "title": "Equation Recast for Canonical Operator Learning Across Parametric PDEs",
+      "authors": [
+        "Qiyun Cheng",
+        "Valentin Duruisseaux",
+        "Cesar F. Clauser",
+        "Md Hossain Sahadath",
+        "Huihua Yang",
+        "Shaowu Pan",
+        "Nathaniel Ferraro",
+        "Anima Anandkumar",
+        "Wei Ji",
+        "Cristina Rea"
+      ],
+      "abstract": "Learning solution operators across broad parameter ranges can require substantial coverage of both input functions and physical parameters, particularly for purely data-driven parametric models. In addition, the resulting models may fail silently outside the training distribution. We introduce equation recast, which reformulates parametric operator learning as the learning of a single canonical operator. Parameter-induced operator variations are derived analytically from the governing equation and absorbed into effective sources, enabling zero-shot prediction across new parameter regimes. Across multi-parameter, nonlinear, and singular PDE settings, equation recast supports extrapolation, integrates sparse heterogeneous datasets in a shared canonical representation, and uses loss of convergence as an internal warning signal for failure of the recast iteration. In high-fidelity tokamak simulations for nuclear fusion, the framework unifies electron-temperature data across four device geometries through canonical-domain mapping within one jointly trained operator. Equation recast provides a route toward reusable neural PDE solvers combining equation-guided transfer, data efficiency, and monitorable inference.",
+      "published": "2026-09-02T13:15:50Z",
+      "updated": "2026-09-02T13:15:50Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.02982v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.02982v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 38,
+      "source_sha256": "85160c9fe19153703b7b09e735d921547cca22d51551e4302f3e4be577ba07ce",
+      "brief": {
+        "title_zh": "Equation Recast：把参数变化转成有效源项，复用一个标准算子",
+        "takeaway": "通过解析地处理算子差异，论文用一个标准神经算子整合多参数、跨几何数据；聚变示例验证的是四种已见几何下的电子温度更新。",
+        "question": "高精度聚变模拟数据稀缺且分散在不同参数和装置几何中，能否让已知方程承担参数变化，从而减少神经算子需要从数据学习的部分？",
+        "methods": "将 O(p)u=S 改写为 O* u=S−[O(p)−O*]u，用近似标准逆算子的神经网络进行定点迭代。二维几何通过谐映射统一到单位圆盘，几何差别经 Jacobian 系数进入有效源项。在多个 PDE 问题及来自 M3D-C1 的电子温度方程数据上检验这一表示。",
+        "findings": "多个理想 PDE 测试展示参数外推和异构数据复用，迭代变慢或发散还可提示所选延拓路径失稳。聚变案例把 Alcator C-Mod、平偏滤器 C-Mod、SPARC 与 ARC_V2A 四种几何共同用于训练；相应验证集的温度增量平均相对 L2 误差约为 2.2–3.4%。主要贡献是方程层面的重写，而非必须使用某个新网络结构。",
+        "limitations": "四种装置几何均参与训练，论文没有验证对未见装置的零样本几何外推。聚变案例仅处理电子温度方程中的选定源汇和垂直扩散项，未包含平流，也不是完整 MHD 状态预测。迭代收敛只意味着自洽，并不保证物理解准确；误差仍取决于标准算子的训练覆盖，奇异目标算子也不会被重写消除。",
+        "reading": "适合关注物理约束机器学习和模拟加速的读者。先读式 (2)–(3)，再看聚变案例明确省略了哪些项；比较预测温度增量与长期滚动误差，避免把单步指标解读为长期稳定性保证。",
+        "evidence": "PDF 第 2 页：式 (1)–(3)；第 13–15 页：四装置电子温度案例与图 5；第 16–17 页：讨论与局限；第 19–21 页：残差、收敛及几何映射。补充材料未逐项复核。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2609.01750",
+      "version": "2609.01750v1",
+      "title": "The Fusion Equilibrium Challenge: Inferring Magnetic Geometry Without Magnetic Diagnostics",
+      "authors": [
+        "Tapan Ganatma Nakkina",
+        "Matthew Waller",
+        "Craig Michoski",
+        "Brian Sammuli",
+        "David R. Hatch",
+        "William Boyes",
+        "Mitchell Clark",
+        "Raffi Nazikian",
+        "Sterling Smith"
+      ],
+      "abstract": "Next-generation fusion reactor devices such as SPARC, ARC, and CFETR will operate in extreme neutron environments that compromise the magnetic sensors traditionally used to reconstruct plasma equilibria. However, reliable knowledge of the plasma equilibrium--including magnetic flux surfaces, safety factor profiles, and shaping parameters--is indispensable for real-time control, disruption avoidance, and physics interpretation. The Fusion Equilibrium Challenge invites the NeurIPS community to confront a deceptively simple but scientifically rigorous inverse problem: reconstruct the two-dimensional poloidal flux function psi(R,Z) and a suite of scalar equilibrium parameters from non-magnetic diagnostics alone, namely external poloidal-field coil currents and Thomson-scattering electron temperature/density profiles. The challenge provides the first open-access, harmonized multi-machine benchmark for fusion, releasing a curated dataset of 9,113 DIII-D shots and 2,416 MAST shots--filtered for Thomson-diagnostic availability, feature completeness, and EFIT-reconstruction quality. Each shot is packaged into a standard Parquet file containing approximately 260 (DIII-D) / approximately 80 (MAST) EFIT flux maps and rich high-rate diagnostics. Two complementary awards reward intra-machine reconstruction fidelity (S_model) on DIII-D and zero-shot cross-machine generalization (G_ratio) to the topologically distinct MAST spherical tokamak. We argue that the challenge functions as a benchmark for reactor-ready equilibrium inference and as a probe of how far machine learning can be pushed toward truly machine-agnostic plasma state estimation.",
+      "published": "2026-09-01T18:19:38Z",
+      "updated": "2026-09-01T18:19:38Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2609.01750v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.01750v1"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2609.02803",
+      "title": "STEP 全局电磁回旋动理学：微撕裂电流片、磁随机化与湍流输运转变",
+      "summary": "全局 GENE 模拟仍发现 STEP 指定运行点的高输运状态，并讨论微撕裂模的窄电流片与解析难点；同时解析微撕裂和 hKBM 非线性湍流仍是开放问题。"
+    },
+    {
+      "id": "2609.04546",
+      "title": "DIII-D 电流爬升阶段的误差场穿透：准稳态阈值标度是否仍适用？",
+      "summary": "DIII-D 的 12 次爬升放电支持将既有穿透阈值标度与三维场建模结合使用，设备自身误差场对预测尤其重要。"
+    },
+    {
+      "id": "2609.01793",
+      "title": "以真实氢质量比的半碰撞动力学模拟重新检验 MRX 电子电流层宽度",
+      "summary": "真实质量比与库仑碰撞共同帮助模拟重现 MRX 的电子层宽度；历史力平衡缺口可能与探针分辨率有关，但回旋半径归一化后的差异仍未解决。"
+    },
+    {
+      "id": "2609.02151",
+      "title": "太阳耀斑湍流重联中的电子加速：电流片也能主动加速粒子",
+      "summary": "三维湍流重联里的分散压缩结构可以把电子加速到约 90 keV；在该模型中，完整的大尺度终止激波并非高效加速的必要条件。"
+    },
+    {
+      "id": "2609.04987",
+      "title": "质子硼聚变中阻止本领与靶加热反馈改变最优束流能量",
+      "summary": "在研究的 pitcher–catcher 参数下，束流减速与电子加热反馈使最优质子中心能量从截面共振附近移至约 900 keV。"
+    },
+    {
+      "id": "2609.03354",
+      "title": "从笔记本到超算：用混合谱方法加速回旋动理学粒子模拟",
+      "summary": "GTC 静电模型中的混合谱 PIF 方法显著压缩粒子–场耦合问题规模，在给定 ITG 基准中实现笔记本 GPU 上的分钟级运行。"
+    },
+    {
+      "id": "2609.03132",
+      "title": "MGKDB：保留物理来源的多代码回旋动理学模拟数据库",
+      "summary": "MGKDB 将原生模拟文件、来源与质量信息、IMAS 对齐物理字段和派生诊断连接起来，让昂贵的聚变模拟更容易检索和复用。"
+    },
+    {
+      "id": "2609.01471",
+      "title": "无碰撞等离子体能量输运的磁热力学概念框架",
+      "summary": "作者从能量守恒与随机电场的特征尺度出发，提出电热力学和磁热力学输运的划分，并尝试用其解释反平行重联的起始。"
+    },
+    {
+      "id": "2609.02982",
+      "title": "Equation Recast：把参数变化转成有效源项，复用一个标准算子",
+      "summary": "通过解析地处理算子差异，论文用一个标准神经算子整合多参数、跨几何数据；聚变示例验证的是四种已见几何下的电子温度更新。"
+    }
+  ]
+}
