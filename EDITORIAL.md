@@ -8,6 +8,8 @@
 
 运行 `python -X utf8 scripts/weekly.py prepare --end YYYY-MM-DDT01:00:00Z --limit 10`。检查候选题名与摘要，另在 arXiv 搜索 tearing、microtearing、tokamak reconnection、magnetic island、sawtooth、internal kink、error field penetration、MRX/TREX 等，人工补查遗漏；补入候选仍须通过相同日期与来源检查。
 
+还须查看 `physics.plasm-ph/recent` 和 `physics.plasm-ph/new` 的原始目录：脚本的关键词分类可能漏掉 Hall-MHD 等有用的电磁计算方法。按实际内容决定是否补入，不把发电机、一般湍流或算法论文标为直接重联研究。遇到接口限流或超时，应记录失败及替代来源；若目录日期滞后，在总体报告中说明覆盖限制，不将“未检索到”写成“没有新论文”。试运行与首期正式窗口重叠时，说明重复篇数；同版本解读可在原文复核后复用，旧归档不变。
+
 ## 2. 按实际物理内容分级
 
 填写每篇的 `relevance_tier` 和一句 `relevance_reason`，越小越靠前。同一层级优先理论与数值模拟，实验作为对照。关键词只产生候选，编辑必须核对原文。
