@@ -3,7 +3,7 @@
 Run: python basics.py
 These small examples check the mathematics, not CUDA or MPI execution.
 """
-from math import atan, isclose, log, pi, sin, sqrt, tanh, cosh
+from math import atan, cos, floor, isclose, log, pi, sin, sqrt, tanh, cosh
 
 
 def close(actual, expected):
@@ -13,6 +13,77 @@ def close(actual, expected):
 def cross(a, b):
     return (a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2],
             a[0]*b[1] - a[1]*b[0])
+
+
+def pic_step():
+    """Trace chapter 10's four-particle example, in normalized units.
+
+    Direct DFT is deliberately for four nodes, not a production FFT substitute.
+    The even-grid Nyquist derivative and mean field are set to zero, as in pic1d.py.
+    """
+    length, cells, dt = 4.0, 4, 0.1
+    x = [0.25, 1.25, 2.0, 3.0]
+    dx, charge = length/cells, -length/len(x)
+
+    def deposit(positions):
+        rho = [1.0] * cells  # immobile ion background
+        for position in positions:
+            g = (position % length)/dx
+            left = floor(g)
+            fraction = g-left
+            rho[left] += charge*(1-fraction)/dx
+            rho[(left+1) % cells] += charge*fraction/dx
+        return rho
+
+    def field(rho):
+        result = [0j] * cells
+        for mode in range(1, cells):
+            if 2*mode == cells:
+                continue  # Nyquist mode: same convention as the textbook solver
+            signed_mode = mode if mode < cells/2 else mode-cells
+            k = 2*pi*signed_mode/length
+            coefficient = sum(value*complex(cos(k*j*dx), -sin(k*j*dx))
+                              for j, value in enumerate(rho))/cells
+            electric_coefficient = coefficient/(1j*k)
+            for j in range(cells):
+                result[j] += electric_coefficient*complex(cos(k*j*dx), sin(k*j*dx))
+        for value in result:
+            close(value.imag, 0)
+        return [value.real for value in result]
+
+    rho = deposit(x)
+    electric = field(rho)
+    at_particle = []
+    for position in x:
+        g = (position % length)/dx
+        left = floor(g)
+        fraction = g-left
+        at_particle.append((1-fraction)*electric[left] + fraction*electric[(left+1) % cells])
+    acceleration = [-value for value in at_particle]  # electron q/m=-1
+    v_minus_half = [-0.5*dt*a for a in acceleration]  # v at integer time 0 is zero
+    v_plus_half = [v + dt*a for v, a in zip(v_minus_half, acceleration)]
+    new_x = [(position + dt*v) % length for position, v in zip(x, v_plus_half)]
+    new_rho = deposit(new_x)
+    new_electric = field(new_rho)
+
+    for actual, expected in zip(rho, [0.25, 0, -0.25, 0]):
+        close(actual, expected)
+    for actual, expected in zip(electric, [0, 1/(2*pi), 0, -1/(2*pi)]):
+        close(actual, expected)
+    for actual, expected in zip(at_particle, [1/(8*pi), 3/(8*pi), 0, -1/(2*pi)]):
+        close(actual, expected)
+    expected_x = [0.25-dt*dt/(16*pi), 1.25-3*dt*dt/(16*pi), 2, 3+dt*dt/(4*pi)]
+    for actual, expected in zip(new_x, expected_x):
+        close(actual, expected)
+    close(sum(new_rho)*dx, 0)
+    close(sum(new_electric), 0)
+    assert any(abs(a-b) > 1e-6 for a, b in zip(electric, new_electric))
+    for name, values in [('rho^0', rho), ('E_grid^0', electric), ('E_particle^0', at_particle),
+                         ('v^(-1/2)', v_minus_half), ('v^(1/2)', v_plus_half),
+                         ('x^1', new_x), ('rho^1', new_rho), ('E_grid^1', new_electric)]:
+        print('Ch 10:', name, '=', ', '.join(f'{v:.6f}' for v in values))
+    print('Ch 10: one complete electrostatic PIC step PASS (four nodes only)')
+    return new_x, new_rho, new_electric
 
 
 def main():
@@ -47,6 +118,7 @@ def main():
     close(vh, 0.15)
     close(x, 0.415)
     print(f'Ch 9/10: CIC = {rho_left:g}, {rho_right:g}; E = {field:g}; new x = {x:g}')
+    pic_step()
 
     # Chapter 11: Boris pure magnetic rotation, electron q/m=-1, Bz=1.
     v = (1.0, 0.0, 0.0)
