@@ -1,0 +1,697 @@
+{
+  "id": "2026-10-07",
+  "window_start": "2026-09-30T01:00:00+00:00",
+  "window_end": "2026-10-07T01:00:00+00:00",
+  "created_at": "2026-10-07T14:14:21.033689+00:00",
+  "overview": "本期覆盖北京时间2026年9月30日09:00至10月7日09:00之前首次提交到 arXiv 的论文，提供3份 PDF 正文选读简报。两篇直接面向聚变中的壁耦合撕裂控制与磁岛链输运，放在最前；一篇局部电流片理论作为补充。\n\n第一篇用非线性 MHD 比较理想壁、电阻壁和磁反馈，发现匹配壁面扰动形状的反馈能抑制所测电阻壁撕裂模引起的大热猝灭。它提出有价值的控制机制，但离散线圈、延迟和其他破裂路径尚未被完整验证，不能把标题中的强主张直接视为普遍结论。\n\n第二篇追踪 DIII-D 扰动场中的磁力线，用磁岛链的稳定与不稳定流形解释不完全输运屏障。它告诉我们随机层内部仍可能存在快慢不同的交换过程；文中的每周回逃逸统计描述磁力线离开数学区域，尚不是粒子损失或热流预测。\n\n第三篇分析均匀法向场驱动电流片展宽后，撕裂增长能否跟上背景变化。经典电阻内层近似失效与线性谱完全稳定并不等价，这对解释重联模拟里“扰动后来不再长大”尤其有用。\n\n本期已独立补查聚变重联细分词及 physics.plasm-ph 完整窗口目录。检索还得到太阳重联和数值方法等候选，但本期优先给直接相关工作足够篇幅，没有将全部候选声称为已读，也没有用旧文凑数。公开与索引存在时差，未收录不代表该方向没有其他新稿；若需补录，将保留原期并另发补充。各篇均标注原文页码、模型限制和实际阅读范围。",
+  "query": "(cat:physics.plasm-ph OR ti:\"magnetic reconnection\" OR abs:\"magnetic reconnection\" OR ti:tokamak OR ti:stellarator OR abs:\"fusion plasma\" OR abs:\"tearing mode\" OR abs:microtearing OR abs:\"magnetic island\" OR abs:sawtooth OR abs:\"internal kink\") AND submittedDate:[202609300100 TO 202610070100]；独立补查 tearing/microtearing/sawtooth/internal kink/error field/magnetic island/reconnection/MRX/TREX，及 physics.plasm-ph 完整窗口分类目录；人工审核主题。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2610.06189",
+      "version": "2610.06189v1",
+      "title": "Eliminating Tokamak Disruptions with Feedback",
+      "authors": [
+        "H. R. Strauss"
+      ],
+      "abstract": "Tokamak disruptions caused by tearing modes can be prevented with magnetic feedback. A database of DIII-D locked mode disruptions provides criteria for major disruptions. The main criterion is that the q = 2 rational surface must be sufficiently close to the resistive wall surrounding the plasma to interact with it. This is shown in simulations of a sequence of model equilibria derived from the database. If the wall is ideally conducting, major disruptions do not occur. Magnetic feedback emulates a conducting wall, and can prevent major disruptions. Feedback coils must be designed appropriately, otherwise they are not effective in disruption prevention. Simulations of a model of MST also show the q = 2 criterion for major disruptions, as well as feedback stabilization. Feedback offers an attractive alternative to disruption mitigation by impurity injection.",
+      "published": "2026-10-05T12:07:10Z",
+      "updated": "2026-10-05T12:07:10Z",
+      "topics": [
+        "聚变中的重联",
+        "磁场重联",
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.06189v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.06189v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 17,
+      "source_sha256": "9b8110646434702f21611a2d92628477eac16bbedc51245dea2b243737c05429",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "非线性托卡马克电阻 MHD 直接研究电阻壁撕裂模、大热猝灭及磁反馈控制，是本期最贴近聚变破裂重联理论与模拟的论文。",
+        "title_zh": "电阻壁撕裂模：反馈磁场如何抑制模拟中的大热猝灭",
+        "takeaway": "M3D 模拟中，适当对称性的磁反馈可把特定电阻壁撕裂模抑制到近似理想壁情形；效果取决于壁面扰动与反馈场的匹配，不能据此宣布消除所有托卡马克破裂。",
+        "question": "托卡马克破裂可能迅速丢失热能并对装置造成强烈负荷。本文集中研究其中一条路径：有限电导壁不能永远屏蔽磁扰动，靠近边缘的撕裂模与壁耦合后，可以破坏约束并触发大热猝灭。作者问，能否通过外加反馈磁场恢复近似理想壁的稳定作用？这里的电阻壁撕裂模 RWTM 含有重联层，与理想外扭结型的电阻壁模 RWM 不能混为一谈。",
+        "methods": "作者使用 M3D 非线性电阻 MHD，以 DIII-D 第154576次放电为基础构造一组平衡，改变电流分布和 \\(q=2\\) 有理面位置。\\(q\\) 是安全因子，描述磁力线缠绕比；\\(q=2\\) 面可与极向模数 \\(m=2\\)、环向模数 \\(n=1\\) 的螺旋扰动共振。模型取较低热压相对磁压的比值，芯部 \\(q\\) 约为1，边缘电流较小。\n\n关键比较是在同类平衡下分别使用理想导电壁、电阻薄壁，以及电阻壁加反馈。代表性计算的 Lundquist 数为 \\(S=10^6\\)，它衡量参考阿尔芬传播时间与磁扩散时间的相对大小；电阻率还随温度变化。电阻壁可以逐渐让扰动磁通穿透，理想壁则持续约束它，因而两者的差异帮助识别壁耦合机制。\n\n反馈用近似连续分布的线圈电流描述，并比较关于中平面对称、反对称及二者组合的空间形状。所谓对称，是上下对应位置的反馈具有规定的同向关系；它不是简单把增益调大。作者进一步用壁面磁通的投影解释稳定条件：反馈场必须在适当位置、以适当相位抵消不稳定扰动，而不能只追求反馈场总幅度。",
+        "findings": "在这组平衡序列中，理想壁条件下没有大热猝灭或只有较小的热损失；换成电阻壁后，靠外的 \\(q=2\\) 面可允许明显的壁耦合撕裂与大热猝灭。磁扰动增强边缘的平行热损失，随后温度、电阻率和模演化相互耦合，因此它不是仅靠一个线性增长率就能完整描述的过程。\n\n正文用 \\(r_{q=2}/a\\) 表示有理面半径相对等离子体小半径的位置，\\(r_{q=2}\\) 是该面的径向位置，\\(a\\) 是等离子体小半径。在特定壁位置和剖面族中，危险区域大致从比值0.75附近出现。摘要附近与正文对径向归一化的表述不完全一致，本简报采用正文算例定义；**这个数字不是适用于不同壁间隙和电流剖面的通用阈值。**\n\n上下对称反馈，或包含该对称分量的组合反馈，在展示的算例中抑制了大热猝灭，表现接近理想壁。只采用反对称分量时，初始扰动虽然被压低，随后却可能出现新的模结构并再次损失热能。第9页图7把这种差别展示得很清楚：稳定化既依赖增益，也依赖反馈空间形状与实际壁面磁通的重叠，初期压低振幅不等于长期稳定。",
+        "limitations": "论文题目提出很强的破裂控制愿景，但正文证据针对有限的一组 MHD 平衡和反馈模型。连续线圈近似尚未完整包含离散线圈、电源饱和、传感器噪声与实际控制延迟；MST 对照中的壁参数也经过人为改变，不是新完成的装置破裂控制实验。其他破裂触发机制、动理学效应和不同电流分布不能据此排除，已有破裂缓解措施的必要性也没有被这组模拟否定。",
+        "reading": "建议先看理想壁与电阻壁的对照，再看图7，最后读反馈磁通投影的解释。对你的研究，最有价值的下一步是保持同一平衡，逐项加入控制延迟、离散线圈与电流上限，同时诊断重联磁通、壁面扰动和热能损失。可进一步比较动力学闭合是否改变所需反馈形状。这些是建议的后续问题，本文尚未给出其答案。",
+        "evidence": "PDF 第1–4页：问题、平衡序列和有理面位置；第5–9页：非线性模型、壁条件和反馈比较，已查看第9页图7；第10–14页：反馈解释、MST 对照及讨论。正文选读，未把论文标题直接作为已验证结论。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.00919",
+      "version": "2610.00919v1",
+      "title": "Transport Impacts of Resonant Island Chains in Fusion Plasmas",
+      "authors": [
+        "Sidney D. V. Williams",
+        "Kevin Mitchell",
+        "Ethan Custodio",
+        "Dmitri M. Orlov"
+      ],
+      "abstract": "Magnetic field-line transport in magnetically confined plasmas is commonly modeled as diffusion through stochastic magnetic layers generated by resonant perturbations. However, experimentally relevant magnetic configurations frequently exhibit transport rates that are substantially slower than predicted by fully stochastic models, indicating the presence of unresolved dynamical barriers. In this work, we investigate the role of nested resonant island chains and their associated invariant manifolds in regulating transport within the edge magnetic topology of DIII-D tokamak discharge #171491 subjected to strong n=3 resonant magnetic perturbations. Using field-line tracing, Poincare analysis, and manifold calculations, we identify a hierarchy of homoclinic and heteroclinic tangles associated with both period-one and period-ten hyperbolic points. A systematic construction based on primary intersection points is developed to extract partial transport barriers from the full manifold geometry and divide the chaotic region into dynamically distinct domains. Monte Carlo simulations reveal that field-line escape exhibits a bi-exponential character when only the outermost period-one boundary is considered, reflecting the presence of a long-lived \"sticky\" region associated with the period-ten island chain. When the inner period-ten boundary is explicitly incorporated into the Monte Carlo, the escape process becomes approximately single exponential and is accurately described by turnstile lobe transport. The measured escape rate agrees with predictions obtained from the turnstile lobe area and the symplectic structure of the field-line map. These results demonstrate that nested tangles provide a quantitative transport skeleton governing magnetic-field-line escape and establish a framework for analyzing transport barriers, cantori, and lobe dynamics in realistic fusion-plasma magnetic configurations.",
+      "published": "2026-10-01T01:54:56Z",
+      "updated": "2026-10-01T01:54:56Z",
+      "topics": [
+        "聚变中的重联",
+        "磁场重联",
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.00919v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.00919v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 15,
+      "source_sha256": "c7beba82255ee5dcc76973a715e131776fc5c5cee13e5a1ab18bfcb6d23bae58",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "直接研究 DIII-D 受共振扰动时磁岛链对磁力线逃逸的影响，与聚变重联后的磁拓扑和随机层输运紧密相关；不包含磁岛自洽生成过程。",
+        "title_zh": "共振磁岛链怎样限制输运：用磁力线“闸门”解释快慢两种逃逸",
+        "takeaway": "DIII-D 扰动场的磁力线追踪显示，残存岛链可形成不完全输运屏障；沿稳定与不稳定流形划定交换区域，比把随机层视作均匀扩散更能解释所测逃逸速率。",
+        "question": "磁岛相互重叠后，磁力线看起来杂乱，并不意味着各处都同样容易连通。残存的岛链可能把区域分隔成多个相互交换的部分。本文研究这些不完全屏障如何延迟磁力线离开边缘区域。它关心的是给定磁场中的连通性，而不是证明某种微观非理想项首先产生了重联；这个区别有助于把“重联如何发生”与“发生后怎样输运”分开研究。",
+        "methods": "作者采用 DIII-D 第171491次放电、3590毫秒时刻的平衡，叠加环向模数 \\(n=3\\) 的外线圈扰动。\\(n\\) 表示扰动绕环向重复的次数。磁场由平衡场与真空线圈场组成，没有加入自洽等离子体响应。用 MAFOT 追踪196万条磁力线，初始点覆盖归一化极向磁通 \\(\\psi_N=0.8\\) 到1及全部极向角；\\(\\psi_N\\) 是用于标记径向磁面位置的无量纲坐标。每条线最多追踪100个环向周回。\n\n每转一圈记录磁力线与固定截面的交点，就得到庞加莱映射。作者寻找其中的双曲周期轨道及稳定、不稳定流形：稳定流形上的点在正向迭代时趋近该轨道，不稳定流形则在反向迭代时趋近。两类曲线交叉，围成每次映射会被送入或送出某一区域的“叶瓣”，也称转门结构。\n\n叶瓣交换量按穿过截面的磁通测度计算，而非简单用图上的几何面积。具体测度为 \\(\\mu_\\omega(D)=\\int_D B_\\phi\\,dR\\,dZ\\)，其中 \\(D\\) 是截面区域，\\(R,Z\\) 是柱坐标径向和竖直位置，\\(B_\\phi\\) 是环向磁场分量，\\(\\mu_\\omega\\) 表示该区域的磁通权重。比较逃逸叶瓣与整个区域的权重，才能与磁力线映射保持一致。",
+        "findings": "只把外边界设为逃逸条件时，统计出现快、慢两段衰减，拟合数值约为每个环向周回0.02159和0.00815。进一步把内外屏障之间的区域单独隔出，并将穿过任一边界都记为离开，得到约每周回0.02196的单一主要衰减尺度。这说明看似不同的逃逸时间，与磁力线是否进入更深区域、受到另一道屏障滞留有关。\n\n这些数字来自有限追踪窗内逃逸线的时间统计，不能直接写成所有粒子每秒离开装置的概率。进入内侧区域也被记作离开所研究的外侧区域，却不意味着打到第一壁。**磁力线从一个数学区域逃逸，与粒子或热量从等离子体整体损失，是不同的可观测量。**\n\n采用外侧转门叶瓣的磁通权重，并考虑三重环向对称性，作者估得约每周回0.021的交换尺度，与相应数值追踪结果接近。然而把内外叶瓣的交换量简单相加，会高估约28%，原因是长时间后区域中的分布不再均匀。图9–10展示了这一差别：拓扑几何提供重要约束，仍须考虑实际被追踪分布如何占据空间。",
+        "limitations": "真空扰动近似没有屏蔽、放大和旋转响应，因而不能直接预测另一放电的岛宽或热负荷。研究追踪磁力线，没有粒子有限回旋半径、碰撞、平行动理学或温度演化；100圈的有限窗口和种子分布也影响统计。文中的部分不确定度以自助采样分布的半高全宽表示，不应自动改写成95%置信区间。本简报没有把其几何逃逸率转换成热扩散系数。",
+        "reading": "建议先用图9–10理解内外屏障，再回看流形与叶瓣的构造。对你的重联模拟，可以把此方法作为磁场快照的后处理：比较磁岛破裂前后，连接不同区域的磁通交换是否增加。下一步再加入粒子轨道或平行热输运，检验几何变化究竟带来多少能量损失。后半步属于建议研究问题，本文未完成。",
+        "evidence": "PDF 第1–5页：平衡、磁力线追踪与周期轨道；第6–10页：流形、转门结构、逃逸统计及磁通测度，已查看第9页图9–10；第11–14页：解释、局限及相关统计附录。选读正文和附录，未运行作者的追踪程序。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.00641",
+      "version": "2610.00641v1",
+      "title": "Normal-Field Evolution and the Breakdown of Classical Tearing in Current Sheets",
+      "authors": [
+        "Grzegorz Kowal",
+        "Diego A. Falceta-Gonçalves"
+      ],
+      "abstract": "Classical resistive tearing theory assumes a prescribed current-sheet equilibrium, but a finite normal magnetic field can evolve the background on the tearing timescale. For a transversely pressure-balanced Harris profile of initial half-thickness $a$ and asymptotic reconnecting-field magnitude $B_0$, threaded by uniform $B_n$ ($ξ=B_n/B_0$), we derive an exact evolution in ideal magnetohydrodynamics: counter-propagating Alfvenic fronts broaden the neutral layer and generate a central sheet-parallel flow with shear at its flanks. Inner-layer estimates recover $ξ_{\\mathrm{crit}}\\sim S^{-3/4}$ for breakdown of the classical resistive balance, where $S$ is the Lundquist number based on $a$. Numerical frozen-profile calculations show loss of central resistive dominance and decreasing tearing growth as the neutral layer expands. Eigenfunction comparisons at fixed wavenumber and predominantly Doppler-shifted propagation support a normal-field-modified continuation of classical tearing. The normal field supplies no net perturbation energy. Energy extraction from the reconnecting-field gradient weakens as the sheet broadens. The velocity-gradient contribution becomes comparable when the neutral-layer width approaches the initial sheet thickness, without reversing the decline in growth. For $S=10^6$, $\\mathrm{Pr}_m=0$, and $ξ=10^{-4}$, the maximum growth rate falls by a factor of about ten from its initial value at neutral-layer half-width $w\\simeq1.59a$, where the growth and broadening times become equal. Only about 0.18 additional upper-envelope e-folds are estimated between this crossing and $w/a=2$, where the growth rate is about 25 times smaller than its initial value. These results support dynamical suppression of further linear amplification over the sampled evolution, even though the instantaneous spectrum remains unstable.",
+      "published": "2026-09-30T19:44:11Z",
+      "updated": "2026-09-30T19:44:11Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.00641v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.00641v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 13,
+      "source_sha256": "ffd43835384b7232e32fc09fbde0b39508cf2e738aeb2937b3df66230bd13c54",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "研究含法向磁场的局部电流片与撕裂线性谱，可作为聚变重联的背景演化理论补充；不含环形几何或电子动理学。",
+        "title_zh": "法向磁场如何让电流片展宽：经典撕裂近似失效不等于所有模都稳定",
+        "takeaway": "均匀法向场驱动电流片背景随时间展宽，使瞬时撕裂增长率下降；经典电阻内层排序失效以后仍可能存在正增长模，是否进入非线性阶段还取决于演化历史和初始扰动。",
+        "question": "经典撕裂分析往往先固定一个电流片，再求扰动在其中怎样增长。但若背景本身随时间变化，某一时刻增长率为正，并不保证扰动来得及长大。本文从带有微小法向磁场的 Harris 电流片出发，先分析背景演化，再追踪冻结背景上的线性谱，检查“模增长”和“电流片展宽”谁更快。",
+        "methods": "初始重联磁场为 \\(B_x=B_0\\tanh(z/a)\\)，并叠加均匀法向场 \\(B_n\\)。\\(z\\) 是跨片坐标，\\(x\\) 是片内重联场方向，\\(a\\) 为初始半厚度，\\(B_0\\) 为参考场强。模型为不可压缩局部平面 MHD；法向速度为零，背景在理想方程下解析演化，形成向两侧传播的阿尔芬前沿和随之变化的片内流动。\n\n用 \\(\\xi=B_n/B_0\\) 表示法向场的相对强度，展宽尺度满足 \\(w=\\xi V_A t\\)，其中 \\(w\\) 是演化形成区域的半宽尺度，\\(V_A\\) 是参考阿尔芬速度，\\(t\\) 是时间。作者在不同时刻冻结背景，用电阻线性本征值问题求增长率 \\(\\gamma\\)。Lundquist 数 \\(S=aV_A/\\eta\\)，\\(\\eta\\) 为磁扩散率；主要算例采用磁 Prandtl 数 \\(P_m=\\nu/\\eta=0\\)，\\(\\nu\\) 为运动黏度。",
+        "findings": "作者得到量级关系 \\(\\xi_{\\rm crit}\\sim S^{-3/4}\\)，描述法向场何时足以改变经典最快撕裂模的电阻内层排序。这里下标 crit 表示该近似失效的临界量级，不是“所有不稳定性消失”的边界。越过这一量级后，传统内层解释可能不再成立，但计算仍找到正增长本征模。\n\n能量分析表明，在扰动向无穷远衰减的边界条件下，均匀法向场本身不提供净扰动能量；主要能量仍来自重联场梯度。电流片更宽时，流剪切贡献变得更重要，却没有逆转整体增长率下降的趋势。出现传播频率也主要与随流平移有关，不能只凭频率就宣布产生了新的理想阿尔芬不稳定分支。\n\n在 \\(S=10^6\\)、\\(\\xi=10^{-4}\\) 的例子中，\\(w/a\\approx1.59\\) 时增长时间已与展宽时间相当，增长率约降至初始值的十分之一。继续到 \\(w/a=2\\)，最大瞬时增长率包络给出的额外增长只有约0.175个指数增长单位。这仅指后半段的上界估计，前期仍已积累增长；它也不是一条固定波数扰动的完整实际轨迹。**“背景变化使增长来不及继续”与“线性谱完全稳定”应分开判断。**",
+        "limitations": "该计算以冻结背景的线性谱为主，没有直接完成带确定初始噪声的全时间非线性演化。已经在早期长大的磁岛是否仍进入非线性阶段，不能由后期增长率变小排除。均匀且持续的法向场、开放的局部背景和主要无黏性算例，也限制了向有边界的托卡马克或电子尺度电流层外推；所给标度不是通用重联关闭条件。",
+        "reading": "建议先读解析背景，再读图3中的时间尺度比较，避免只抄最终临界幂律。可开展的训练是固定波数与初始扰动幅度，实际积分完整演化，同时测磁岛宽度、磁通与累计增长；再与瞬时本征值预测对照。这个设计有助于检验自己的模拟是否把背景演化误认成模稳定化，是本简报提出的后续工作。",
+        "evidence": "PDF 第1–4页：演化背景、坐标和参数；第5–7页：内层排序与本征问题；第8–11页：能量分析、增长时间及图3，已查看第10页原图；第12页：数据与方法说明。选读正文，未复现其数值谱。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.02515",
+      "version": "2610.02515v1",
+      "title": "IGNITE Tokamak World Model Architecture",
+      "authors": [
+        "Peter Steiner",
+        "Azarakhsh Jalalvand",
+        "Nathaniel Chen",
+        "Kouroche Bouchiat",
+        "Ricardo Shousha",
+        "SangKyeun Kim",
+        "Egemen Kolemen"
+      ],
+      "abstract": "We introduce IGNITE, a generative world foundation model for fusion plasma behavior simulation trained in a self-supervised manner from over a decade of unlabeled experimental data at the DIII-D National Fusion Facility. The core of IGNITE is a dynamics model that can simulate DIII-D discharges from a given set of actuator trajectories. These trajectories can be supplied or generated on-the-fly from a textual prompt or from desired experimental outcomes. The model architecture consists of several spatio-temporal tokenizers that embed the different input modalities, including time-series like spatio-temporal measurement data, image sequences, and high-resolution spectrograms, each of which collected at vastly different time scales. The backbone is composed of an auto-regressive dynamics model that has the capacity to predict entire DIII-D discharges given initial latent plasma states and actuator trajectories over a theoretical infinite horizon. IGNITE paves the way towards efficient AI-driven experimental planning and world modeling for nuclear fusion.",
+      "published": "2026-10-01T21:37:44Z",
+      "updated": "2026-10-01T21:37:44Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.02515v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.02515v1",
+      "source_basis": "仅摘要",
+      "pages": 21,
+      "source_sha256": "15a7dd24ee14370659e7646cb2eda79f8080dee5ef64c89f190a3e8d7593d1e4"
+    },
+    {
+      "id": "2610.07304",
+      "version": "2610.07304v1",
+      "title": "Analytic non-axisymmetric 3D MHD equilibria without stellarator symmetry",
+      "authors": [
+        "Opal Issan",
+        "Jonathan Citrin",
+        "Matt Landreman",
+        "Brendan Tracey"
+      ],
+      "abstract": "Analytical solutions to the three-dimensional ideal magnetohydrodynamic equilibrium equations $(\\nabla \\times \\vec{B}) \\times \\vec{B} = \\nabla p$ and $\\nabla \\cdot \\vec{B} = 0$ provide benchmarks for stellarator equilibrium codes. Two families of non-axisymmetric solutions were recently discovered by Landreman [arXiv:2609.26742] as counterexamples to Grad's conjecture, but both satisfy stellarator symmetry. Here, we generalize both families by introducing a symmetry-breaking parameter into each of the solutions, resulting in new non-axisymmetric solutions that break stellarator symmetry and reduce to the stellarator symmetric solutions when the newly introduced parameter is set to zero.",
+      "published": "2026-10-05T19:43:14Z",
+      "updated": "2026-10-05T19:43:14Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.07304v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.07304v1",
+      "source_basis": "仅摘要",
+      "pages": 11,
+      "source_sha256": "8684a59d6826ba20953deeb560d84d40018dba0c4e321ef747c972cc3237dcc9"
+    },
+    {
+      "id": "2610.01131",
+      "version": "2610.01131v1",
+      "title": "Theory of Equivalent Tokamaks for Characterizing Turbulent Transport in Quasi-symmetric Stellarators",
+      "authors": [
+        "Hongxuan Zhu",
+        "R. Gaur",
+        "X. Wei",
+        "Z. Lin",
+        "A. Bhattacharjee"
+      ],
+      "abstract": "It is well known that quasi-symmetric (QS) stellarators are isomorphic to tokamaks in terms of their neoclassical-transport properties, and the corresponding transport coefficients can be calculated in the same manner as in tokamaks. However, less is known regarding the turbulent-transport properties of QS stellarators, e.g. the transport coefficients from the ion-temperature-gradient (ITG) mode. In this work, a systematic theory of the ``equivalent tokamaks'' for QS stellarators is presented based on the local gyrokinetic formulation and the near-axis expansion theory. It is shown that to zeroth order in the minor radius, the equivalent tokamaks can be chosen to have circular flux surfaces and can be characterized by three geometric quantities: the aspect ratio, the rotational transform, and the magnetic shear. To achieve first-order accuracy, however, not all QS stellarators have equivalent tokamaks, but good approximations can be found for some cases either as global or local equilibria. Local and global gyrokinetic simulations of ITG transport are performed for a selection of QS configurations, and quantitative agreement in the turbulent transport levels is found between the stellarators and their equivalent tokamaks.",
+      "published": "2026-10-01T06:12:26Z",
+      "updated": "2026-10-01T06:12:26Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.01131v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.01131v1",
+      "source_basis": "仅摘要",
+      "pages": 22,
+      "source_sha256": "4131fd9f659d5513449a9a37efd3eaa84ef72bb57739307c0515fc1bc1c4b70f"
+    },
+    {
+      "id": "2610.08530",
+      "version": "2610.08530v1",
+      "title": "Experimental observations of microturbulence-suppressed parallel heat conduction in a weakly collisional, high-\\b{eta} plasma",
+      "authors": [
+        "T. A. Vincent",
+        "P. Ariyathilaka",
+        "L. Creaser",
+        "C. Danson",
+        "R. Davies",
+        "D. Lamb",
+        "J. Meinecke",
+        "C. A. J. Palmer",
+        "S. Pitt",
+        "H. Poole",
+        "C. Spindloe",
+        "P. Thomas",
+        "E. R. Tubman",
+        "L. Wilson",
+        "W. Garbett",
+        "G. Gregori",
+        "P. Tzeferacos",
+        "T. Hodge",
+        "A. F. A. Bott"
+      ],
+      "abstract": "Classical theories of heat conduction in magnetized plasma predict that thermal transport, mediated by Coulomb collisions of electrons, occurs predominantly along magnetic field lines. Recent theoretical and computational studies challenge this description for weakly collisional, magnetized plasmas in which thermal pressure dominates magnetic pressure (so-called high-\\b{eta} plasmas). Such plasmas, which include the intracluster medium of galaxy clusters and inertial-confinement-fusion hot spots, are thought to be susceptible to kinetic-scale microinstabilities that can suppress parallel heat conduction. Revised theories of heat conduction accounting for these instabilities have been proposed, but experimental data with which to benchmark them are lacking. Here, we report experiments at the Orion laser facility in which the temporal evolution of temperature of a high-\\b{eta}, weakly collisional plasma is sensitive primarily to the thermal conductivity along its initially quasi-laminar magnetic field. We characterize the temperature, density and magnetic field using x-ray spectroscopy and imaging, and proton imaging. Once stochastic magnetic fluctuations develop, the measured temperature evolution requires suppression of thermal conduction by at least an order of magnitude relative to classical predictions, providing the first laboratory evidence linking magnetic microturbulence with suppression of heat conduction in a high-\\b{eta} plasma.",
+      "published": "2026-10-06T15:23:33Z",
+      "updated": "2026-10-06T15:23:33Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.08530v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.08530v1",
+      "source_basis": "仅摘要",
+      "pages": 17,
+      "source_sha256": "7378d67fa45fc61eaf87328a492a2583aa2e670d069dbe67787282902fffe17a"
+    },
+    {
+      "id": "2610.06144",
+      "version": "2610.06144v1",
+      "title": "Turbulent Origin of the Edge Radial Electric Field Asymmetry between Favourable and Unfavourable Drift Configurations",
+      "authors": [
+        "B. J. Frei",
+        "R. Bilato",
+        "W. Zholobenko",
+        "O. Grover",
+        "C. Angioni",
+        "M. Bergmann",
+        "P. Ulbl",
+        "F. Jenko",
+        "S. Rienäcker",
+        "L. Vermare",
+        "P. Hennequin",
+        "B. Labit"
+      ],
+      "abstract": "We study the influence of the ion magnetic-drift direction relative to the active X-point (favourable and unfavourable configurations) on edge turbulence, transport, and the radial electric field $E_r$ in ASDEX Upgrade and TCV. First-principles gyrokinetic simulations of the edge and scrape-off layer are performed in diverted X-point geometry using the spectral full-$f$ GENE-X code. Two matched pairs of L-mode discharges are simulated and validated against the available measurements in all four cases, showing good agreement, in particular for the $E_r$ profiles. A radial force-balance analysis shows that the deeper $E_r$ well in the favourable configuration is determined by the larger poloidal ion flow near the separatrix, which cannot be reproduced by neoclassical solvers and is identified in axisymmetric simulations as turbulence-driven. We then derive an exact evolution equation for the mean poloidal-flow acceleration from the full-$f$ gyrokinetic vorticity equation, which identifies the radial gradient of the total velocity stress as its nonlinear drive. The observed asymmetry is found to arise from stronger nonlinear energy transfer into the mean flow in the favourable configuration, associated with enhanced nonlinear $E\\times B$ advection of vorticity near the separatrix and X-point. Flux-driven TCV simulations further show that the asymmetry persists at matched power more than six times the L-mode value. Assuming a critical $E_r$ at the L-H transition, this yields an estimated ratio of approximately 1.7 between the unfavourable and favourable L-H power thresholds, close to the experimental factor of two. Overall, the unfavourable configuration exhibits larger fluctuation amplitudes, a weaker $E_r$ well, stronger geodesic acoustic modes, and shorter energy confinement times for the same profiles, which may explain the observed difference in access to high-confinement regimes.",
+      "published": "2026-10-05T11:14:45Z",
+      "updated": "2026-10-05T11:14:45Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.06144v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.06144v1",
+      "source_basis": "仅摘要",
+      "pages": 44,
+      "source_sha256": "ec6773f859469e8f1edd36a01c739b927a7d9687e718e107ba6ae406f4bfb19e"
+    },
+    {
+      "id": "2610.06524",
+      "version": "2610.06524v1",
+      "title": "Three-dimensional magnetic reconnection in unipolar regions. A case study of coronal bright points in the Sun",
+      "authors": [
+        "D. Nóbrega-Siverio",
+        "F. Moreno-Insertis",
+        "A. S. H. To"
+      ],
+      "abstract": "Magnetic reconnection is a fundamental mechanism underlying the heating and a wide variety of eruptive phenomena in the solar atmosphere; however, characterizing its 3D aspects remains challenging. Our aim is to understand how 3D magnetic reconnection in unipolar regions drives localized heating and plasma ejections. To this end, we used a self-consistent 3D radiation-MHD simulation of a coronal bright point (CBP) performed with the Bifrost code. We focused on localized, intense heating events and upflows near a unipolar CBP footpoint associated with its parasitic polarity. 3D reconnection diagnostics were carried out using the parallel electric field and its integral along magnetic field lines. We then compared the resulting upflows with spectroscopic observations from Hinode/EIS. We find recurrent episodes of 3D magnetic reconnection without nulls at the footpoints of loops rooted near the CBP's parasitic polarity. A detailed analysis of one representative event places the reconnection region at heights z=[1.0,2.5] Mm, within a predominantly vertical magnetic field with localized concentrations of electric current. The dissipation of these currents efficiently heats the plasma to about 2 MK and produces strong gas-pressure gradients that drive upflows of a few tens of km/s. Blueshifts observed with Hinode/EIS near the parasitic polarity of an observed CBP are consistent with this scenario. The recurrence of these reconnection events are essential for heating CBP loops to million-degree temperatures. This form of 3D reconnection may operate more generally in the solar atmosphere, dissipating magnetic stress around strong flux concentrations and contributing to heating in apparently unipolar regions. The resulting pressure-driven upflows offer an indirect spectroscopic diagnostic of localized reconnection heating, which future observations with MUSE and Solar-C will be able to test.",
+      "published": "2026-10-05T15:32:47Z",
+      "updated": "2026-10-05T15:32:47Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.06524v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.06524v1",
+      "source_basis": "仅摘要",
+      "pages": 14,
+      "source_sha256": "a4b16807898e6577266c5d29a84a3901689109985e68222046fc01e959867fb6"
+    },
+    {
+      "id": "2610.06085",
+      "version": "2610.06085v1",
+      "title": "Stellarators Linking Axisymmetric Mirrors Part 1: Coil Design, MHD Equilibrium, and Physics Metrics",
+      "authors": [
+        "Rahul Gaur",
+        "Djin Patch",
+        "Robert Babin",
+        "Florian Hindenlang",
+        "Xu Chu",
+        "Tony Qian"
+      ],
+      "abstract": "We present a computational design study of a stellarator-mirror hybrid concept, Stellarators Linking Axisymmetric Mirrors (SLAMs), in which an optimized poloidally omnigenous (OP or QI) stellarator serves as the rotational-transform-generating element that links long, axisymmetric (circular cross-section) magnetic mirrors. Starting from an OP precursor configuration obtained from the DESC omnigenity database, we construct hybrid coil sets for field period nFP = 2 SLAMs by separating the OP modular coils along the device midplane and inserting axisymmetric planar mirror coils into the resulting gap. Field-line tracing shows that nested vacuum flux surfaces survive this extrusion across a range of mirror-section lengths, with the cross-section qualitatively preserved at the point where the mirror is inserted. We use the field-line tracing data to map the shape of a surface and use the GVEC fixed-boundary solver to calculate an ideal magnetohydrodynamic (MHD) equilibrium and evaluate physics metrics such as the neoclassical transport proxy (eps_eff), the vacuum magnetic well (W), and the gyrokinetic heat fluxes (Q), providing a first-principles analysis of such concepts using modern stellarator analysis tools.",
+      "published": "2026-10-05T10:17:21Z",
+      "updated": "2026-10-05T10:17:21Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.06085v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.06085v1",
+      "source_basis": "仅摘要",
+      "pages": 23,
+      "source_sha256": "d0a61d3e1c6d09ef68baa5b5490a989fa02d4eb5c05a5ffd5b3cd38f2a61388f"
+    },
+    {
+      "id": "2610.03427",
+      "version": "2610.03427v1",
+      "title": "Guide field effects on particle acceleration in three-dimensional relativistic magnetic reconnection",
+      "authors": [
+        "Despina Karavola",
+        "Lorenzo Sironi",
+        "Maria Petropoulou"
+      ],
+      "abstract": "Relativistic magnetic reconnection is a key mechanism for particle acceleration in astrophysical plasmas. Recent 3D particle-in-cell simulations have shown that, for weak guide fields, particles can be accelerated at nearly the maximal rate by escaping the reconnected plasma and gaining energy from the large-scale upstream electric field. Here, we investigate whether this fast acceleration channel persists as the guide field becomes comparable to the reconnecting field. We perform 3D simulations of relativistic pair-plasma reconnection, complemented by corresponding 2D runs, using open boundaries along the reconnection outflows to establish a quasi-steady state. We find that increasing the guide field strength reduces the reconnection rate and causes energetic particles to become more closely aligned with the local magnetic field. In 3D, the fast acceleration channel---absent in 2D---persists across the full range of guide fields investigated, but involves a progressively smaller fraction of particles as the guide field increases. Consequently, stronger guide fields produce steeper particle energy spectra and lower maximum Lorentz factors.",
+      "published": "2026-10-02T15:11:45Z",
+      "updated": "2026-10-02T15:11:45Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.03427v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.03427v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.02958",
+      "version": "2610.02958v1",
+      "title": "Numerical and diagnostic extensions to the gyrokinetic $δf$ code stella",
+      "authors": [
+        "Sven Stroteich",
+        "Georgia Acton",
+        "Michael Barnes",
+        "Pavlos Xanthopoulos",
+        "Ralf Schneider"
+      ],
+      "abstract": "Understanding turbulence in magnetised plasmas requires robust numerical tools capable of capturing complex free-energy transfer processes across scales. We demonstrate the utility of free energy as a diagnostic for both physical turbulence characteristics and numerical stability in gyrokinetic simulations with the stella code. Applied to the W7-X high-mirror configuration, free-energy diagnostics reveal characteristic power-law behaviour in the turbulent cascade, act as sensitive indicators of numerical instabilities undetected by conventional diagnostics, and expose localised structures in real space not apparent in the electrostatic potential alone. To support these analyses, we present a systematic comparison of explicit time-integration schemes, showing that the optimal choice depends critically on the regime: SSP22 achieves the lowest computational cost in linear ITG simulations, while SSP33 is most efficient in the nonlinear saturated state, with nonlinear simulations requiring two to three orders of magnitude more computational cost than linear cases. These results establish free-energy diagnostics as a valuable tool for interpreting plasma turbulence and provide practical guidance for scheme selection in stella simulations.",
+      "published": "2026-10-02T07:56:32Z",
+      "updated": "2026-10-02T07:56:32Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.02958v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.02958v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2609.40132",
+      "version": "2609.40132v1",
+      "title": "FIREWALL: A surrogate model for the rapid assessment of tokamak wall loading and melting by runaway electrons",
+      "authors": [
+        "Victor Johan Svensson",
+        "Tommaso Rizzi",
+        "Svetlana Ratynskaia",
+        "Hannes Bergström",
+        "Luca Venerando Greco",
+        "Matthias Hoelzl",
+        "Panagiotis Tolias"
+      ],
+      "abstract": "Runaway electron (RE) beams generated during tokamak disruptions can deposit highly localized heat loads on plasma-facing components, posing a serious risk of melting and damage. Monte Carlo particle transport simulations coupled with three-dimensional thermomechanical response modeling can quantify this damage but are too computationally demanding for device-scale assessments and extensive scenario scans. We present FIREWALL (Fast Integrated Runaway Electron WALL loads), a surrogate model that combines a database of \\textsc{Geant4} volumetric energy-deposition profiles with a one-dimensional heat-diffusion solver for each wall element. FIREWALL retains the energy and incident angle distributions of impacting REs and predicts the spatiotemporal temperature evolution of detailed three-dimensional wall geometries up to the melting threshold. FIREWALL thus provides a fast physics-based framework for translating global RE simulations into global wall melting predictions, enabling large-scale screening of disruption scenarios while directing high-fidelity costly workflows to the limited wall regions where they are actually required.",
+      "published": "2026-09-30T16:49:20Z",
+      "updated": "2026-09-30T16:49:20Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2609.40132v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.40132v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.08180",
+      "version": "2610.08180v1",
+      "title": "Fast-ion effects on $E\\times B$ staircase organization and the heat-flux response to the ion-temperature gradient",
+      "authors": [
+        "Il-Hwan Kim",
+        "Jaemin Seo"
+      ],
+      "abstract": "Zonal-flow organization can modify the relation between heat flux and temperature gradient, but how fast ions affect this organization and the accompanying transport response remains less well characterized. We use nonlinear, global gyrokinetic simulations based on KSTAR fast-ion-regulated enhancement (FIRE) mode to compare cases with and without fast ions during profile relaxation across five initial main-ion temperature gradients. We observe that fast ions induce larger zonal-flow and shearing-rate amplitudes, together with persistent shear layers. At the reference profile based on the experiment, these shear layers coexist with temperature-gradient corrugations qualitatively consistent with $E\\times B$ staircases. When fast ions are present, inward and outward ion heat fluxes coexist at different radii, which causes the average heat flux to be smaller than when fast ions are absent. This redistribution of ion heat transport may be relevant to understanding the improved ion confinement observed in FIRE mode. In particular, we note a transition-like response in the presence of fast ions, whereby the heat flux decreases as the ion-temperature gradient increases, in contrast to the conventional Fick's law trend without fast ions. This behavior that deviates from Fick's law suggests that FIRE mode may represent a bifurcation to a distinct transport regime rather than a continuous high-performance extension of L-mode. These findings highlight the importance of the initial temperature gradient and global zonal-flow organization when assessing fast-ion effects on ion heat transport.",
+      "published": "2026-10-06T11:32:22Z",
+      "updated": "2026-10-06T11:32:22Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.08180v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.08180v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.07160",
+      "version": "2610.07160v1",
+      "title": "Power-Law Injection Spectrum from an Ensemble of Reconnecting Current Sheets",
+      "authors": [
+        "Omar French"
+      ],
+      "abstract": "A collisionless, low-$β$ plasma undergoing strong sub-Alfvénic turbulence is expected to form a broad hierarchy of reconnecting current sheets immersed in a strong guide magnetic field. If the reconnecting field strength of a sheet scales with its length as a power law of index $κ$, and the number of sheets per unit interval of sheet length decreases as a power law of index $x$, the current-sheet ensemble injects nonthermal particles with a power-law energy spectrum $\\propto γ^{-s}$, where $s = 1 + (x-2)/(1 + κ)$. The spectrum is hard ($s < 2$) when the longest sheets deliver most of the injected energy, which requires $x < 3 + κ$. Past numerical studies have measured $2 \\lesssim x \\lesssim 3.3$, and the scalings of intense current sheets support $κ\\gtrsim 0$, resulting in $1 \\lesssim s \\lesssim 2.3$. This injection may yield flat or mildly steep radio spectra in optically thin sources and hard ion spectra in the coronae of active galactic nuclei.",
+      "published": "2026-10-05T18:00:05Z",
+      "updated": "2026-10-05T18:00:05Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.07160v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.07160v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.02149",
+      "version": "2610.02149v1",
+      "title": "A New Framework for Modeling Solar Flares from MHD to Kinetic Processes",
+      "authors": [
+        "Joel C. Allred",
+        "Graham S. Kerr",
+        "Silvina E. Guidoni",
+        "Joel T. Dahlin",
+        "Marc Swisdak",
+        "Judith T. Karpen",
+        "Valeriy Tenishev"
+      ],
+      "abstract": "Physical processes in solar flares span many orders of magnitude in spatiotemporal scales, so a single unified model accounting for all relevant processes remains computationally intractable. Instead, specialized codes have been developed, targeting specific domains that tackle specific aspects of the solar flare problem. Here, we present a comprehensive framework that links three models to capture flare initiation and energy release, the subsequent particle acceleration, the propagation and thermalization of those particles, and ultimately the heating of the lower solar atmosphere. We use the 2.5D ARMS magnetohydrodynamics (MHD) code to model stressing of the magnetic field in a simulated active region, the formation of a current sheet, magnetic reconnection, and the evolution of newly formed flare loops. We use the conditions in the ARMS' current sheet to initialize the kglobal model, which predicts time-dependent nonthermal electron and proton distributions. Finally, we use RADYN+FP to inject these distributions into a newly reconnected ARMS loop and compute subsequent particle transport, atmospheric heating, and radiative emissions. This is the first detailed presentation of a RADYN+FP simulation tracking nonthermal electrons and protons in the same loop. As well as discussing the interesting physics that takes place, we note how this results in white-light flare emission height consistent with observations. This work is a first step toward building a fully 3D flare modeling framework.",
+      "published": "2026-10-01T17:49:55Z",
+      "updated": "2026-10-01T17:49:55Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.02149v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.02149v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.00536",
+      "version": "2610.00536v1",
+      "title": "Rapid Vacuum Response Calculations for Non-axisymmetric Plasma Geometries",
+      "authors": [
+        "Jacob Halpern",
+        "Nikolas Logan",
+        "Carolin Nührenberg",
+        "Elizabeth Paul",
+        "Carlos Paz-Soldan"
+      ],
+      "abstract": "We present a fast, open-source calculation of the vacuum response matrix and surface inductance in non-axisymmetric geometries capable of running with up to 10^5 boundary points in tens of seconds on a laptop. Ideal magneto-hydrodynamic (MHD) stability modeling for free boundary modes requires the perturbed vacuum energy. We extend the VACUUM code to non-axisymmetric geometries in the new Julia implementation of the Generalized Perturbed Equilibrium Code, combining a collocation approach to the boundary integral equations with a high-order singularity correction scheme. The correction is recast into explicit quadrature weights acting on the collocation values, which allows the corrected operator to be assembled explicitly rather than applied to a given surface field, and the structure of that matrix under field-period and stellarator symmetry is then exploited to reduce storage and solve cost. We find that the vacuum response matrix converges at fourth order or greater in the grid spacing, reaching a given accuracy on a coarser grid than previous implementations without the high-order method. The non-axisymmetric calculation converges to the axisymmetric VACUUM result for a tokamak and the CAS3D result for a W7-X stellarator equilibrium. This work enables fast free boundary ideal MHD stability and perturbed equilibrium calculations in stellarators.",
+      "published": "2026-09-30T18:19:53Z",
+      "updated": "2026-09-30T18:19:53Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.00536v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.00536v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.03433",
+      "version": "2610.03433v1",
+      "title": "Parity-Time Symmetry of Plasma Waves",
+      "authors": [
+        "Hong Qin"
+      ],
+      "abstract": "The susceptibility tensor of a homogeneous collisionless magnetized plasma possesses parity-time (PT) symmetry. For a stationary gyrotropic equilibrium, with the wave vector $\\mathbf{k}$ and the equilibrium magnetic field $\\mathbf{B}_0$ in the $x$--$z$ plane, the kinetic response satisfies $χ(ω^*,\\mathbf{k})=Rχ(ω,\\mathbf{k})^*R$, where $R=\\operatorname{diag}(1,-1,1)$. We show that the susceptibility PT-symmetry is a reduced-response-space manifestation of PT symmetry of the underpinning kinetic system. We identify parity $P$ and time reversal $T$ on the electromagnetic kinetic eigenmode space and show that the Hamiltonian operator $\\mathcal{H}_{\\mathrm{VM}}$ of the linearized Vlasov--Maxwell system is PT-symmetric, satisfying $PT\\mathcal{H}_{\\mathrm{VM}}(PT)^{-1}=\\mathcal{H}_{\\mathrm{VM}}$. The PT symmetry of the homogeneous magnetized Vlasov--Poisson eigenproblem is also established. Many kinetic instabilities associated with nonmonotonic distributions, rings, loss cones, and resonant energetic-particle populations are fundamentally spontaneous PT-symmetry breaking, which is achieved through and only through Krein collisions. Three examples demonstrate distinct utilities of this analysis. Definite-sign cyclotron residues protect thermal Bernstein modes from spontaneous PT-symmetry breaking. The nonmonotonic Dory--Guest--Harris distribution permits sign-indefinite residues and Krein collisions, for which we derive an analytical instability threshold and growth rate. The recently discovered mode-pole resonance instability provides a distinct realization of spontaneous PT-symmetry breaking and illustrates how PT symmetry can guide the discovery of kinetic instabilities with applications to fusion energy. These results establish PT symmetry as a structural principle of plasma waves and instabilities and open new directions for studying spectral topology in kinetic plasmas.",
+      "published": "2026-10-02T15:13:32Z",
+      "updated": "2026-10-02T15:13:32Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2610.03433v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.03433v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2609.39376",
+      "version": "2609.39376v1",
+      "title": "Phase-Space Non-Integrability of Alpha Particles in Near-Omnigeneous Stellarators",
+      "authors": [
+        "A. L. Lachmann",
+        "A. R. Knyazev",
+        "E. J. Paul"
+      ],
+      "abstract": "In a burning plasma, fusion-born alpha particles sustain the fusion reaction by heating the plasma core. Alpha-particle confinement in stellarators is sensitive to both deviations from omnigeneity and time-dependent Alfvénic perturbations. Traditional Poincaré maps rely on symmetry assumptions or dimensionality reductions that fail for stellarators with quasisymmetry (QS) error or multi-harmonic Alfvénic perturbations. To address these challenges, we investigate weighted Birkhoff averaging (WBA) as a diagnostic to detect the onset of chaos in guiding-centre trajectories subject to general magnetic perturbations. WBA exploits the super-convergence of time averages along quasiperiodic orbits, discriminating regular from chaotic trajectories using any smooth observable rather than an exact invariant of motion. Applying WBA to the canonical momentum $P_η$, we show that convergence tracks underlying orbit regularity even when quasisymmetry is imperfect and $P_η$ is not strictly conserved. Convergence is measured by the digit accuracy of the weighted average along guiding-centre orbits in fields with imperfect omnigeneity, with and without Alfvén eigenmodes computed using AE3D. We use this diagnostic to map phase-space chaos as a function of equilibrium invariants to identify transport barriers in unperturbed and perturbed stellarator equilibria. This work demonstrates that chaos induced by many Alfvén harmonics is often not apparent from the largest harmonic alone. We also find evidence that the onset of chaotic behaviour is sensitive to the local radial profile of the wave and not only to its amplitude at the resonance.",
+      "published": "2026-09-30T09:27:02Z",
+      "updated": "2026-09-30T09:27:02Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2609.39376v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.39376v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.00845",
+      "version": "2610.00845v1",
+      "title": "Is Your AI Fast Enough to Run a Fusion Reactor?",
+      "authors": [
+        "Nathaniel Chen",
+        "Andrew Rothstein",
+        "Ricardo Shousha",
+        "Hiro Farre-Kaga",
+        "Peter Steiner",
+        "Azarakhsh Jalalvand",
+        "Egemen Kolemen"
+      ],
+      "abstract": "Machine learning models are increasingly used in feedback control loops for nuclear fusion, where inference speed and predictable timing are critical. We summarize lessons from models deployed for control on the DIII-D tokamak and develop a benchmark to compare inference backends across ten neural networks and model components from fusion control and diagnostic pipelines. For models greater than five million parameters, the CPU backends take tens to thousands of milliseconds, while GPU inference is substantially faster, suggesting an upper limit on CPU-oriented development for control. These results show why the deployment backend must be selected together with the model and its control-cycle budget.",
+      "published": "2026-10-01T00:04:53Z",
+      "updated": "2026-10-01T00:04:53Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2610.00845v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.00845v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.07215",
+      "version": "2610.07215v1",
+      "title": "An Implicit, Moment-Conserving Low-Rank Tensor Method for the Hybrid Kinetic-Ion Fluid-Electron Plasma Model",
+      "abstract": "Quasi-neutral hybrid models for simulating plasmas, with kinetic ions and fluid electrons, have shown great promise for approaching the multi-scale nature of plasmas. In this paper we present a novel hybrid scheme for electromagnetic settings that conserves mass, momentum, and energy, employing a low-rank tensor method utilizing the Tensor Train decomposition to avoid the \\enquote{curse of dimensionality.} Electrons are simulated as a continuous fluid, while the kinetic ions are modeled as a distribution function governed by the Vlasov equation. The Vlasov equation is updated with the implicit midpoint method. We use a modified version of a conservative truncation method to guarantee conservation of mass, momentum, and energy throughout the method, which corrects the truncated distribution function without needing to advance a separate set of fluid-moment equations. A series of electrostatic and electromagnetic test problems is used to demonstrate the correctness of the method and its conservation properties.",
+      "published": "2026-10-05T18:27:12Z",
+      "updated": "2026-10-05T18:27:12Z",
+      "authors": [
+        "Stephen R. White",
+        "Adam J. Stanier",
+        "Luis Chacón",
+        "Will T. Taitano",
+        "Isaac A. Castro"
+      ],
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.07215v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.07215v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.01429",
+      "version": "2610.01429v1",
+      "title": "Electromagnetic drift-kinetic particle-in-cell model with energy and charge conservation for studying finite-$β$ plasmas",
+      "abstract": "The paper proposes a generalization of the fully implicit energy- and charge-conserving electromagnetic particle-in-cell method to the case where the lightest type of plasma particle (electrons) is described in the drift-kinetic approximation. This allows us to remove the very strict time step limitation of this method requiring to resolve the gyrorotation of electrons. Since the drift-kinetic model is only applicable to light particles whose contribution to plasma polarization is small, this model can be further simplified by neglecting the electron polarization drift and including in Maxwell's equations, in addition to the current of gyrocenters, only the magnetization current. In order for such a hybrid model to retain conservative properties in finite-difference form, a method of self-consistent interpolation of $\\nabla B$ in the mirror force from grid to particle and the magnetization vector from particle to grid is proposed. Unlike existing drift-kinetic models, this model is not limited to considering small perturbations near a given equilibrium, and therefore allows one to study the formation of plasma equilibria in regimes with a finite ratio of plasma to magnetic field pressure. Testing of the parallel code implemented in C++ using the PETSc library confirmed the fulfillment of the finite-difference laws of energy and charge conservation, as well as the ability of the model (in the drift-kinetic version for all types of particles) to correctly reproduce the diamagnetic effect and longitudinal ion-acoustic wave.",
+      "published": "2026-10-01T10:28:08Z",
+      "updated": "2026-10-01T10:28:08Z",
+      "authors": [
+        "O. P. Morozov",
+        "V. A. Kurshakov",
+        "I. V. Timofeev"
+      ],
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.01429v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.01429v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.02052",
+      "version": "2610.02052v1",
+      "title": "Analysis of grid instabilities in particle-in-cell codes based on a meshfree approach",
+      "abstract": "A new method of analyzing grid, or aliasing, instabilities is described, in particle-in-cell (PIC) codes for plasma kinetic theory. It starts with a meshfree approach with $N_{p}$ macroparticles, with $N_{p}<\\infty$. Linearization of these equations is done about a uniform density non-drifting equilibrium prescribed by macroparticles on a uniform \\emph{lattice}. Macroparticle positions perturbations are induced about this lattice. The resulting linear equations are analyzed for stability and dispersion relations. The linearized equations are then discretized on a grid of $N_{g}$ points with $N_{g} \\le N_{p}$, in both momentum conserving (MCP) and energy conserving (ECP) formulations. For a cold stationary plasma, this leads a \\emph{dynamical matrix}. For ECP, the matrix is symmetric and positive definite (SPD) and immediately shows stability. For MCP, the dynamical matrix is neither symmetric nor positive definite, preventing immediate conclusions on stability. For both MCP and ECP and for a cold stationary plasma, the resulting matrix elements vary relative to the meshfree value, a result of aliasing. This deviation is periodic in the displacement of the particle lattice relative to the grid. In the MCP discretization, eigenvalues occur in complex conjugate pairs for general placement of the particle lattice relative to the grid. These conjugate pairs indicate nonnegative growth rates. The nature of the aliasing is studied and shown to be related to the trapezoidal rule error over the grid. The scaling of the linear growth rates with respect to $N_{g}$ and especially with respect to $N_{ppc}$ is studied. These analytical results are compared with PIC simulations and found to be in excellent agreement. The connection with a cold drifting \\emph{beam} is discussed briefly, specifically, grid-induced instabilities for both the MCP and ECP.",
+      "published": "2026-10-01T17:01:03Z",
+      "updated": "2026-10-01T17:01:03Z",
+      "authors": [
+        "J. M. Finn",
+        "E. G. Evstatiev"
+      ],
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.02052v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.02052v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.03230",
+      "version": "2610.03230v1",
+      "title": "Dynamics-aware bandwidth selection for smoothed charge deposition in 2D electrostatic particle-in-cell",
+      "abstract": "Charge deposition in the particle-in-cell (PIC) method can be viewed as kernel density estimation on a spatial mesh. This allows the smoothing bandwidth to be selected through statistical criteria such as mean integrated squared error or cross-validation, but it also changes the electric field acting on the particles. Therefore, a selected bandwidth can alter the growth or damping of physical modes. We develop a dynamics-aware bandwidth-selection procedure that combines a density-error objective with constraints on specified linear modes. These constraints follow from the plasma equilibrium and the combined transfer of deposition, filtering and field gathering within the model rate-tolerance boundary. We demonstrate the need for equilibrium information through a controlled two-stream experiment. The controlled two-stream scan varies the beam drift while holding the initial spatial density, thermal samples, wavevector and fixed-filter transfer unchanged. Across four resolved equilibria approaching marginal stability, this filter reduces the measured growth rate by $0.7\\%$ to $9.1\\%$. Equilibrium-dependent interior settings satisfy the prescribed $10\\%$ rate tolerance. We then apply the constrained selection rule to 85 Gaussian candidates, that reduces density and grid-field mean-square errors by $7.40\\%$ and $3.70\\%$ on independently evaluated snapshots. A separate projected-linear calculation at that exact width gives a ratio of mean individual growth rates of $0.9556$, with paired $95\\%$ interval $[0.9453,0.9640]$, consistent with the prediction $0.9513$. Analysis of finite-marker loading and ensemble averaging explains how the measured rates relate to the response model. Together, these results demonstrate a filter-design procedure that combines statistical error reduction with subsequent validation of the selected linear dynamics.",
+      "published": "2026-10-02T12:43:23Z",
+      "updated": "2026-10-02T12:43:23Z",
+      "authors": [
+        "Ayushi Agrawal",
+        "Shan-Chang Lin",
+        "Ezhilmathi Krishnasamy",
+        "Pascal Bouvry"
+      ],
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.03230v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.03230v1",
+      "source_basis": "仅摘要"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2610.06189",
+      "title": "电阻壁撕裂模：反馈磁场如何抑制模拟中的大热猝灭",
+      "summary": "M3D 模拟中，适当对称性的磁反馈可把特定电阻壁撕裂模抑制到近似理想壁情形；效果取决于壁面扰动与反馈场的匹配，不能据此宣布消除所有托卡马克破裂。"
+    },
+    {
+      "id": "2610.00919",
+      "title": "共振磁岛链怎样限制输运：用磁力线“闸门”解释快慢两种逃逸",
+      "summary": "DIII-D 扰动场的磁力线追踪显示，残存岛链可形成不完全输运屏障；沿稳定与不稳定流形划定交换区域，比把随机层视作均匀扩散更能解释所测逃逸速率。"
+    },
+    {
+      "id": "2610.00641",
+      "title": "法向磁场如何让电流片展宽：经典撕裂近似失效不等于所有模都稳定",
+      "summary": "均匀法向场驱动电流片背景随时间展宽，使瞬时撕裂增长率下降；经典电阻内层排序失效以后仍可能存在正增长模，是否进入非线性阶段还取决于演化历史和初始扰动。"
+    }
+  ]
+}
