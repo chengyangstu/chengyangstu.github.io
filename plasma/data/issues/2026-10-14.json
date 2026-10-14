@@ -1,0 +1,570 @@
+{
+  "id": "2026-10-14",
+  "window_start": "2026-10-07T01:00:00+00:00",
+  "window_end": "2026-10-14T01:00:00+00:00",
+  "created_at": "2026-10-14T01:21:07.485602+00:00",
+  "overview": "本期覆盖北京时间2026年10月7日09:00至10月14日09:00之前首次提交到 arXiv 的论文，提供4份 PDF 正文选读简报。独立补查撕裂、微撕裂、磁岛、锯齿、内扭结、误差场和实验室重联后，当前可核实记录中未找到直接属于聚变重联第0层的新稿。因此本期以实验室重联诊断、其他重联物理和壁边界方法作补充，不用旧文凑数，也不把外扭结算法冒充已经完成的撕裂重联研究。\n\n第一篇最接近实验室重联的诊断需求：用 MRX 型合成数据训练一个网络，在稀疏磁场和密度观测之间补全信息。密度能从很少的磁测点获得约束，但电流结构仍需要更多磁信息；利用未来磁场补未来密度，也不是只用历史的因果预测。\n\n第二篇研究太阳浮升磁管中的内部磁通抵消，结合表面通量、场线和流动解释磁通绳形成及后续喷流。它适合学习三维拓扑诊断，必须保留统计框和阈值对抵消率的影响。第三篇从黑洞反向电流片推导全局取向松弛，给出中间电阻区的理论—模拟对照；低电阻平台还需要其他机制解释，其自旋标度不能直接搬到托卡马克。\n\n第四篇面向托卡马克计算：SpeCyl 实现双电阻壁和真空边界，并验证界面连续性及外部模增长率。它可支持以后研究壁耦合撕裂，但本稿主要基准是电阻壁模与外扭结，实验对照也受到两套程序内壁位置不同的影响。四篇共同提醒我们：观测重建、表面磁通变化、全局结构运动和模增长率，各自支持不同层次的物理判断。\n\n覆盖说明：主检索与分类窗口 API 重试后返回 HTTP 429，独立关键词 API 成功；另核对官方 recent/new 与10月月度目录，并逐篇从 v1 提交记录校验七天窗口。检查时原目录显示至10月12日，公开和索引延迟可能遗漏窗口末段。本期保留15篇审核候选，其中仅上述4篇有正文简报，其余标为仅摘要。后续若发现遗漏，将另发补充并保留原期。",
+  "query": "(all:tearing OR all:microtearing OR all:sawtooth OR all:\"internal kink\" OR all:\"error field\" OR all:reconnection OR all:\"magnetic island\" OR all:MRX OR all:TREX) AND submittedDate:[202610070100 TO 202610140100]；主检索与分类 API 返回 HTTP 429，改用官方 monthly/recent/new 目录与每篇 v1 提交记录校验日期；原目录当时显示至10月12日。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2610.15076",
+      "version": "2610.15076v1",
+      "title": "Toward a Multimodal Foundation Model for Plasma State Reconstruction",
+      "abstract": "Plasma experiments observe coupled physical states through sparse, heterogeneous, and incomplete diagnostics. We present a proof of concept toward a multimodal foundation model for plasma state reconstruction during magnetic reconnection, motivated by the Facility for Laboratory Reconnection Experiments (FLARE). Using 250 synthetic VPIC simulations at fixed reference electron beta $β_{e0}=0.2$, with 225 training runs and 25 disjoint validation runs, we train a 5.5M-parameter residual 3D U-Net to reconstruct three magnetic-field components and electron density from incomplete observations. The model combines spatial-only pooling, which preserves all 24 temporal frames, with global spatiotemporal self-attention and rotary positional encoding. Independently masking magnetic and density modalities across random, grid, block, and temporal patterns enables sparse sensing, cross-modal completion, density super-resolution, and temporal completion with a single set of weights and no task-specific retraining. With density fully hidden, just 0.1% magnetic spatial visibility reduces median density NRMSE from approximately 0.9 to 0.1. Conversely, observed density improves current-density reconstruction when magnetic data are absent or extremely sparse. With no magnetic observations, roughly 1% density visibility approaches the density reconstruction accuracy achieved with fully observed magnetic fields, although current structure remains more dependent on direct magnetic measurements. Full magnetic conditioning also stabilizes completion of missing future density frames. These results demonstrate bidirectional cross-modal predictive coupling within this simulation regime. Generalization across plasma regimes or to experimental measurements remains untested.",
+      "authors": [
+        "Bin Xia",
+        "Chuanfei Dong",
+        "Boting Li",
+        "Yilan Qin",
+        "Zikang Xie",
+        "Sung Hyun Son",
+        "Adam J. Stanier",
+        "Jongsoo Yoo",
+        "Hantao Ji",
+        "Ahmed Diallo",
+        "Han Ding",
+        "John Wise"
+      ],
+      "published": "2026-10-10T17:18:48Z",
+      "updated": "2026-10-10T17:18:48Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.15076v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.15076v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 15,
+      "source_sha256": "28231897cdfcc7149cbfe3930c0461d11c6de73133ef40b5ed892196041e627f",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 1,
+        "relevance_reason": "采用 MRX 型轴对称重联合成数据，面向 FLARE 的稀疏诊断重建；与实验室重联的场结构识别有具体联系，但尚未使用真实实验数据。",
+        "title_zh": "实验室重联的稀疏诊断：少量磁场信息能补全密度，却未必恢复电流片",
+        "takeaway": "同一神经网络从缺失程度不同的磁场与密度数据重建等离子体状态，验证了两类信息的互补性；结果限于固定电子压强参数的合成数据，尚未验证实验迁移。",
+        "question": "重联实验很难同时在所有位置测到磁场和密度，因此观测到的电流片、磁岛或密度结构往往不完整。本文问：能否训练一个模型，让它在不同探针配置和缺测条件下都能补全场，而不为每种情况重新训练？研究由实验室重联设施 FLARE 的诊断需求推动，但验证数据来自粒子网格法 PIC 模拟，并不是 FLARE 已测得的放电。",
+        "methods": "数据来自250次 VPIC 运行，采用 MRX 型磁通芯拉式重联：改变线圈电流，驱动磁通向重联区汇聚。空间是二维轴对称圆柱几何，保留三个场分量和三个速度分量。离子与电子质量比为 \\(m_i/m_e=25\\)，\\(m_i\\)、\\(m_e\\) 分别是两种粒子的质量；参考电子参数固定为 \\(\\beta_{e0}=0.2\\)，表示初始电子热压与磁压之比。\n\n作者取154×62个空间点、每段24个时间帧，将完整运行分成225次训练和25次留出验证。同一运行中重叠的时间窗口不会同时进入两组，这避免了最直接的轨迹泄漏；但验证运行仍来自同一个参数网格，未测试未见过的参数范围。所谓三维 U-Net 在这里处理时间加两个空间维度，并不意味着训练数据来自三维空间 PIC。\n\n磁场与电子密度分别遮去随机点、规则点阵、连续区域或时间帧，再输入明确的观测掩码。掩码说明一个零值究竟是真实测量还是缺失占位。约550万参数的网络只在空间降采样，保留时间分辨率，并用注意力连接不同时空位置。输出允许修改已观测点，没有强制把测量值原样钳制回去，也没有显式加入磁场散度或物理演化方程约束。",
+        "findings": "密度完全缺失时，磁场的空间可见比例从零提高到0.1%，密度的归一化均方根误差中位数约从0.9降到0.1。这个比例按空间网格点计算；误差以训练集密度标准差归一，不是“密度相对真实值误差10%”。作者先在每次运行内平均窗口指标，再统计25次运行的中位数，图中带状区域是第16至84百分位。\n\n反过来，密度信息也帮助重建磁结构；在没有磁场观测时，约1%的密度空间可见度已能接近有完整磁场条件下的密度误差水平。但是由磁场空间导数得到的电流密度仍更依赖直接磁测量。**密度图补得相似，不保证窄电流片及其梯度也恢复准确。** 求导会放大小幅高频误差，网络修改可见磁场点也会留下电流误差。\n\n作者还遮去时间窗后半段密度。当整段磁场均可见时，缺失密度补全明显改善；但模型已经看到了相应未来时刻的磁信息，因此这是条件补全，不能当作只用历史数据的因果预测。磁场也缺失时，较长时间间隔更难恢复。注意力能利用远处信息，却没有替模型保证正确的物理时间推进。",
+        "limitations": "作者明确说明，尚未验证不同电子压强参数、实验噪声、校准误差或真实 FLARE 数据。没有独立第三测试集，也没有系统比较经典插值或逐项消融网络结构，因此这些误差不是相对简单方法的加速或精度优势。模型输出确定值，没有校准的预测不确定度。附录还说明处理后的数据集尚未随稿公开，完整 VPIC 输入也未包含在代码发布中，当前材料不足以保证别人立即复现所有数字。",
+        "reading": "建议先读图2–3，再读讨论中的验证范围，最后核对附录的误差定义。对你的重联研究，可尝试把自己的模拟输出遮成真实探针布局，同时评估磁场、密度和电流结构，并与简单插值比较；再加入噪声与整参数区域留出测试。把重建结果用于判断磁岛或电子层前，应另核对磁通连接。这些是建议的验证步骤，本文尚未证明它们在聚变装置中有效。",
+        "evidence": "PDF 第2–5页：研究问题、数据切分、网络与损失；第5–8页：指标、稀疏重建和条件补全，已查看第8页图2–3；第8–9页：讨论与限制；第11–14页：VPIC 参数、统计定义与再现范围。正文和相关附录选读，未运行网络。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.11983",
+      "version": "2610.11983v1",
+      "title": "Magnetic flux cancellation in a 3D magnetohydrodynamic simulation of an emerging flux tube with a non-uniform twist",
+      "abstract": "Flux emergence is often accompanied by flux cancellation, which may drive dynamic phenomena in the solar atmosphere. We studied magnetic flux cancellation in a three-dimensional resistive magnetohydrodynamic (MHD) simulation of an emerging flux tube with a non-uniform twist profile. We solved time-dependent resistive MHD equations to model flux emergence into a magnetised background atmosphere. We identified several cancellation sites, estimated their cancellation rates, and examined the magnetic topology and associated jet activity. The non-uniform twist produced multiple opposite photospheric polarities, leading to a complex multipolar magnetic configuration rather than a simple dipolar structure. Interactions between inner secondary magnetic patches resulted in flux cancellation of the photospheric $B_z$ along their polarity inversion line (PIL). These interactions led to the formation of concave-up loops and a cancellation rate of $1.1 \\times 10^{19}$ Mx hr$^{-1}$. During cancellation, magnetic reconnection between converging opposite polarities progressively created a coherent magnetic flux rope above the cancellation region. The evolution of the rope was associated with a blowout jet, as the rope expanded and released part of its stored twist into the overlying corona. We also examined two smaller secondary cancellation events at photospheric heights. Our results highlight the role of internal flux cancellation in restructuring the magnetic field and driving blowout-jet activity in emerging regions.",
+      "authors": [
+        "V. Agalianou",
+        "S. Patsourakos",
+        "V. Archontis"
+      ],
+      "published": "2026-10-08T13:57:00Z",
+      "updated": "2026-10-08T13:57:00Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.11983v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11983v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 15,
+      "source_sha256": "e48a1628a5f1c40b2f15786901df5bdc5a731705499add07aa85d89bb41723ab",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "直接模拟太阳磁通抵消、重联和磁通绳形成，适合借鉴三维拓扑诊断；分层重力大气和浮升驱动与聚变装置不同。",
+        "title_zh": "太阳磁通抵消：表面磁场变弱，怎样与三维重联及磁通绳形成联系起来",
+        "takeaway": "非均匀扭转磁管浮升的三维电阻 MHD 模拟中，内侧反向磁斑汇聚并抵消，随后形成磁通绳和宽喷流；作者用场线、流动和连接关系支持解释，表面抵消率仍依赖诊断筛选。",
+        "question": "在某个观测平面上，正负磁斑靠近并一起变弱，通常被称为磁通抵消。但磁通也可能穿过平面、移出统计框，或者因阈值变得不可见。本文把太阳磁管浮升放进三维模拟，检查表面磁通下降时，空间里的场线怎样重新连接，以及这种变化是否帮助形成会发生喷发的扭转结构。",
+        "methods": "作者用 Lare3D 求解三维、可压缩、电阻磁流体方程，即 MHD。初始为分层大气中一根水平磁管，中心因密度亏损而浮升；扭转从轴心向外增加，外部另有约10高斯的倾斜磁场。磁场、密度和流动相互演化，汇聚和剪切流由浮升过程产生，并非单独在表面指定一套汇聚驱动。\n\n计算域每个方向长64.8兆米，用420³个均匀单元离散，输出间隔25.6秒，使用固定无量纲电阻参数 \\(\\eta=10^{-2}\\)；这里 \\(\\eta\\) 是程序归一化后的参数，不能作为 SI 电阻率直接代入。作者在靠近光球的平面上量取竖直场 \\(B_z\\) 的通量，\\(z\\) 为高度方向，并配合三维场线、曲率、流速和磁连接梯度解释变化。\n\n主要抵消量在固定矩形框中计算，只保留 \\(|B_z|>40\\,\\mathrm G\\) 的像素，并排除有效水平磁足点速度超过0.7千米每秒的像素，试图降低弱背景和跨框运动的影响。G 是高斯，\\(1\\,\\mathrm G=10^{-4}\\,\\mathrm T\\)，T 为特斯拉。这些选择是诊断方法的一部分，不应隐藏在最终抵消率背后。",
+        "findings": "弱且非均匀的扭转使浮升场呈现多极结构；内侧较小的反向磁斑汇聚时，正磁通和负磁通绝对值同步下降。对选定区域的总无符号磁通做线性拟合，抵消率约为 \\(1.1\\times10^{19}\\,\\mathrm{Mx\\,hr^{-1}}\\)，Mx 为麦克斯韦，\\(1\\,\\mathrm{Mx}=10^{-8}\\,\\mathrm{Wb}\\)，Wb 是韦伯，hr 表示小时。这个量是选定表面通量的减少速度，不是无量纲重联率。\n\n场线分析发现上凹的 U 形环、汇聚与剪切的水平运动，以及逐步形成的相干扭转磁通绳。作者据此把主抵消解释为汇聚反向磁场之间的重联。连接梯度较大的区域提示可能的重联位置，但仅凭连接梯度或磁斑变弱，都不能独立证明三维重联率的大小。\n\n较早的窄喷流出现时，还没有形成相干磁通绳；后来的宽喷流伴随磁通绳部分展开、闭合扭转通量转移到开放背景场。相当一部分绳核仍留在低层，所以不是整根磁通绳全部喷出。**同一模拟里的喷流，并非都由同一次表面抵消事件直接驱动。** 时间先后与场线连接需要共同判断。",
+        "limitations": "这是一组特定磁管、背景场与固定电阻的模拟，未建立适用于所有太阳或聚变电流层的标度。文中很小的抵消率拟合误差只反映所选时间段的线性拟合，不包括统计框、磁场和速度阈值带来的系统影响。排除快速像素也不等同于精确扣除了全部边界磁通输运。作者还指出，动态形成的磁通绳扭转指标与理想、预置磁通绳的扭结阈值不能直接比较。",
+        "reading": "建议先看第6页图3–4，再读场线解释。对你的方向，可借鉴的是诊断互证：把固定截面磁通、穿过统计边界的输运、非理想电场和三维连接变化一起保存，再判断磁拓扑究竟怎样变化。对统计框和阈值做敏感性检查，是本简报提出的后续验证；太阳浮升几何和抵消率不能直接移植为托卡马克重联规律。",
+        "evidence": "PDF 第3页：模型与初始化；第4–6页：喷流背景、磁斑及通量筛选，已查看第6页图3–4；第7–9页：U 形环、速度与连接分析；第10–12页：磁通绳、喷流关联及解释边界。正文选读，未逐项审阅所有附录小事件。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.13288",
+      "version": "2610.13288v1",
+      "title": "Resistive alignment of a black-hole magnetosphere",
+      "authors": [
+        "Lier, Ruben",
+        "Porth, Oliver"
+      ],
+      "abstract": "Recent numerical simulations have shown that black-hole magnetospheres evolve rapidly toward alignment between the magnetic axis and spin axis but the physical origin of this process has remained unclear. We develop an analytic theory of this alignment within resistive relativistic magnetohydrodynamics. Taking the slow-spin Blandford-Znajek monopole solution as the exterior magnetic field, we reduce the induction equation to a relaxation equation for the current-sheet inclination angle. Our analysis shows that alignment results from second-order spin effects in the Blandford-Znajek solution combined with explicit resistive dissipation. We test this prediction using resistive-GRMHD simulations at several spins and resistivities and find a regime in which the measured late-time secular decay agrees quantitatively with the analytic prediction.",
+      "published": "2026-10-09T09:39:30+00:00",
+      "updated": "2026-10-09T09:39:30+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.13288v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.13288v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 26,
+      "source_sha256": "9c2a3223261b287173d2ca484889276bcf4cd8a72031d5bafc9de69e895c81a4",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "分析反向电流片的电阻演化与全局取向松弛，提供可检验的理论—模拟对照；黑洞曲率、自旋和强磁化条件与聚变等离子体不同。",
+        "title_zh": "黑洞磁层为什么逐渐对准：电阻扩散的标度何时成立、何时失效",
+        "takeaway": "作者从反向磁场面的运动推导电流片倾角松弛，并用电阻广义相对论 MHD 模拟验证中间电阻区的趋势；低电阻平台提示还存在其他机制，对准速率不能直接当作重联率。",
+        "question": "倾斜的黑洞磁层在模拟中会逐渐朝自旋轴对准，但这个全局取向变化由什么驱动，并不清楚。本文将问题集中到南北磁场反向的电流片：如果排除未解析的内层平流，只保留外场几何和显式电阻扩散，能否推导出一个对准时间尺度？这提供了将几何效应与电流片内部动力学分开检验的例子。",
+        "methods": "理论采用慢自旋的 Blandford–Znajek 外场，即黑洞转动支持的一种磁层解，并假设电流片倾角较小、各磁场分量在同一曲面上反向。作者追踪该反向面，忽略未解析内层的平流贡献，单独分析磁扩散造成的不可逆运动。这是受控近似，尚未把电流片里的全部粒子、流动和不稳定性包含进去。\n\n数值使用 BHAC 的电阻广义相对论磁流体模型，简称电阻 GRMHD，初始倾角0.2弧度，电阻为常数，在电流片附近静态加密。论文采用 \\(G=c=1\\) 的几何单位，\\(G\\) 是引力常数，\\(c\\) 是光速；质量参数 \\(M\\) 同时给出参考长度和时间，磁扩散参数 \\(\\eta_m\\) 在此单位下具有长度量纲。文中的数值不能直接解释成 SI 电阻率。",
+        "findings": "视界附近的领先阶结果可写成 \\(\\Gamma_\\chi M\\simeq0.48510(\\eta_m/M)a_\\star^2\\)。\\(\\Gamma_\\chi\\) 是倾角的指数衰减率，量纲为时间的倒数；\\(a_\\star\\) 是无量纲黑洞自旋，\\(\\eta_m/M\\) 为无量纲扩散参数。倾角 \\(\\chi\\) 随时间 \\(t\\) 近似按 \\(\\chi(t)\\propto\\exp(-\\Gamma_\\chi t)\\) 衰减，故理论预测更大电阻和更快自旋会缩短对准时间。\n\n固定自旋时，中间电阻范围的后期拟合支持近线性的电阻依赖；在 \\(\\eta_m/M=0.025\\) 下，自旋0.6、0.7和0.8的后期趋势支持自旋平方关系。比较理论曲线时还拟合了对数倾角的偏置，因此证据主要针对后期斜率，不是没有自由参数地重现整个初始过渡过程。\n\n低电阻时，测得的对准率趋向有限平台，而不是随电阻趋零。作者提出电流片不稳定性可能参与，图中的低幅弯曲只是线索，尚未证明唯一机制。高电阻端也偏离理论，因为外部磁层已经显著改变，不能继续作为定常外场的小扰动。**一个中间参数区的正确标度，不足以解释两端的全部演化。**",
+        "limitations": "理论忽略内部平流并采用慢自旋、弱倾角展开；真实无碰撞磁层可能有更复杂的撕裂、扭结和粒子效应。附录通过磁通衰减估计数值扩散，并对一个固定自旋、电阻算例增加局部网格精度，支持后期对准率的稳健性；这并不是整个低电阻极限的全面收敛证明。磁层对准、磁通消失和微观重联的可观测量也不相同。",
+        "reading": "建议先看第4页电阻扫描，再读讨论，最后看附录的磁通和网格检查。对聚变模拟可借鉴其问题拆分：分别量取全局结构位置、连接磁通和局部重联率，扫描显式扩散并做分辨率对照，避免将同一时间尺度强行归给同一机制。黑洞自旋平方律没有直接的托卡马克对应，本简报建议借鉴验证方法。",
+        "evidence": "PDF 第1–3页：反向面、外场假设与松弛标度；第3–5页：BHAC 模拟、电阻和自旋扫描、讨论，已查看第4页图2–3；第24–26页：磁通衰减、数值扩散估计及单算例收敛。未逐式重推长附录。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.13428",
+      "version": "2610.13428v1",
+      "title": "Implementation and verification of a new free boundary module for Resistive Wall Modes simulations with the nonlinear 3D full MHD code SpeCyl",
+      "authors": [
+        "Galeazzi, Francesco",
+        "Bonfiglio, Daniele",
+        "Spinicci, Luca",
+        "Cappello, Susanna"
+      ],
+      "abstract": "Self-consistent numerical simulations of free boundary instabilities, such as resistive wall modes (RWMs) and external kink modes, require special attention given their relevance on the path towards magnetic fusion based nuclear reactors. In this work, a new implementation and a verification benchmark are presented for the nonlinear three-dimensional (3D) full magneto-hydrodynamics (MHD) code SpeCyl, which self-consistently combines a free flow 3D treatment for the edge plasma velocity with double resistive wall thin shell magnetic boundary conditions, capable of capturing the essential features of common setups in experimental devices. Two coaxial resistive shells surround the plasma. Vacuum conditions are assumed between and outside the resistive shells, whose relative positions and time constants can be varied on purpose. The implementation is extensively verified against Shafranov's analytic theory, valid for a circular cross section large aspect ratio tokamak and assuming a flat current profile. The correctness of newly implemented Boundary Conditions (BCs) is confirmed by the good agreement obtained for the linear growth rates of (m=2,n=1) RWM and external kink, over a wide range of wall positions, resistive shell time constants, and for different initial reference equilibria. The (m=2,n=1) RWM growth rates are also benchmarked against previous different RWMs modelling and successful validation studies for RFX-mod tokamak plasmas. The new BCs make SpeCyl a flexible and robust tool to investigate free boundary MHD modes in large aspect ratio magnetic confinement configurations, such as those achieved with the RFX-mod machine and expected in RFX-mod2.",
+      "published": "2026-10-09T11:32:31+00:00",
+      "updated": "2026-10-09T11:32:31+00:00",
+      "topics": [
+        "聚变等离子体",
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.13428v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.13428v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 39,
+      "source_sha256": "302fcb9f70a912e2a304500ae820081ab360eb5519fd607e416071f883521633",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 3,
+        "relevance_reason": "托卡马克双电阻壁与真空边界的 MHD 算法直接服务壁耦合不稳定性模拟；本稿主要验证 RWM 和外扭结，尚未验证电阻壁撕裂重联。",
+        "title_zh": "SpeCyl 双壁自由边界：先验证壁电流响应，再研究壁耦合的不稳定性",
+        "takeaway": "作者把双电阻薄壁和真空间隙接入 SpeCyl，自洽连接等离子体边缘流动与磁场，并对照解析增长率和旧 RFX-mod 模型；更真实的边界仍受零压强、圆柱几何及内壁位置约束。",
+        "question": "壁不是一个简单的“磁场等于零”边界。等离子体扰动会在导体中诱导电流，暂时屏蔽外场；电阻又使屏蔽逐渐消失，改变不稳定模的增长时间。本文实现两层导体之间的磁响应，并检查其数值一致性。电阻壁模 RWM 是在理想壁下可稳定、现实电阻壁下会增长的外部模；它与含重联层的电阻壁撕裂模需要分别研究。",
+        "methods": "SpeCyl 使用含黏性和电阻的单流体磁流体模型，即 MHD。本稿忽略压强梯度、取恒定密度，用周期直圆柱近似圆截面、大环径比托卡马克；角向和轴向用傅里叶分解，径向用有限差分。边缘允许三维法向流动，平行流速取零，因而不是常见的固定无滑移边界。\n\n内侧电阻薄壁位于等离子体半径 \\(a\\)，第二层位于半径 \\(b\\)，更远处以理想导体闭合计算，两壁之间按真空处理。\\(a\\)、\\(b\\) 都是径向长度。薄壁电流由切向磁场跳变决定，同时保持径向磁场与切向电场的适当连续性；壁的磁响应与等离子体时间推进相互耦合。\n\n壁时间常数为 \\(\\tau_w=\\mu_0 r_w\\delta_w\\sigma_w\\)，其中 \\(\\mu_0\\) 是真空磁导率，\\(r_w\\) 是壁半径，\\(\\delta_w\\) 是厚度，\\(\\sigma_w\\) 是电导率。\\(\\tau_w\\) 越大，屏蔽保持越久；极小值近似透明壁。理论基准把内壁设成透明，重点比较极向模数 \\(m=2\\)、环向模数 \\(n=1\\) 的增长，并扫描外壁位置、时间常数和电流剖面。",
+        "findings": "作者首先从等离子体侧和真空侧分别计算边缘切向电场，在展示的线性增长和非线性饱和阶段，两条计算路线吻合。这个检查比只看一个最终增长率更直接：它能发现界面方程虽然单独写对，接入时间推进后却不一致的问题。\n\n在边缘安全因子为1.5的平坦电流基准中，外壁半径比 \\(b/a\\) 约1.189附近区分两种响应：近壁可由理想壁稳定、有限电阻下出现 RWM；更远处即使壁理想，也仍可能有外扭结。安全因子描述磁力线缠绕比。该阈值属于特定剖面和几何，不是所有托卡马克的允许壁间隙。在近壁、小增长率条件下，增长率 \\(\\gamma\\) 约与 \\(\\tau_w\\) 成反比，\\(\\gamma\\) 的单位为时间的倒数。\n\n更接近 RFX-mod 的比较采用另一程序已有的剖面和导体参数。外壁时间常数100毫秒时，SpeCyl 在内壁透明极限给出约 \\(46\\,\\mathrm{s^{-1}}\\)；把贴着等离子体的内壁时间设为3毫秒，变为约 \\(35\\,\\mathrm{s^{-1}}\\)。旧程序 RFXlocking 为47，旧实验参考值为44，单位同为每秒。后者与旧程序约差25%，但两程序的内壁位置和惯性处理不同；**这不能解读为新程序已经达到25%的实验预测精度。**",
+        "limitations": "内壁位置由网格固定在等离子体边缘，而实际对照装置的内壁与等离子体之间约有3厘米间隙，几何差异会影响稳定作用。零压强、圆柱近似、薄壁排序和有限黏性、电阻也限制适用范围；与理想解析模型的偏差未完全消除。作者计划进一步做实验验证并加入反馈线圈，本稿没有完成全部线圈控制或非线性重联验证。",
+        "reading": "建议先看边界一致性，再看壁位置扫描，最后看第26页与旧程序的对照。对你的壁耦合重联研究，这篇最有用的是验证顺序：理想壁、透明壁和有限电阻壁的极限都应正确，界面连续条件也要独立检查，然后再加入撕裂层、旋转或动理学闭合。后面这些是建议的扩展任务，不能由 RWM 基准通过自动推出。",
+        "evidence": "PDF 第3–6页：方程、流动和薄壁边界；第14–17页：基准设置与电场一致性；第20–22页：壁位置、时间常数及平衡扫描；第24–27页：RFX-mod 对照、局限和展望，已查看第26页图10并与正文交叉核对。附录未逐式审阅。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读"
+      }
+    },
+    {
+      "id": "2610.14581",
+      "version": "2610.14581v1",
+      "title": "Magnetar X-ray flares as elementary reconnection events in a self-organized critical magnetosphere",
+      "abstract": "Magnetar bursts are commonly attributed to magnetic energy release, yet the physically relevant dissipation unit has remained uncertain. Here we argue that this unit is not the burst as conventionally defined, but the short substructures within bursts, namely magnetar X-ray flares (MXFs). Using 789 MXFs from SGR~J1935+2154, we show that their waiting times separate into two components, interpreted as reflecting clustered intra-episode events and longer inter-episode intervals, that their proxy emission measure and temperature exhibit distinct rising and declining trends, and that their energy release scale (ERS) proxy distribution has a high-end slope in the same statistical regime as solar and stellar flares. Combined with the previously measured MXF duration slope, these results identify MXFs as a three-dimensional fractal-diffusive self-organized critical (FD-SOC) system with $β_{\\rm diff}\\simeq2$, implying reconnection avalanches that expand linearly through an active magnetosphere. We infer that magnetar active episodes are global unloading states assembled from many elementary flares. Magnetar X-ray flares are therefore the physically relevant units for magnetar outburst statistics and for connecting magnetar high-energy activity to other impulsive phenomena.",
+      "authors": [
+        "Sheng-Lun Xie",
+        "Yi Zhao",
+        "Wen-Long Zhang",
+        "Chen-Wei Wang",
+        "Yun-Wei Yu",
+        "Shao-Lin Xiong"
+      ],
+      "published": "2026-10-10T04:59:16Z",
+      "updated": "2026-10-10T04:59:16Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.14581v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.14581v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.13173",
+      "version": "2610.13173v1",
+      "title": "Formation Dynamics of a Rotating Solar Spicule-like Event and Associated Energy-Mass Transport",
+      "abstract": "We performed three-dimensional radiative magnetohydrodynamic(3D RMHD) simulations in an upward-directed (positive-polarity) open magnetic field with an initial background strength of 10 G. We identified vortex-associated spicule-like events and carried out a detailed analysis of one representative event. Prior to the formation of this spicule-like event, a photospheric vortex appears and twists the magnetic field lines, then develops upward into higher atmospheric layers, forming a magnetic tornado system. This event is generated during this process. At the periphery of this magnetic tornado, twisted magnetic field lines with negative vertical components reconnect with both external positive-polarity background fields and central positive-polarity fields. The magnetic reconnection sites rise and rotate together with the developed magnetic tornado, and many jet-like substructures in this event are closely associated with plasma upward ejections from these reconnection regions. A vertical force analysis shows that, for this event, plasma uplift in the photosphere and lower chromosphere is dominated by the pressure-gradient force, whereas in the upper chromosphere, the Lorentz force gradually becomes dominant. At a height of about 4 Mm above the solar surface, this event produces a mean upward mass flux density on the order of $10^{-7}~{\\rm kg~m^{-2}~s^{-1}}$ and a mean upward Poynting flux density of approximately $525~{\\rm W~m^{-2}}$. The wave-mode decomposition results show that the energy transport associated with the rotational spicule-like event is dominated by the Alfvén mode. Alfvén waves, fast-mode waves, and slow-mode waves carry energy into the lower corona in an approximate ratio of $10:7:3$.",
+      "authors": [
+        "Liufan Gong",
+        "Lei Ni",
+        "Guanchong Cheng",
+        "Jiajia Liu",
+        "Quan Xie",
+        "Robert Erdélyi"
+      ],
+      "published": "2026-10-09T08:01:03Z",
+      "updated": "2026-10-09T08:01:03Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.13173v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.13173v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.09674",
+      "version": "2610.09674v1",
+      "title": "Real-time Tokamak Equilibrium Reconstruction Under Limited Experimental Data via Physics-Grounded Synthetic Pre-training",
+      "authors": [
+        "He, Mingdong",
+        "Hu, Qixian",
+        "Xu, Tengfei",
+        "Wu, Tailin",
+        "Xiong, Zheng"
+      ],
+      "abstract": "Real-time equilibrium reconstruction is essential for tokamak plasma control. Data-driven surrogates are usually trained on high-quality labeled experimental data, but producing a large amount of labeled data sufficient for surrogate learning requires many expensive discharge shots, and few exist at the start of a new campaign or the operation of a new device. To reduce this cost, we propose to pre-train on simulated equilibria, generated at low cost by physics-based simulation, then fine-tune on limited real data. We evaluate under three settings with increasing difficulties, i.e., in-distribution, out-of-distribution (shape), and cross-campaign (temporal) splits, which mirror how reconstruction is actually deployed. Experimental results validate that synthetic pre-training is highly effective when few real labels are available: fine-tuning on only 1% of the full available real dataset cuts the per-sample normalized root-mean-square error (nRMSE) of the reconstructed poloidal flux by roughly 58% under out-of-distribution shapes and 64% under cross-campaign extrapolation, compared to a model trained from scratch on the same amount of real data. These realistic evaluations show that synthetic pre-training improves equilibrium reconstruction accuracy in the data-scarce regime that real tokamak campaigns face.",
+      "published": "2026-10-07T08:36:49+00:00",
+      "updated": "2026-10-07T08:36:49+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.09674v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.09674v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.09948",
+      "version": "2610.09948v1",
+      "title": "On the particle and electromagnetic boundary conditions in a mesothermal plasma flow",
+      "authors": [
+        "Gonzalez, J."
+      ],
+      "abstract": "The fully kinetic modeling of mesothermal plasma flows presents significant challenges in the description of boundary conditions for the electrons and the electromagnetic field. Due to their higher mobility compared to ions, electrons extend downstream of the ions, which hinders the implementation of the outflow boundary conditions during transient states. Although the electron drift velocity, $u_e$, is usually neglected as $u_e \\simeq u_i < v_{th,e}$, where $u_i$ is the bulk velocity of the ions and $v_{th,e}$ is the thermal velocity of the electrons, we will show how accounting for it, both at the injection of particles and at the outflow boundary condition, is of great importance to achieve quasi-neutrality of charge and current densities. A new partial reflection model for electrons is presented to represent quasi-steady and transitory states. Additionally, we will show how we can employ Ampere-Maxwell's law to better represent the transitory electric field at the outflow boundary compared to the classical `zero-field' Neumann boundary without requiring any numerical parameters. With these new boundary conditions, we improve the quasi-steady and transitory descriptions of expanding mesothermal plasmas.",
+      "published": "2026-10-07T12:28:00+00:00",
+      "updated": "2026-10-07T12:28:00+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.09948v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.09948v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.11061",
+      "version": "2610.11061v1",
+      "title": "Beam filamentation instability drives deuterium-tritium fusion with polarized neutron emission",
+      "authors": [
+        "Qiu, Guanqi",
+        "Liu, Deji",
+        "Cai, Dongchi",
+        "Hu, Ronghao",
+        "Gong, Zheng",
+        "Yan, Xueqing"
+      ],
+      "abstract": "Filamentation instabilities are generally regarded as detrimental to fast-electron transport in fusion plasmas because they increase beam divergence and redistribute deposited energy. Here, we use two-dimensional particle-in-cell simulations coupled to a spin-dependent deuterium-tritium fusion module to investigate whether filamentation can instead transfer energy from counterstreaming electrons to prepolarized fusion ions. The simulations show that magnetic filaments, together with longitudinal inductive and transverse charge-separation electric fields, accelerate initially stationary deuterons and tritons to energies at which fusion reactions occur. Over the parameter range examined, the calculated neutron yield increases with the saturated magnetic-field energy. The model further predicts anisotropic, spin-resolved neutron emission. The direction of maximum neutron polarization is approximately perpendicular to the dominant deuterium-tritium collision direction and evolves with the angular distribution of the reacting ions. These results suggest that beam filamentation can couple relativistic-electron energy to fusion ions and that polarized neutron emission may provide a reaction-weighted signature of the underlying plasma dynamics.",
+      "published": "2026-10-08T01:21:27+00:00",
+      "updated": "2026-10-08T01:21:27+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.11061v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11061v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.11080",
+      "version": "2610.11080v1",
+      "title": "Reaching high fusion gain with grams of spin-polarized fuel",
+      "authors": [
+        "Parisi, J. F."
+      ],
+      "abstract": "Building on recent ignition-access work of Delgado-Aparicio, Ono, and Menard, we show that even a single-use, gram-scale quantity of spin-polarized fuel (SPF) is useful for increasing fusion power and gain in magnetic confinement fusion machines such as tokamaks and stellarators. While fueling a fusion power plant continuously with SPF requires $\\sim$kilograms per day, far beyond present capabilities, a single-use short pulse of SPF allows a fusion plasma to cross into a high-gain regime, and stay there, even after switching back to regular unpolarized fuel. With continuous polarized fueling, polarization also makes high-gain plasmas easier to control: a resonant wave that depolarizes the fuel lowers the reactivity quickly, on a much faster timescale than transport. Grams of polarized fuel can therefore improve plasma performance and open a path to scaling SPF sources and usage, from small first experiments to continuous fueling.",
+      "published": "2026-10-08T01:42:48+00:00",
+      "updated": "2026-10-08T01:42:48+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.11080v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11080v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.11603",
+      "version": "2610.11603v1",
+      "title": "Imaging ablator-fuel mix of hot spot in inertial confinement fusion via resonant X-ray absorption using an X-ray free electron laser",
+      "authors": [
+        "Huang, Lingen",
+        "Yang, Long",
+        "Garcia, Alejandro Laso",
+        "Humphries, Oliver S.",
+        "Šmíd, Michal",
+        "Mishchenko, Mikhail",
+        "Bouffetier, Victorien",
+        "Baehtz, Carsten",
+        "Brambrink, Erik",
+        "Cafiso, Samuele D. Di Dio",
+        "Pérez-Callejo, Gabriel",
+        "Cui, Yangzhe",
+        "Engler, Thea",
+        "Feng, Wen",
+        "Göde, Sebastian",
+        "Grenzer, Joerg",
+        "Gutt, Christian",
+        "Hagemann, Johannes",
+        "Herbert, Marie-Luise",
+        "Hirsch-Passicos, Arthur",
+        "Höppner, Hauke",
+        "Kluge, Thomas",
+        "Kraus, Dominik",
+        "Lütgert, Julian",
+        "Masruri, Masruri",
+        "Nakatsutsumi, Motoaki",
+        "Öztürk, Özgül",
+        "Ordyna, Paweł",
+        "Pan, Xiayun",
+        "Paschke-Bruehl, Franziska",
+        "Pelka, Alexander",
+        "Preston, Thomas R.",
+        "Qu, Chongbing",
+        "Rahul, S. V.",
+        "Randolph, Lisa",
+        "Rehwald, Martin",
+        "Schlenvoigt, Hans-Peter",
+        "Schumacher, Samuel",
+        "Schramm, Ulrich",
+        "Schwinkendorf, Jan-Patrick",
+        "Shoulga, Georgiy",
+        "Toncian, Monika",
+        "Vorberger, Jan",
+        "Zeil, Karl",
+        "Zastrau, Ulf",
+        "Toncian, Toma",
+        "Cowan, Thomas E."
+      ],
+      "abstract": "A novel diagnostic is proposed for active probing of doped inertial confinement fusion (ICF) spherical shells, enabling direct measurements of mix and burn dynamics at next-generation implosion facilities via resonant absorption imaging with an X-ray free-electron laser (XFEL). The charge-state-sensitive imaging of embedded dopants provides spatiotemporally resolved constraints on ionization, opacity, and material mix seeded by hydrodynamic instabilities in stagnated plasmas. Proof-of-principle experiments demonstrating resonant XFEL probing of hot spot in coated copper wires driven by an ultra-short relativistic laser pulse, have established the feasibility of this approach. Furthermore, atomic and radiation-hydrodynamic simulations, combined with synthetic resonant X-ray absorption imaging, extend the diagnostic concept to laser-driven direct-drive ICF shells with copper-doped ablators and radiation-driven indirect-drive shells with tungsten-doped ablators. This unique approach, combining a laser-driven implosion facility with a high-brightness XFEL, could enable precise measurements of fusion-relevant hot dense plasmas at multi-keV temperatures, provide stringent benchmarks for radiation-hydrodynamics models, and advance the realization of inertial fusion energy.",
+      "published": "2026-10-08T09:48:04+00:00",
+      "updated": "2026-10-08T09:48:04+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.11603v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11603v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.11871",
+      "version": "2610.11871v1",
+      "title": "WEST advanced wall protection achievements toward long pulse operation",
+      "authors": [
+        "Mitteau, R.",
+        "Aumeunier, M. H.",
+        "Dubus, L.",
+        "Gerardin, J.",
+        "Gorse, V.",
+        "Grelier, E.",
+        "Moncada, V.",
+        "Vives, S.",
+        "Litaudon, X.",
+        "Jakubowski, M.",
+        "Fellinger, J."
+      ],
+      "abstract": "Long pulse operation in magnetic fusion devices requires well controlled plasma power exhaust to the divertor \\& wall, and avoidance of wall hot spots that could evolve in wall damage. At WEST, 10 major plasma facing components are monitored using 10 series of temperature/power indicators, based on multiple diagnostic systems, among which the infrared viewing system is especially relevant. These indicators span from the most basic ones (temperatures, power and energy from deterministic models) to advanced processes using artificial intelligence acquired through machine learning. Some advanced processes do operate in real time, and feedback on power actuators through the plasma control system, providing active control toward remaining within the safe operational domain. Other advanced processes intervene as forensic tools post discharge to identify possible dangerous situations regarding the power loading to the wall, so that the discharge run plan is adjusted to avoid running into aggravating wall events. No critical wall power event happened during the campaigns C9 to C11 (2024-2025), totalling about 13h of plasma, that would have affected the campaign plan. While it cannot be demonstrated that the active \\& intelligent wall protection enabled the new plasma duration record of 1337 seconds, the wall protection system as a whole plausibly contributed to obtaining these record durations by preventing wall hot spots to become critical during the campaigns.",
+      "published": "2026-10-08T12:46:14+00:00",
+      "updated": "2026-10-08T12:46:14+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2610.11871v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11871v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.11890",
+      "version": "2610.11890v1",
+      "title": "Compressional heating above 1 keV on the LM26 magnetized target fusion machine",
+      "authors": [
+        "Howard, S. J.",
+        "Krotez, D.",
+        "Carle, P.",
+        "Rojo, J. Sanchez",
+        "Underwood, R.",
+        "Froese, A.",
+        "Reynolds, M.",
+        "Sirmas, N.",
+        "Conquergood, K.",
+        "Epp, K.",
+        "Forysinski, P.",
+        "Plant, D.",
+        "Zindler, R.",
+        "Love, E.",
+        "Brennan, D. P.",
+        "Kumar, N.",
+        "MacDonald, C.",
+        "Wong, A.",
+        "Zawalski, W.",
+        "Rablah, B.",
+        "Kozicki, W.",
+        "Preston, C.",
+        "Lee, A.",
+        "Feng, X.",
+        "Schellenberg-Beaver, M.",
+        "Tingley, R.",
+        "Gorenstein, J.",
+        "Suponitsky, V.",
+        "Moghadam, Z. Seifollahi",
+        "Froese, D.",
+        "Cessford, E.",
+        "Pratt, J.",
+        "Crofts, J.",
+        "Sardari, J.",
+        "Faust, G.",
+        "Ross, D.",
+        "Wilkie, J.",
+        "Bernard, S.",
+        "Connor, C.",
+        "Bolanos, S.",
+        "Gutjahr, C.",
+        "Chan, E.",
+        "Eyrich, C.",
+        "Mahoney, A.",
+        "Davidson, M.",
+        "Laberge, M."
+      ],
+      "abstract": "The LM26 device has achieved a peak electron temperature of $T_e = 1180 \\pm 65$ eV as measured by filtered X-ray diodes, supported by adjacent Thomson scattering measurements of $T_e = 1090 \\pm 40$ eV, with a deuterium ion temperature of $T_i = 459 \\pm 33$ eV as inferred from neutron yield. LM26 compresses a spherical tokamak plasma inside an initially 1.76 m diameter solid lithium liner imploded by theta-pinch coils. Radial compression by a factor of 2.75 increases $T_e$ over fivefold, while $T_i$ increases as much as twofold. The integrated observation of magnetic flux compression, electron heating, ion heating, and neutron production in a magnetized plasma compressed by a large lithium liner is an important milestone for magnetized target fusion",
+      "published": "2026-10-08T13:01:38+00:00",
+      "updated": "2026-10-08T13:01:38+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.11890v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.11890v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.12155",
+      "version": "2610.12155v1",
+      "title": "Kinetic wave activity and proton heating in 3D hybrid simulations of decaying balanced and imbalanced Alfv\\'enic turbulence",
+      "authors": [
+        "González, C. A.",
+        "Bowen, T. A.",
+        "Mallet, A.",
+        "Tenerani, A."
+      ],
+      "abstract": "We investigate turbulent dynamics from large to sub-proton scales, the kinetic wave activity and resulting proton heating in three-dimensional hybrid-kinetic simulations of freely decaying balanced and imbalanced Alfv\\'enic turbulence. We considered initial fluctuations with same amplitude and spectral shape but different degrees of correlation between velocity and magnetic field perturbations (i.e., normalized cross-helicity), which define the corresponding turbulent regimes. We found that our balanced turbulence simulation exhibits stronger energy dissipation and more efficient proton heating compared to the imbalanced case. On the large fluid scales, the two simulations undergo distinct nonlinear dynamic and energy cascades, leading to different spectral properties once turbulence is well developed. At sub-proton scales, fluctuations are predominantly oblique with right-hand polarization, a property common to both regimes. In contrast, only the imbalanced simulation displays substantial wave power parallel to the guide magnetic field, with clear signatures of ion-cyclotron waves. These waves are excited in regions with strong temperature anisotropy that arise during the initial nonlinear steepening of Alfv\\'enic fluctuations, a process that simultaneously generates parallel-propagating proton beams. Furthermore, non-Maxwellian features emerge in velocity space, indicating different heating mechanisms in balanced and imbalanced regimes and providing evidence for the role of kinetic instabilities in regulating the turbulent dynamics. Overall, these results show that cross-helicity is a key parameter controlling the large-scale evolution, kinetic activity, and energy dissipation in collisionless turbulent plasmas.",
+      "published": "2026-10-08T15:36:44+00:00",
+      "updated": "2026-10-08T15:36:44+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.12155v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.12155v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.13822",
+      "version": "2610.13822v1",
+      "title": "Physical-state supervision for design-only Gaussian process surrogates of implosion simulations",
+      "authors": [
+        "Liu, Chang",
+        "Shen, Hao",
+        "Li, Chuanying"
+      ],
+      "abstract": "Physical diagnostics recorded during simulation can organize a sharply varying response, but using them as surrogate inputs normally requires another calculation at prediction. We construct a physical-state-supervised Gaussian process surrogate that learns these diagnostics from design variables. Cross-fitted state estimates augment a retained design representation; a global Gaussian process and an optional soft mixture of response-band experts use identical inputs. On a database of 1,987 paired one-dimensional implosions, learned burn-weighted states from calculations without alpha-particle heating reduce mean squared log-response error by 60.25% and 52.98% for the global predictor on random holdout and design-space extrapolation. Random-projection and shuffled-state supervision do not reproduce these gains. For CH, matched-input comparisons show that experts help at smaller training budgets but contribute little at 1,000 designs with this representation. A thermal-feedback benchmark validates the complete learned-state procedure, while 3,000 newly calculated Be/Cocktail designs expose weaker extrapolation gains and cases where experts degrade accuracy. A conditional state-error bound separates encoding sensitivity from routing effects. An open Python implementation reproduces the archived predictions and is released with the data, per-design results, and measured costs. Physical-state supervision is thus a useful representation for finite-data surrogates, whereas expert specialization should be selected by validation.",
+      "published": "2026-10-09T16:33:47+00:00",
+      "updated": "2026-10-09T16:33:47+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.13822v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.13822v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2610.15076",
+      "title": "实验室重联的稀疏诊断：少量磁场信息能补全密度，却未必恢复电流片",
+      "summary": "同一神经网络从缺失程度不同的磁场与密度数据重建等离子体状态，验证了两类信息的互补性；结果限于固定电子压强参数的合成数据，尚未验证实验迁移。"
+    },
+    {
+      "id": "2610.11983",
+      "title": "太阳磁通抵消：表面磁场变弱，怎样与三维重联及磁通绳形成联系起来",
+      "summary": "非均匀扭转磁管浮升的三维电阻 MHD 模拟中，内侧反向磁斑汇聚并抵消，随后形成磁通绳和宽喷流；作者用场线、流动和连接关系支持解释，表面抵消率仍依赖诊断筛选。"
+    },
+    {
+      "id": "2610.13288",
+      "title": "黑洞磁层为什么逐渐对准：电阻扩散的标度何时成立、何时失效",
+      "summary": "作者从反向磁场面的运动推导电流片倾角松弛，并用电阻广义相对论 MHD 模拟验证中间电阻区的趋势；低电阻平台提示还存在其他机制，对准速率不能直接当作重联率。"
+    },
+    {
+      "id": "2610.13428",
+      "title": "SpeCyl 双壁自由边界：先验证壁电流响应，再研究壁耦合的不稳定性",
+      "summary": "作者把双电阻薄壁和真空间隙接入 SpeCyl，自洽连接等离子体边缘流动与磁场，并对照解析增长率和旧 RFX-mod 模型；更真实的边界仍受零压强、圆柱几何及内壁位置约束。"
+    }
+  ]
+}
