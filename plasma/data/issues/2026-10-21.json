@@ -1,0 +1,640 @@
+{
+  "id": "2026-10-21",
+  "window_start": "2026-10-14T01:00:00+00:00",
+  "window_end": "2026-10-21T01:00:00+00:00",
+  "created_at": "2026-10-21T01:28:41.194525+00:00",
+  "overview": "本期窗口为北京时间 2026 年 10 月 14 日 09:00 至 10 月 21 日 09:00，只按 arXiv 首次提交时间收录。本期保留 20 条经主题复核的候选，完成 5 篇 PDF 正文选读简报；其余仅作为摘要候选，不代表已阅读正文。未用旧论文补足数量。\n\n最贴近聚变重联的是 ModeCast 对托卡马克电阻内扭结、撕裂模及磁岛结构的计算验证。它在本期放在最前，但主要贡献是线性约化 MHD 的代理方法，不能当成非线性重联的新机制。当前检索没有找到更多适合详读的直接聚变重联理论或模拟新稿；这既反映本次找到的供应，也受到下述覆盖限制，不能理解为本周不存在其他相关论文。\n\n第二条线索是“诊断量实际回答了什么”：FLARE 的注意力指出值得复核的时间帧，未给出逐帧物理真值；相对论 PIC 则区分区域接触、注入前做功和最终高能样本。两者共同提醒，图像显著或轨迹经过某处，不足以单独证明机制。第三条线索是理论模型的边界：局部三维零点解不决定唯一全局重联率，二维电子惯性模型中的斑块和磁势拓扑也须分别诊断。\n\n检索覆盖说明：按固定流程运行的主接口与独立关键词接口均遇到 HTTP 429 限流，随后改查官方新稿、近期和月度目录，并完成独立 advanced 关键词检索及逐篇首次提交时间校验。目录当时最新公告到 10 月 20 日，可能有索引延迟。因此这是有明确日期和来源边界的一期，不宣称穷尽窗口内所有新稿。各篇均标明正文选读范围、原文位置与外推限制；未复现实验或数值结果。",
+  "query": "主检索 weekly.py prepare 与独立关键词 API 均返回 HTTP 429；替代为 arXiv 官方 physics.plasm-ph/new、recent、2026-10 月目录（目录最新公告至10月20日）和独立 advanced HTML 关键词 OR 搜索（按首次提交日）；逐篇用 v1 UTC 提交记录严格筛选七日窗口。关键词含 tearing、microtearing、sawtooth、internal kink、error field、magnetic reconnection、magnetic island、MRX、TREX。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2610.23844",
+      "version": "2610.23844v1",
+      "title": "ModeCast: One-Shot Prediction of Linear MHD Eigenmodes and Growth Rates in Tokamaks",
+      "authors": [
+        "Higginbottom, Alex",
+        "Ercan, Zara Z.",
+        "Antony, Abetharan",
+        "Gonzalez, Guzman Sanchez",
+        "Placucci, Rafael Grazzini",
+        "Koupaï, Armand Kassaï",
+        "Toshev, Artur P."
+      ],
+      "abstract": "Large-scale magnetohydrodynamic instabilities break plasma confinement, can trigger disruptions, and constrain fusion reactor design; modeling a single configuration against them takes hours with a reference solver such as JOREK, and a design study requires thousands of hours. ModeCast is the first learned surrogate to return the complete linear stability assessment for MHD modes. Trained on a comprehensive dataset of over 45,000 JOREK simulations across thousands of equilibria, it screens stability across toroidal mode numbers n=1-4 and predicts the full spatial structure and growth rate of unstable modes. Excluding the equilibrium solve, inference on a single GPU is over 10,000x faster than multi-core JOREK linear stability runs. The gain comes from building the linear-phase physics into the formulation, objective, and inputs, yielding up to six times more training data. ModeCast misses none of the unstable held-out cases, and its predicted fields reproduce the simulation's measured physics, from magnetic island topology to resistivity trends. On a fixed-geometry resistivity scan outside its training distribution, refitting only the 22k-parameter growth rate head of the 145M-parameter network on four simulation halves the held-out internal kink growth rate error, and fine-tuning the whole network adds little. Because it is differentiable and returns full fields, ModeCast could in the future assimilate experimental measurements, providing a bridge to real devices and accelerating progress toward commercial fusion. Project page: zenithon.ai/research/modecast.",
+      "published": "2026-10-16T17:57:39+00:00",
+      "updated": "2026-10-16T17:57:39+00:00",
+      "topics": [
+        "聚变中的重联",
+        "磁场重联",
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23844v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23844v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 26,
+      "source_sha256": "682dbe79a56434cc2827d940ee8d4f612e5a4e465bf9ed71135a958e29704856",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "以托卡马克电阻内扭结和撕裂模为验证对象，检查磁岛结构及电阻率响应；贡献是线性约化 MHD 的计算代理，不是非线性重联机制的新结论。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "ModeCast：快速预测托卡马克线性内扭结、撕裂模结构与增长率",
+        "takeaway": "用 JOREK 线性模拟训练代理模型，同时预测稳定性、空间模结构和增长率；固定几何的内扭结与撕裂模扫描显示少量新模拟可帮助校准，但黏性超出训练范围时会失效，尚不能代替非线性重联计算。",
+        "question": "对聚变重联研究而言，只知道某个平衡“不稳定”还不够：还要知道扰动集中在哪里、磁岛怎样排列，以及增长有多快。逐个平衡运行 JOREK 这样的磁流体力学（MHD）程序很昂贵，单一稳定性标签又不能提供重联层的空间信息。本文尝试把这些输出一起学习。\n\n作者检验的具体问题是：把线性阶段的物理结构放进输入、输出和误差定义后，网络能否保留内扭结与撕裂模的重要形态？换到新几何与新电阻率时，需要重新计算多少参考算例？这直接关系到能否用便宜的初筛，把昂贵模拟留给真正不确定的平衡。",
+        "methods": "参考数据来自 JOREK 的 model600 电阻约化 MHD，预测范围是固定背景平衡上的主导线性模。线性阶段意味着扰动仍很小，可用共同的指数增长率描述。网络预测七个复数扰动场和增长率，另设保守的稳定性分类器；它还可以把边界不清的情况交回完整求解器。\n\n输入包括平衡场、安全因子剖面及有理面位置等。有理面满足 \\(q=m/n\\)：\\(q\\) 是描述磁力线绕行关系的无量纲安全因子，\\(m\\)、\\(n\\) 分别是极向和环向模数。数据池覆盖 \\(n=1\\text{–}4\\)，但精筛的小型模结构数据集主要支持较低模数。网络只允许所有场共同调整一个整体相位，避免各场分别“对齐”后掩盖磁岛位置和相互相位的错误。\n\n总数据池有 46,034 个“平衡—环向模数”组合；不能把它全部当成同一个场预测器的训练样本。严格筛选的模结构训练集是 2,718 例，测试集 355 例，分类器则使用更广的数据。训练、验证和测试按平衡几何隔离，避免同一几何的近邻样本同时出现在两边。\n\n外部测试固定圆截面平衡，分别扫描电阻内扭结与撕裂分支的电阻率，比较原始预测、只重拟合增长率输出层及简单拟合基线。增长率 \\(\\gamma\\) 指扰动振幅的指数增长率；原文场预测图以每秒展示，外部扫描另按阿尔芬时间归一化。增长率误差在固定单位约定下用 \\(\\log_{10}\\gamma\\) 计算，不能直接当作百分比误差。",
+        "findings": "保守分类设置下，测试集中 1,258 个不稳定输入没有漏报。这个数字的正确解释是“这组测试上为零”，不是“真实漏报风险为零”：作者给出的单侧 95% 漏报率上界仍为 0.24%。模结构也有明显剩余误差，尤其是电阻层，不能仅凭图像相似就认为重联层已经解析准确。\n\n外部内扭结扫描暴露了一个更重要的边界：参考算例采用零黏性时，原始网络几乎失去对电阻率变化的响应。作者将网络的黏性输入替换为训练集的中位值，才恢复变化趋势。这是诊断训练范围失配的试验；参考模拟的黏性没有随之改变，**不能把修改输入理解成已验证的同物理参数预测**。\n\n在上述输入处理后的内扭结分支，使用 4 个参考算例重拟合输出层，剩余 7 个算例的增长率误差从 0.622 降到 0.323 dex。这里 dex 表示十进对数差，统计量是 200 种取样顺序下，留出算例平均绝对误差的中位数。撕裂分支用原始输入和 3 个新算例时也有改善；两者均只涉及一个外部几何，不能据此保证任意装置上的迁移。\n\n计算成本必须分清边界。已知平衡时，一个 A100 GPU 完成分类与四成员预测的中位耗时为 0.09 秒；参考 JOREK 线性计算约需 1.3–4.3 小时、32–64 个 CPU 核。加入尚未省掉的平衡求解后，作者估算完整查询约 123 秒，**端到端加速约 40–130 倍**，而不是把摘要中超过一万倍的纯推理比较直接用于完整流程。",
+        "limitations": "作者明确限定：这是单一代码、单一装置几何族、没有 X 点和边缘/刮削层的核心区线性约化 MHD；没有实验数据，也没有非线性阶段。它不预测磁岛饱和、锯齿完整周期或粒子加速，不能视为 PIC（粒子网格）或动理学重联求解器的替代品。\n\n作者怀疑电阻层误差可能部分来自统一网格的分辨率，但尚需更细参考模拟验证。编辑提醒：外部分支的增长率校准成功，不等于空间模结构已完成外推验证；把超范围输入“修到”训练范围也不是可靠的物理闭合。",
+        "reading": "与你最直接的联系是托卡马克内扭结、撕裂模和磁岛结构的快速参数扫描。建议先读第 4 节电阻率测试，再看模结构误差与数据筛选，最后读性能表，避免先被推理速度吸引而忽略物理范围。\n\n可进一步做的研究检验：按完整平衡族留出测试，除增长率外，同时比较有理面附近的层宽、场间相位与磁岛拓扑；将不确定或超出训练范围的输入送回 JOREK。此处是建议，没有执行网络训练或复现计算。",
+        "evidence": "PDF 共 26 页。第 1–5 页：线性表述、数据与场预测；第 6–9 页第 4 节：外部电阻率扫描，重点第 7 页图 3 与表 2；第 10 页：结论和范围限制；第 21 页表 13：硬件、推理和完整查询成本；第 25–26 页附录 G：分组数量、增长率定义及归一化。已查看第 7、21 页原图表；其余附录未逐图审阅。"
+      }
+    },
+    {
+      "id": "2610.22817",
+      "version": "2610.22817v1",
+      "title": "Multiple Instance Learning for Interpretable Plasmoid Detection in the FLARE Device",
+      "authors": [
+        "Marsden, Charles",
+        "Robbins, Adam",
+        "Ji, Hantao"
+      ],
+      "abstract": "Multiple instance learning (MIL) is a form of weakly supervised learning widely used in healthcare and biomedical imaging, where labels may be available for groups of observations (\"bags\") but not individual observations (\"instances\"). This setup is well-suited to plasmoid detection in magnetic reconnection experiments, since identifying dynamic magnetic structures is best accomplished taking in data from many time steps as a whole, as opposed to viewing frames in isolation. Instance-level consideration enables researchers to determine the range of times most affecting model output, thus serving as a tool for the temporal localization of plasmoids. Despite its success in the life sciences, to the best of our knowledge, MIL is yet to be reported in peer-reviewed plasma physics literature. We evaluate a MIL model against a convolutional recurrent neural network (CRNN), an architecture commonly found in plasma physics literature, on a plasmoid detection task, using a highly imbalanced dataset of 1152 magnetic reconnection shots from the FLARE device at PPPL. We demonstrate significant improvements in test performance (PR AUC: $\\Delta$=+0.0932, p=0.0039; F1: $\\Delta$=+0.0259, p=0.0488; Wilcoxon signed-rank test) against the CRNN model on full-channel input. We investigate the interpretability advantage provided by our MIL model for the temporal localization of plasmoids. Through its attention mechanism, we can discern relevant frames and even the number of plasmoids present in a shot. Overall, we show that MIL is a promising framework for similar event classification tasks in plasma physics.",
+      "published": "2026-10-16T01:49:53+00:00",
+      "updated": "2026-10-16T01:49:53+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.22817v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22817v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 8,
+      "source_sha256": "819f9c592659a30225c6bbd8408543e444bdf55dcee9fd3e5d2cb69cf0cf7f27",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 1,
+        "relevance_reason": "FLARE 实验室重联中的磁岛识别和诊断方法，可借鉴到聚变重联的数据筛查，但没有建立托卡马克动力学模型。",
+        "method_tags": [
+          "数值模拟",
+          "实验 / 观测"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "FLARE 磁岛识别：用整炮标签寻找值得人工复核的时间片",
+        "takeaway": "把一次 FLARE 放电的多帧数据作为整体训练，多示例学习比卷积循环网络更善于检出少数磁岛事件；注意力可帮助定位候选时间，但当前准确度与验证范围还不足以支持自动判定或普遍计数。",
+        "question": "重联电流片中的 plasmoid 可理解为电流片内形成、运动和排出的磁岛结构。实验往往能判断“一炮是否出现过磁岛”，却很难给每一帧精确标注。逐帧训练因此缺少标签；仅凭闭合磁通或圆形斑块又容易把源区夹断、噪声等误认成重联电流片的不稳定性。\n\n本文问：能否只用整炮标签训练，既判断是否有磁岛，又指出哪些时间最值得看？它采用多示例学习（MIL）：整炮是一个“袋”，每帧是袋中的一个示例。这个设定接近实验标签的实际粒度，而不是假装每帧都有可信真值。",
+        "methods": "主分析排除专家信心不足的标签后，数据来自 FLARE 的 1,152 炮实验，其中 168 炮为阳性，约占 14.6%。训练和验证使用 979 炮，固定留出测试 173 炮，其中只有 25 炮阳性。每炮有 80 帧，覆盖 261–340 微秒，间隔 1 微秒。\n\n输入包括重联平面内的磁场 \\(B_R,B_Z\\)、垂直该平面的磁场 \\(B_Y\\) 和电流密度 \\(J_Y\\)。下标表示分量方向，\\(R,Z\\) 是测量平面坐标，\\(Y\\) 为面外方向。卷积神经网络先提取每帧的空间特征，再由门控注意力给各帧赋权、合成为整炮表征。权重表示对整炮判断的贡献。\n\n对照是卷积循环神经网络（CRNN），它用循环单元学习时间联系。MIL 的加权池化本身不依赖帧顺序，因此不能描述成已经学会磁岛的先后因果或运动方程。作者固定同一批测试炮，比较 10 次不同随机种子训练；这衡量的是训练波动，不是 10 组独立实验的误差。",
+        "findings": "四通道输入下，MIL 的测试 F1 为 \\(0.578\\pm0.024\\)，对照为 \\(0.552\\pm0.049\\)。F1 综合查准率与查全率：前者问“报出的磁岛有多少是真的”，后者问“真磁岛有多少被找出”。数值后的误差均为 10 个训练种子之间的标准差。\n\n更适合少数阳性任务的精确率—召回率曲线下面积（PR AUC），从对照的 \\(0.540\\pm0.053\\) 提高到 \\(0.633\\pm0.023\\)。配对检验差值为 0.0932，对应的 \\(p\\) 值约 0.0039；\\(p\\) 是检验统计量在零差异假设下的尾部概率。F1 改善的 \\(p\\approx0.0488\\) 仅属名义显著，作者没有做多重比较校正，并指出校正后很可能不再通过 0.05 门槛。\n\n**注意力峰值可以指路，不能直接当作该帧存在磁岛的概率。** 第 6397 炮的主峰对应较大的圆形结构，较小的第二峰经人工查看对应另一个磁岛，这是有用的个例证据；它还不是跨样本验证过的计数规则。图 2 同时展示低权重时间段，帮助读者比较真正被模型利用的形态。\n\n只用平面内两个磁场分量的结果与四通道方案接近，增加面外磁场和电流并未显著提高 F1 或 PR AUC。这只能说明当前数据和模型下的增益有限，不能推出这两种诊断量在物理上无用。",
+        "limitations": "作者认为现阶段仍需改进，才能成为实用的科学分类器。测试集只有 25 个阳性事件，对稀有形态的统计约束较弱；循环网络的超参数也没有完全独立地深入优化。不能把与一个对照的优势升级为所有方法中的最优结果。\n\n编辑提醒：整炮弱标签和注意力没有给出逐帧的物理真值。源区夹断与电流片内新生磁岛仍要通过磁通结构、形成位置和演化来区分；跨实验批次和跨装置的泛化也没有由本研究建立。",
+        "reading": "建议先看图 2，再看表 I、II：先理解“模型看到了什么”，再判断它看得是否可靠。与你的工作最接近的是大量重联模拟或实验输出的候选事件筛查，而不是用分类分数替代重联机制分析。\n\n可进一步检验：让模型只提出时间窗，人工复核磁通闭合、磁岛增长及排出，并按整批放电留出测试。若应用于 PIC，可另建逐帧真值评估定位误差，不能把同一时间序列拆散后随机分入训练与测试。以上为研究建议。",
+        "evidence": "PDF 共 8 页。第 1–3 页：实验标签、输入和 MIL；第 3–4 页：训练、对照和统计设置；第 5 页表 I、II：测试指标与配对检验，正文说明多重比较限制；第 5–6 页第 VI、VII 节：解释性和结论；第 7 页图 2：第 6397 炮注意力与磁场/电流帧。已查看第 5、7 页原图表，正文为选读，未逐项复算模型。"
+      }
+    },
+    {
+      "id": "2610.22118",
+      "version": "2610.22118v1",
+      "title": "Are $E>B$ regions essential for particle injection in relativistic magnetic reconnection?",
+      "authors": [
+        "French, Omar",
+        "Guo, Fan",
+        "Li, Xiaocan",
+        "Zhang, Qile",
+        "Liu, Yi-Hsin",
+        "Daughton, William",
+        "Li, Hui"
+      ],
+      "abstract": "During relativistic magnetic reconnection, X-points ($E>B$ regions at vanishing guide field) have been proposed to play an essential role in injecting particles into the nonthermal population. Using fully kinetic particle-in-cell simulations at a range of magnetizations $\\sigma \\equiv B_0^2/(4\\pi n_0 m_e c^2) = 12$--$800$, we study in detail how the particle energy gains up to the injection threshold $\\gamma_{\\rm inj} = \\sigma/4$ are partitioned into work done inside $E>B$ regions (unmagnetized), within one gyration after exit (re-magnetizing), and at all other times (magnetized). The magnetized channel supplies the largest part of the energy gain for $\\sim 95\\%$ of injected tracers at $\\sigma = 12$ and $\\sim 65\\%$ at $\\sigma = 800$. Most of the tracers in this magnetized majority never enter an $E>B$ region before injection. We also compare these injection shares with the earlier studies that proposed an essential role for $E>B$ regions. We conclude that $E>B$ regions are neither necessary for injection nor the dominant direct contributors to pre-injection work by injection share in two-dimensional, nonradiative pair-plasma reconnection at vanishing guide field.",
+      "published": "2026-10-15T15:58:42+00:00",
+      "updated": "2026-10-15T15:58:42+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.22118v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22118v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 10,
+      "source_sha256": "0d1910e4d3ab91dd839ce8d81a5d817bdddd0661e682f7b61ee1c6f380bdc0bd",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "二维相对论电子—正电子重联的粒子注入问题；可借鉴轨迹能量记账，物种、导向场和参数均不能直接外推到聚变等离子体。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "相对论重联中，粒子注入一定要经过 \\(E>B\\) 区域吗？",
+        "takeaway": "二维、几乎无导向场的电子—正电子 PIC 将注入前做功按区域分开统计，发现多数注入粒子的最大贡献来自强电场区及其退出窗口以外；接触强电场与最终达到高能都不能单独证明能量由那里提供。",
+        "question": "“粒子曾经过重联 X 点”与“X 点给了它进入高能尾部的主要能量”是两个问题。粒子还可能先被其他区域加速，随后才穿过 X 点；若只从最终高能样本回溯轨迹，会把后来的接触误当作最初的注入机制。本文直接追踪首次越过注入阈值以前的电场做功。\n\n论文用高斯单位制比较电场幅值 \\(E\\) 与磁场幅值 \\(B\\)，寻找 \\(E>B\\) 的区域；若换成 SI，等价幅值条件应写为 \\(E>cB\\)，其中 \\(c\\) 是光速。这个区域判据不是所有“非理想电场”的同义词，也不是完整的加速机制分类。",
+        "methods": "作者用 VPIC 做二维、无碰撞、无辐射的电子—正电子粒子网格模拟，采用几乎为零的导向场，即沿电流方向的背景磁场。重联方向周期边界，另一方向采用导体场边界和反射粒子边界。主扫描的无量纲磁化度为 12、50、200、800，并在磁化度 50 下另做系统大小扫描。\n\n定义为 (\\sigma=B_0^2/\\(4\\pi n_0m_ec^2\\))：\\(B_0\\) 是上游重联磁场，\\(n_0\\) 是电子与正电子的总数密度，\\(m_e\\) 为电子质量；两种物种质量相同。每次追踪约 64 万个电子示踪粒子，首次达到洛伦兹因子阈值 \\(\\gamma_{\\mathrm{inj}}=\\sigma/4\\) 时记为注入。\\(\\gamma_{\\mathrm{inj}}\\) 描述相对论总能量相对静能的比值，不应与动能阈值混写。\n\n注入前做功分成三份：位于 \\(E>B\\) 内；离开后、尚未累积一圈回旋角的窗口内；其余时间。退出窗口遇到再进入或注入也会立即结束。“其余时间”被作者简称为磁化通道，但这个标签本身不保证粒子严格满足导引中心近似。主统计只包含重联启动后一个系统光穿越时间内注入的粒子。",
+        "findings": "表 2 给出的“其余时间通道贡献最大”的粒子比例，在磁化度 12、50、200、800 下依次为 93%、70%、65%、63%。**分母是该时间窗内注入的示踪粒子数，不是全体粒子的总能量；“最大”也不要求超过该粒子能量增量的一半。** 摘要写约 95% 与约 65%，此处采用原表中的具体值。\n\n同一张表中，注入前从未进入 \\(E>B\\) 的比例依次是 90%、50%、39%、43%。这给出一个清楚但有限的反例：在这些算例里，接触这种强电场区域并非每个粒子注入的必要条件。在磁化度 50 的案例，区域内部和退出窗口分别对约 5.2%、24% 的注入粒子提供最大贡献。\n\n最终高能样本会相对富集曾由强电场区主导注入的粒子，但作者发现这还受到注入后能量增长差异的影响。也就是说，“最终高能样本中常出现某条路径”不能自动回答“多数粒子如何开始注入”。改变退出窗口的回旋角定义后，其余通道仍保持最大的粒子份额，但本文没有识别所有后续加速过程的具体机制。",
+        "limitations": "作者明确将结论限制在二维、无辐射、电子—正电子且几乎无导向场的设置。对电子—离子、强导向场以及三维聚变重联的检验仍是另一个问题；周期边界、有限系统和观测时长也会改变最终高能群体的取样。\n\n本文按场幅值和时间窗口分账，没有把电场严格分解成流体运动部分与非理想部分，也没有通过改变轨迹建立全部因果关系。因此不能据此说“非理想电场对重联不重要”，更不能把统计中的“磁化”直接等同于某一种费米或拾取加速。",
+        "reading": "建议优先读第 2 节的做功定义，再看表 2 和第 5.2 节范围限制。对聚变 PIC 最值得借鉴的是先固定注入阈值、时间窗与统计分母，再检验“经过哪里”和“能量来自哪里”是否一致。\n\n可进一步在电子—离子、有限导向场的算例中，同时记录区域接触、注入前后电场做功和磁通拓扑，再单独加入物理机制分解。此处是建议；不能沿用本文相对论成对等离子体的数值比例。",
+        "evidence": "PDF 共 10 页。第 1–4 页：问题、做功分类与模拟参数；第 5 页图 2、3 和表 2：轨迹示例、注入份额及未接触比例；第 6 页图 4：时间和参数扫描；第 7–8 页：高能样本与系统大小效应；第 8–9 页讨论，尤其第 9 页第 5.2 节：范围限制。已查看第 5 页原图表；正文选读，未复现轨迹统计。"
+      }
+    },
+    {
+      "id": "2610.20015",
+      "version": "2610.20015v1",
+      "title": "Stationary Resistive MHD Solutions Near an Isolated Three-Dimensional Magnetic Null",
+      "authors": [
+        "Saddal, Kuljeet Singh",
+        "Nickeler, Dieter H.",
+        "Pacheco, Rodrigo Meneses",
+        "Kraus, Michaela"
+      ],
+      "abstract": "Magnetic null points define the magnetic field topology in stellar coronae, planetary magnetospheres, and astrospheres, and are commonly associated with magnetic reconnection. We investigate the local structure of stationary three-dimensional (3D) resistive, incompressible magnetohydrodynamic (MHD) flows in the vicinity of an isolated magnetic null and an isolated velocity stagnation point, assuming that the two nulls are colocated. The governing MHD equations are solved self-consistently using a first-order local expansion of the magnetic and velocity fields about the null. For any given magnetic-null configuration, the equations admit a two-parameter family of stationary solutions, comprising multiple solution branches with distinct velocity topologies. Along these families, the velocity-null polarity can change at bifurcation points where the flow becomes effectively 2.5D. A single magnetic null can therefore support positive-radial, negative-radial, and spiral stagnation flows, with qualitatively different inflow, outflow, and rotational properties. The associated pressure and resistivity distributions are likewise determined self-consistently and vary across the solution family, demonstrating that they are coupled to the flow topology rather than prescribed independently. The generic solutions do not require the velocity and magnetic separatrices to coincide, allowing plasma to cross the magnetic fan separatrix and providing a local reconnective flow. These results demonstrate that, in the presence of nonuniform resistivity, the magnetic topology alone does not uniquely determine the associated stationary flow, pressure, or resistivity structure around a 3D magnetic null, revealing the nonlinear feedback between all macroscopic variables and resistivity. The constant-resistivity field-aligned and spiral field-crossing solutions identified previously are recovered as special cases.",
+      "published": "2026-10-14T11:26:52+00:00",
+      "updated": "2026-10-14T11:26:52+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2610.20015v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.20015v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 22,
+      "source_sha256": "1b539bc40b9df48d8376e7e3b1ac24202ef3ccc1dbfe3e5898dc8629026eafda",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "局部三维磁零点的电阻 MHD 理论，适合作为重联结构与代码验证的补充；没有聚变几何或全局重联率预测。",
+        "method_tags": [
+          "理论"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "同一个三维磁零点，为什么可以对应不同的流动？",
+        "takeaway": "联立稳态电阻 MHD 方程，固定一个局部三维磁零点仍能得到不同流动拓扑、压强和电阻率的解族；跨越磁分界面的局部流动可以出现，但模型尚不给出唯一的全局重联率或微观电阻率。",
+        "question": "在三维重联中，磁零点是磁场为零的位置，其附近的磁力线几何常用于辨认重联结构。但磁力线的形状是否已经决定等离子体怎样流过？如果还要满足动量平衡和欧姆定律，仅指定磁场是否足够？本文把磁场、速度、压强和电阻率一起求解。\n\n零点附近有一条特殊方向称 spine，可理解为“一维脊线”；另有一张 fan 分界面，可理解为“二维扇面”。它们由磁场局部变化矩阵决定。速度场也有自己的对应结构，两套分界面是否重合，是这篇论文讨论的关键。",
+        "methods": "模型是稳态、不可压、密度均匀的电阻 MHD，并假设磁零点与速度为零的停滞点重合。作者采用亚声速局部展开，不加入黏性和热传导，也没有求解真实装置中的边界驱动演化。这是解析解族的构造，不是一次时间推进模拟。\n\n在零点附近令 \\(\\mathbf B=\\mathsf M\\mathbf r\\)、\\(\\mathbf v=\\mathsf V\\mathbf r\\)：\\(\\mathbf r\\) 为相对零点的位置向量，\\(\\mathbf B,\\mathbf v\\) 分别为磁场和流速，\\(\\mathsf M,\\mathsf V\\) 是各自的空间梯度矩阵。压强取二次形式。把这些表达代回约束和力平衡，求出相容的速度、压强与电阻率分布，而不是事先指定均匀电阻率。\n\n在固定磁结构后，作者分析由两个自由参数标记的速度解族及分支，并画出相应分界面。这里的电阻率 \\(\\eta\\) 是电阻欧姆定律中的有效输运系数；解的空间相容性不等于已经从粒子碰撞或微观不稳定性导出了它的物理取值。",
+        "findings": "同一个磁零点可对应径向流入、径向流出或螺旋型速度结构，某些参数处还发生流动拓扑分支变化。图 3 将固定磁场和多种速度场并排展示：磁结构没有改变，并不意味着流动方向和旋转方式只能有一种。\n\n一般解中，速度扇面不必与磁扇面重合，因而允许流体穿过磁分界面；某些均匀电阻率的特殊解则不满足这种跨面流动。**作者提供的是局部结构分类，没有得到一个唯一、有限的全局重联率。** 原因是线性磁场和非理想区域没有自然终止边界，沿磁力线积分的端点无法由这个局部模型唯一确定。\n\n电阻率的空间变化还会限制解的物理区域。若某个分支使它远离零点后变负，该数学表达就不能在那一整片区域继续当作普通耗散电阻率使用。零点处的电阻率大小仍有任意常数，局部方程只约束相对空间变化，没有替代微观输运闭合。",
+        "limitations": "作者明确没有证明哪个解族成员会被实际等离子体选中，稳定性分析也是后续工作。局部线性场在远处无界，压强与电阻率的可接受区域有限，不能直接拼成全局装置平衡或解释一次观测到的喷流。\n\n编辑提醒：跨磁扇面的流动是作者在这类局部解中采用的识别判据，不能直接与任意全局几何中的磁通变化率划等号。本文求得的有效电阻率剖面也不应未经检验就移植成聚变模拟的经验闭合。",
+        "reading": "建议先看第 8 页图 3，再读第 5.1、5.4 节：前者解释为什么不报告确定的重联率，后者澄清有效电阻率与微观机制的关系。对你的方向，它更适合作为三维局部结构和方程相容性的思考材料。\n\n一个可检验的数值练习是：在电阻率和压强均可接受的有限局部区域，用解析成员检验程序的磁场、流速与力平衡残差，再研究如何匹配外部边界。这里是编辑建议，原文未完成这种全局匹配或稳定性验证。",
+        "evidence": "PDF 共 22 页。第 1–4 页：方程、共址零点假设和局部展开；第 8 页图 3：固定磁场下的不同速度分支；第 11 页：正电阻率的区域限制与第 5.1 节重联率讨论；第 12–14 页：局部解释、有效电阻率和结论，重点第 14 页对微观闭合与稳定性的限制。已查看第 8 页原图；未逐项检查全部代数推导和附录。"
+      }
+    },
+    {
+      "id": "2610.23494",
+      "version": "2610.23494v1",
+      "title": "Reconnection in 2D Inertial Magnetohydrodynamics",
+      "authors": [
+        "Boubendir, Lydia",
+        "Constantin, Peter",
+        "Grayer II, Hezekiah",
+        "Hu, Zhongtian"
+      ],
+      "abstract": "We consider two-fluid equations of inertial magnetohydrodynamics in two spatial dimensions. These equations can be recast as the evolution of two active scalars, with fluid-like interaction kernels. The equations come in two flavors, left-handed and right-handed. They are conservative and have global unique solutions for both smooth initial data and for initial data in Yudovich class $L^1(\\mathbb R^2)\\cap L^{\\infty}(\\mathbb R^2)$. We prove that the inviscid limit holds in Yudovich class. We prove the persistence of $C^{2,\\alpha}$ regularity of patch boundaries through merger events for the left-handed equations. We finally show numerical examples of magnetic reconnection, validating known rigorous results and uncovering new cases.",
+      "published": "2026-10-16T14:06:32+00:00",
+      "updated": "2026-10-16T14:06:32+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23494v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23494v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "PDF 正文选读",
+      "pages": 33,
+      "source_sha256": "dd97b07655a1f36bc5911d994f54b66f58600639b5ecb12640b2bf20a6a151a9",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "二维电子惯性 MHD 的重联数学理论与轮廓模拟；可帮助区分磁通拓扑和被输运变量，但不是托卡马克或动理学聚变算例。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "二维惯性 MHD：无电阻重联、零耗散极限与斑块的合并",
+        "takeaway": "研究电子惯性允许的二维无电阻拓扑变化，证明受限条件下的零耗散强收敛，并用轮廓模拟比较合并与不合并情形；斑块是否接触和磁场等值线是否改变连通性，需要分别检查。",
+        "question": "理想单流体 MHD 的磁通冻结把磁场与一个共同流动绑定。加入电子惯性后，随流保持的量会改变，磁场因此可能在没有电阻的条件下改变拓扑。本文关心两个问题：加入很小耗散再让它趋于零，能否回到无耗散解？可输运斑块的合并又怎样对应磁结构变化？\n\n这里的“斑块”是一个数学上取常值、边界清楚的区域，不是自动等同于实验磁岛。“主动标量”则指一边被流动搬运、一边又决定该流动的标量场。先区分这几个对象，才能读懂文中合并图像所证明的内容。",
+        "methods": "作者把二维惯性 MHD 写成两个主动标量的输运问题，\\(\\sigma_\\pm=F\\pm\\omega\\)。其中 \\(F\\) 是模型的磁正则动量变量，\\(\\omega\\) 是电子流体涡量，正负下标标记两种组合。两者各自由不同的无散度速度场搬运，不能把它们误当成被同一流速冻结的磁场。\n\n磁场满足 \\(\\mathbf B=\\nabla^\\perp\\phi\\)，\\(\\phi\\) 是磁势，\\(\\nabla^\\perp\\) 表示平面内旋转九十度的梯度算子；因此磁势等值线的连通性可用于检查磁结构。文中使用无量纲方程，保留电子惯性尺度的版本称 screened，另有删去相应椭圆方程零阶项的 unscreened 版本，二者不能混用。\n\n论文还区分作者称作 right-handed 和 left-handed 的两个符号分支。按作者说明，前者才是已有物理文献采用的版本，后者主要有数学研究意义。数值部分用边界轮廓跟踪斑块，每条轮廓 512 个节点，空间差分与积分为二阶、时间为四阶 Runge–Kutta，并定期重布点；这不是 PIC，也没有托卡马克几何。",
+        "findings": "第一项理论结果是：在初值有界、可积并满足紧支撑等条件下，含小耗散的解在任意固定有限时间区间，随耗散趋零而强收敛到无耗散解。这为该模型的无电阻极限提供数学联系；它没有直接给出实验重联率，也不等于任意高雷诺数代码都已经收敛。\n\n另一项结果是 left-handed screened 分支的斑块边界保持相应的一阶、二阶 Hölder 光滑性，即导数的空间变化仍受到一定幂次控制。不同主动标量的斑块由不同流动输运，所以它们相交不必意味着各自边界出现尖点。**这个正则性结论不能直接写成物理 right-handed 分支的普遍定理。**\n\n数值算例更直观：right-handed unscreened 的同号双圆斑块共同平移并相接，随后磁势等值线也改变连通性；相反号斑块在报告时段内绕转、变形而不相接，但某些磁势等值线仍发生分裂。后一个例子提醒我们，不能只看斑块是否合并，就判断磁场有没有重联。\n\n具有特定奇偶对称性的四斑块计算重现了先前工作已证明的合并情形；left-handed 的椭圆与圆斑块还会相交、分离。作者报告短时步长比较没有改变这些行为，同时承认后期细丝越来越细会损害轮廓精度，展示结果取在这种失准之前。",
+        "limitations": "已有文献已证明部分解的存在性和拓扑变化，不能把这些全部归为本文首次证明。本文新的极限与正则性结果各有初值类别、符号分支和时间区间条件，不能省掉条件后概括成“任何理想等离子体都会重联”。\n\n编辑提醒：二维、无量纲、简化的电子惯性模型没有给出聚变装置参数下的定量验证；轮廓法的短时比较也不是完整的长时分辨率研究。它提供的是机制与数学诊断思路，没有建立通用的快重联标度。",
+        "reading": "建议先读第 2 节的主动标量定义，再看第 6 节和图 1、5，最后按兴趣追踪第 3、4 节定理。若只看“斑块合并”的图片，容易混淆被输运的变量、磁势与实际磁场。\n\n与你的模拟研究可建立的联系是：对电子惯性模型同时记录主动变量、磁势等值线和数值耗散，避免把一种拓扑诊断当作全部证据。进一步可在物理分支上单独做分辨率和小耗散极限检查；这是建议，不是已经完成的聚变或 PIC 复现。",
+        "evidence": "PDF 共 33 页。第 1–5 页：模型、两种符号分支与零耗散极限定理的条件；第 2 页：第 4 节边界正则性结论的适用分支；第 22–25 页第 5 节：轮廓算法；第 26–27 页第 6 节：各类初值和磁势拓扑变化；第 28 页图 1、第 32 页图 5：合并及分离。已查看这两页原图；未逐步审计定理证明，也未逐图核查其余算例。"
+      }
+    },
+    {
+      "id": "2610.23493",
+      "version": "2610.23493v1",
+      "title": "Conservative Numerical Construction of Vlasov-Maxwell Equilibria and an Exact Cancellation of $E\\times B$ Flow by an Electrostatic Pressure-Gradient Flow",
+      "authors": [
+        "Sturdevant, Benjamin J.",
+        "Qin, Hong"
+      ],
+      "abstract": "A class of Vlasov-Maxwell equilibria with pressure gradients is considered under symmetry assumptions that reduce the equilibrium equations to a nonlinear system of ordinary differential equations. Such equilibria provide self-consistent kinetic states with nonuniform thermodynamic profiles and potentially strong equilibrium electric fields, useful for fully kinetic stability studies of gradient-driven instabilities in the presence of equilibrium flows. The reduced equilibrium problem is posed as a nonlinear boundary-value problem for numerical solution, and a discretization is developed that preserves an associated energy invariant exactly at the discrete level. The resulting method provides a systematic means of computing nontrivial equilibria without relying on scale separation, and an alternative to constructing only approximately self-consistent initial states. A key property of the species flows, identified within this model for any distribution function of the constants of motion, is an exact cancellation between the $E\\times B$ flow and an electrostatically generated component of the pressure-gradient-driven flow. This follows directly from a structural property of the species force balance that arises from this type of symmetry reduction, and is verified numerically. Additional numerical results demonstrate the conservative properties of the discretization. Representative equilibrium configurations, relevant to future kinetic instability studies, are also presented. An asymptotic approximation for the interior equilibrium, derived in the well-magnetized, quasi-neutral regime, provides an independent check on these results. The present setting is deliberately simple, providing a controlled framework for constructing and analyzing self-consistent kinetic equilibria and a starting point for extensions to more general symmetry-reduced configurations.",
+      "published": "2026-10-16T14:06:25+00:00",
+      "updated": "2026-10-16T14:06:25+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23493v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23493v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要",
+      "pages": 35,
+      "source_sha256": "3656c53058e022b380b6d125f6b8f61c6ff8c56ffa7549fbf585bc703beea235"
+    },
+    {
+      "id": "2610.23080",
+      "version": "2610.23080v1",
+      "title": "Properties and challenges of machine learning closures for ten-moment fluid models in the case of Landau damping",
+      "authors": [
+        "Jeß, Emanuel",
+        "Lautenbach, Simon",
+        "Köhne, Sophia",
+        "Miloshevich, George",
+        "Schoeffler, Kevin",
+        "Grauer, Rainer",
+        "Innocenti, Maria Elena"
+      ],
+      "abstract": "Two-fluid ten-moment models for plasma simulations evolve the velocity moments of the Velocity Distribution Function (VDF) up to the pressure tensor and require a closure for the divergence of the next velocity moment, the heat flux. We investigate the use of Machine Learning (ML) models for the discovery of heat flux closures, as an alternative to the typically employed Hammett-Perkins-like analytical closures. As a test case, we investigate Landau damping, which describes a resonant process of energy transfer between particles and waves. We find that fluid simulations with ML closures correctly reproduce both the damping frequency and the non-linear phase of Landau damping, and thereby outperform Hammett-Perkins-like closures, within the parameter ranges seen during training and when interpolating within those ranges. When extrapolating beyond the training data, the performance of the ML closure degrades with increasing distance from known parameters. We then investigate how well offline metrics (i.\\,e.\\; evaluating the trained model on fully-kinetic reference simulations, without inserting it into two-fluid simulations) can predict online performance, when the model is actually used in the two-fluid simulation. Our results show that offline metrics do not fully explain online performance, highlighting important implications for method evaluation in this field. We further investigate suitable metrics for online performance evaluation in the absence of a fully-kinetic reference simulation, which is often computationally expensive to run. We propose using the temporal evolution of entropy to evaluate the performance of reduced models with ML closures when no or few kinetic reference simulations are available.",
+      "published": "2026-10-16T07:52:07+00:00",
+      "updated": "2026-10-16T07:52:07+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23080v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23080v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.23740",
+      "version": "2610.23740v1",
+      "title": "Eulerian ion energisation in three-dimensional hybrid-Vlasov-Maxwell turbulence",
+      "authors": [
+        "Richard, L.",
+        "Cerri, S. S.",
+        "Pezzi, O.",
+        "Granier, C.",
+        "TenBarge, J. M."
+      ],
+      "abstract": "In collisionless plasma turbulence, energy is transferred from electromagnetic fluctuations to the particles. However, the relative contributions of different ion energisation mechanisms remain unclear. We investigate ion energisation in three-dimensional hybrid Vlasov--Maxwell simulations of decaying turbulence at $\\beta_{i0}=0.25$ and $\\beta_{i0}=4$, where $\\beta_{i0}$ is the initial ratio of ion thermal to magnetic pressure. Using the exact ion momentum equation, we decompose the ion energisation rate $\\mathbf{j}_i\\mathbf{\\cdot}\\mathbf{E}$ into the work done on the parallel, diamagnetic, curvature, agyrotropic and polarisation ion currents. This decomposition requires neither gyrotropy nor scale separation and, therefore, remains valid where guiding-centre theory breaks down. We show that the agyrotropic term, which has no guiding-centre counterpart, accounts for $21\\,\\%$ of the energisation at $\\beta_{i0}=0.25$ and $91\\,\\%$ at $\\beta_{i0}=4$. We find that the dominant instantaneous energisation term changes with $\\beta_{i0}$, from the polarisation current at low $\\beta_{i0}$ to the diamagnetic and agyrotropic currents at high $\\beta_{i0}$, at all resolved scales. In addition, we show that reversible exchange with the ion bulk flow dominates the instantaneous rate, so the time-integrated energy transfer is larger at $\\beta_{i0}=4$ even though the instantaneous rate is smaller. Our results provide quantitative evidence that guiding-centre drifts alone cannot describe ion energisation in kinetic-scale turbulence and that the dominant energisation term depends on $\\beta_i$. The results also highlight the key role of non-local thermodynamic-equilibrium effects in energy conversion in collisionless plasma turbulence.",
+      "published": "2026-10-16T16:49:12+00:00",
+      "updated": "2026-10-16T16:49:12+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23740v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23740v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.24525",
+      "version": "2610.24525v1",
+      "title": "Reconstruction of Unobserved Core Electron Density in Tokamak Plasmas with a Neural Operator Transport Surrogate and Uncertainty Quantification",
+      "authors": [
+        "Sorokin, D.",
+        "Granovskiy, A.",
+        "Stokolesov, M.",
+        "Adishchev, E.",
+        "Nurgaliev, M.",
+        "Subbotin, G."
+      ],
+      "abstract": "Real-time control of tokamak plasmas requires the electron density profile. However, in a reactor-relevant device, diagnostic port access is limited and the profile can be observed only partially. In the present work we reconstruct the density profile by inferring the coefficients of a physics-based one-dimensional particle transport equation, using a Fourier Neural Operator (FNO) surrogate of the transport solver as a fast differentiable forward model. The surrogate enables realtime-compatible gradient-based reconstruction and uncertainty quantification from the reflectometry and interferometry measurements. We compare four uncertainty quantification methods - multi-seed ensembles, the Laplace approximation, Metropolis-Hastings, and a Gaussian method independent of the reconstruction fit. The resulting uncertainty is scored with CRPS and coverage calibration, separately on the observed and unobserved regions. We further demonstrate advantage of our approach over standard analytical function fit on synthetic and experimental DIII-D discharges.",
+      "published": "2026-10-17T07:33:05+00:00",
+      "updated": "2026-10-17T07:33:05+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.24525v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.24525v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.26138",
+      "version": "2610.26138v1",
+      "title": "Reinforcement Learning Controllers for Fusion Scenario Development",
+      "authors": [
+        "Adishchev, Evgeny",
+        "Nurgaliev, Maxim",
+        "Sorokin, Dmitry",
+        "Granovsky, Alexander",
+        "Stokolesov, Maksim",
+        "Prokofyev, Igor",
+        "Khairutdinov, Eduard",
+        "Subbotin, Georgy"
+      ],
+      "abstract": "Scenario development, the design of the waveforms that take a tokamak discharge from breakdown to flat-top, is still an iterative, labour-intensive process. Every candidate scenario has to be simulated with a controller in the loop, and the classical shape and current controllers need low-level actuator references. So the process is iterative and includes a number of trial-and-error steps. We propose to replace the per-scenario controller tuning by a single goal-conditioned reinforcement-learning controller trained once, in advance, against a free-boundary equilibrium and transport simulator. A scenario is then specified only by the target waveforms of the physical quantities of interest (plasma current, line-averaged electron density, LCFS shape, x-point positions), and the controller produces the coil-current and fueling commands that realize them. We demonstrate the approach on an EAST plasma-current ramp-up: the controller takes over a small limited plasma, ramps the current and the density, grows the cross-section, forms two x-points and holds a double-null diverted configuration against sampled shape targets for the rest of a 1.2 s episode. The neural network controller is trained using TQC algorithm. On 1024 test scenarios sampled from a low-discrepancy scrambled Sobol sequence in 11-dimensional target space, the controller forms the divertor in 86% of the cases, holds it for more than 0.5 s in 67% and reaches the end of the episode in a diverted state in 58%, with flat-top tracking errors of a few kA in plasma current, $\\sim 0.15\\times10^{19}$ m$^{-3}$ in density, $\\sim 2$ cm in position and $\\sim 8$ cm in x-point location; the failures concentrate at the high-current density ($J$) region which is believed to be physically or from engineering perspective not feasible within ohmic mode.",
+      "published": "2026-10-19T10:25:00+00:00",
+      "updated": "2026-10-19T10:25:00+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.26138v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.26138v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.26537",
+      "version": "2610.26537v1",
+      "title": "Beyond Radiation Hydrodynamics: A Coupled Kinetic Plasma and Radiation Modeling of NIF Polar Direct Drive Capsule",
+      "authors": [
+        "Hammer, Hans R",
+        "Taitano, William T",
+        "Anderson, Steven E",
+        "Keenan, Brett D",
+        "Chacon, Luis",
+        "Simakov, Andrei N"
+      ],
+      "abstract": "Predictive modeling of inertial-confinement-fusion (ICF) implosions increasingly requires resolving ion-kinetic effects beyond the reach of radiation-hydrodynamics, without sacrificing radiation transport. We present, to our knowledge, the first coupling of a kinetic-ion plasma model to thermal radiation transport. The iFP code - a conservative, spherically symmetric, 1D2V hybrid kinetic-ion/fluid-electron Vlasov-Fokker-Planck solver - is extended with a grey P1 radiation model, coupled through a high-order/low-order (HOLO) fixed-point solver and advanced on a shared adaptive moving mesh. Opacities are mixed on the fly from the LANL TOPS library, exploiting the per-species information intrinsic to a kinetic code. We verify the implementation against the optically thick Marshak-wave and Mach-45 radiative-shock benchmarks, and apply it to a NIF polar-direct-drive exploding-pusher capsule. Increasing physics fidelity systematically improves agreement with the measured neutron yield and burn width; the improvement is driven by kinetically enhanced fuel leakage and ballistic preheating, and radiation transport proves essential for quantitative agreement. This work establishes a proof-of-principle capability for higher-fidelity kinetic-plasma/radiation modeling of ICF.",
+      "published": "2026-10-19T14:59:15+00:00",
+      "updated": "2026-10-19T14:59:15+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.26537v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.26537v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.20056",
+      "version": "2610.20056v1",
+      "title": "Flares and flux ropes: an entangled story",
+      "authors": [
+        "Keppens, Rony",
+        "Guo, Yang",
+        "Ruan, Wenzhi"
+      ],
+      "abstract": "Solar flares serve as standard candles for all magnetic-reconnection-based energy releases, and their consequences into the heliosphere can be modeled from first principles. This review presents the latest developments in modeling solar flares and their associated flux rope expulsions with state-of-the-art multidimensional magnetohydrodynamic (MHD) descriptions. Observationally established ingredients beyond a single-fluid, thermal plasma evolution have been incorporated to varying degrees, and we highlight self-consistent efforts realized in \"standard flare\" setups.",
+      "published": "2026-10-14T11:56:57+00:00",
+      "updated": "2026-10-14T11:56:57+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.20056v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.20056v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.22653",
+      "version": "2610.22653v1",
+      "title": "Sparking Dynamic, Relativistic Magnetic Reconnection in a Twisted Flux Tube",
+      "authors": [
+        "Grehan, Michael P.",
+        "Thompson, Christopher",
+        "Ripperda, Bart",
+        "Beattie, James R."
+      ],
+      "abstract": "Magnetic reconnection around neutron stars (NSs) forms small-scale currents while transferring energy to electron-positron pairs. These dissipating currents cover a wide range of scales, potentially leaving an imprint on time-variable X-ray bursts and pulsed radio emission. We present a reduced, planar model of internal reconnection in a magnetic flux tube with relativistic magnetization, finite resistivity, and strong guide field. Comparing with realistic NS parameters, this model represents the dynamics of a slender magnetic flux tube that is much thinner than the stellar radius. The seed current profile is smooth and does not spontaneously reconnect; instead, a discrete and localized current perturbation is introduced, representing e.g. localized energy release from a NS crust or magnetosphere. Three high-resolution relativistic magnetohydrodynamics simulations are described: one has uniform resistivity and Lundquist number such that reconnection proceeds in the plasmoid-mediated regime; the other two account for the feedback of charge starvation on the resistivity in current layers, where density is depleted; we provide a more general explanation for this depletion. All simulations produce a few dominant magnetic X-points and a secondary Kelvin-Helmholtz instability that excites high-wavenumber currents. We quantify the reconnection rate, the intermittency of dissipation, and the time profile of current spikes. We further present three-dimensional simulations confirming a limited growth of the ideal kink mode in the strong guide field regime. Applications are discussed, including to radio pulse microstructure and current damping below the magnetar surface during an X-ray flare, leading to mass loss and X-ray afterglow.",
+      "published": "2026-10-15T21:13:11+00:00",
+      "updated": "2026-10-15T21:13:11+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.22653v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22653v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.23405",
+      "version": "2610.23405v1",
+      "title": "Quantum Circuits for Variable-Coefficient Vlasov Dynamics via Schr\\\"odingerisation",
+      "authors": [
+        "Leong, Fong Yew",
+        "Koh, Dax Enshan",
+        "Ewe, Wei-Bin",
+        "Chen, Qiubo",
+        "Ong, Zhun-Yong"
+      ],
+      "abstract": "High-dimensional Vlasov equations present promising use cases for quantum simulation, but their transport coefficients must be implemented coherently in order to preserve a compact quantum representation. We develop explicit Schr\\\"odingerised circuits for prescribed external field Vlasov dynamics without classical field updates. In 1D1V, velocity-dependent streaming is compiled directly from the encoded velocity register, while a non-linear cubic field is evaluated using reversible fixed-point arithmetic. For fixed polynomial degree, the field workspace scales linearly with the coordinate register width, while the field evaluation subroutine has polynomial depth. As a proof of concept, we simulate a minimal coupled 3D3V anharmonic Penning system and realise mixed electric-field terms and transverse magnetic coupling on a six-dimensional phase space in agreement with classical calculations. Resource analysis shows approximately linear growth with the number of time steps, while identifying the auxiliary register as the dominant depth bottleneck. Structured preparation and register recovery of the auxiliary state reveal an interplay between loading cost and readout. Together, our algorithm demonstrates a fully coherent quantum simulation of high-dimensional Vlasov dynamics with variable coefficients and identifies the practical resource costs that must be controlled for large-scale quantum implementation.",
+      "published": "2026-10-16T13:01:12+00:00",
+      "updated": "2026-10-16T13:01:12+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.23405v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.23405v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.20546",
+      "version": "2610.20546v1",
+      "title": "Dynamics of a switchback-like magnetic deflection induced by a propagating coronal jet",
+      "authors": [
+        "Touresse, Jade",
+        "Pariat, Etienne",
+        "Froment, Clara",
+        "Wyper, Peter F."
+      ],
+      "abstract": "Parker Solar Probe (PSP) revealed the ubiquity of switchbacks (SBs), sharp, localised magnetic deflections in the nascent solar wind, renewing interest in their origin. One proposed mechanism involves solar jets: collimated, impulsive features driven by magnetic reconnection that launch Alfv\\'enic torsional wavefronts into the heliosphere. We test whether realistic spacecraft sampling of a propagating solar jet produces in-situ signatures consistent with PSP observations. We also examine the 3D magnetic topology of the resulting structures and how deflection amplitudes evolve with the ambient plasma environment. We perform a 3D magnetohydrodynamic simulation of a solar jet in the ambient solar wind, embedding a virtual spacecraft trajectory based on PSP's actual 22nd-perihelion orbit to generate synthetic measurements. The simulation reproduces SB-like signatures with durations and profiles consistent with PSP observations, confirming earlier results from simplified trajectories. We visualise the fully 3D magnetic topology of a jet-driven SB region, identifying two field-line families: one with a single deflection and another with two sequential deflections along the same field line. Both are outward-propagating Alfv\\'enic structures. Deflection amplitudes depend strongly on background plasma $\\beta$, increasing substantially in low-$\\beta$ regions and evolving more moderately where $\\beta \\sim 1$. These results show that solar jets can produce Alfv\\'enic, SB-like structures along realistic spacecraft trajectories. Their topology is inherently 3D and structurally diverse, and their evolution depends on ambient plasma $\\beta$. Complete magnetic reversals would require longer residence times in low-$\\beta$ environments. Our findings support a solar origin for a fraction of SBs and constrain interpretations of their underlying magnetic structure.",
+      "published": "2026-10-14T17:37:24+00:00",
+      "updated": "2026-10-14T17:37:24+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.20546v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.20546v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.22165",
+      "version": "2610.22165v1",
+      "title": "Investigation of an X-class Flare and Quasi-Periodic Pulsations in NOAA AR 13842 using SDO, Aditya-L1 and Solar Orbiter",
+      "authors": [
+        "Kumara, Pawan",
+        "Kumara, Sanjay",
+        "Nayak, Sushree S.",
+        "Sadashiv",
+        "Kanaujiyac, Sachin Rajkapoor",
+        "Chandrad, Ramesh"
+      ],
+      "abstract": "We investigate an X9.0 class flare (SOL2024-10-03T12:08) and associated quasi-periodic pulsations (QPPs) in NOAA active region (AR) 13842 using observations from the Solar Dynamics Observatory (SDO), Aditya-L1 and Solar Orbiter (SO). To explore the role of magnetic configuration in the flare, we employ non-force-free-field extrapolation technique for reconstructing a sequence of the coronal magnetic field throughout the flare. The observations reveal the emergence of intricate flare brightenings and ribbons. QPPs are observed with periods of $\\approx$ 2 and $\\approx$ 6 minutes in EUV, $\\approx$ 7 minutes in UV, and $\\approx$ 1 minute in X-rays. The extrapolation documents the presence of a flux rope, a sheared arcade, and a hyperbolic flux tube (HFT) enveloping the rope and the arcade. The sequence of the extrapolation illustrates an increase in the twist of the rope as it ascends towards a torus-unstable region, thereby rendering the rope a viable candidate for eruption. The sheared arcade appears to generate electric current through its foot-point's motion, which explains the sigmoidal brightening observed at the flare onset. The motion also seems to drive the non-parallel field lines closer together, heightening gradient in the magnetic field beneath the rope. Consequently, recurrent magnetic reconnection is anticipated within the sheared arcade --- explaining the ascent of the rope with its twist increment. The formation of parallel flare ribbons is attributed to these reconnections. Furthermore, reconnection at the HFT is proposed to lead the remote and quasi-circular ribbons. Crucially, repeated reconnections inside the arcade as well as at the HFT are speculated to cause the QPPs.",
+      "published": "2026-10-15T16:27:36+00:00",
+      "updated": "2026-10-15T16:27:36+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.22165v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22165v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.22510",
+      "version": "2610.22510v1",
+      "title": "Magnetic flux ring splitting near a Navier-Stokes singularity",
+      "authors": [
+        "Niemi, Antti J."
+      ],
+      "abstract": "OpenAI reports a forced Navier-Stokes flow that becomes singular in finite time, raising the question of its physical consequences. Magnetic reconnection offers a test through the splitting and merging of flux structures. We use resistive magnetohydrodynamics to simulate a magnetic ring driven by an imposed, regularized flow that reproduces the geometry and scaling of the collapsing core. At the nominal singular time, we remove the imposed drive and allow the system to evolve freely. Reconnections before and after release split the ring into two or more daughter rings through bifurcations of the poloidal flux function, with Lorentz feedback selecting the bifurcation type. Unequal winding by the swirl above and below the midplane produces asymmetric toroidal magnetic stresses, unfolding the kinematic pitchfork-like transition into a fold. For single-island splits, the cusp normal form predicts the asymmetry of the daughter rings without adjustable parameters. Three-dimensional simulations retain the splits and merger, confirming that approach to hydrodynamic blow-up can trigger magnetic restructuring.",
+      "published": "2026-10-15T18:05:08+00:00",
+      "updated": "2026-10-15T18:05:08+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.22510v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22510v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.24049",
+      "version": "2610.24049v1",
+      "title": "Multiline Spectropolarimetric Evidence for Photospheric Reconnection in Ellerman Bombs from DKIST",
+      "authors": [
+        "Yadav, Rahul",
+        "Kazachenko, Maria D.",
+        "Hansteen, Viggo"
+      ],
+      "abstract": "Ellerman bombs (EBs) are compact, transient brightenings observed in the wings of Balmer lines and are believed to result from magnetic reconnection in the lower solar atmosphere. However, their signatures have rarely been observed simultaneously in multiple spectral lines sensitive to the lower atmosphere. We present novel high-resolution multiline spectropolarimetric observations of EBs obtained with the Visible Spectro-Polarimeter (ViSP) on the Daniel K. Inouye Solar Telescope (DKIST). Simultaneous observations reveal remarkable H$\\beta$ wing enhancements extending up to $\\sim$4~\\AA\\ from the line core and intensity enhancements in the \\ion{Na}{1}~D1 and \\ion{Fe}{1}~6302 lines. Using multiline non-LTE inversion of the \\ion{Na}{1} and \\ion{Fe}{1} lines, we infer localized photospheric heating of up to $\\Delta T\\sim$800~K, accompanied by weak upflows and downflows at EB locations. Comparing with synthetic observables from Bifrost radiative-MHD simulations, we find that synthetic spectra reproduce the observed H$\\beta$ and \\ion{Na}{1}~D wing enhancements and yield atmospheric stratification broadly consistent with those inferred from the non-LTE inversion. This study provides strong evidence that EBs are driven by photospheric magnetic reconnection below the temperature-minimum region, and places new constraints on the realistic EB models and small-scale energy release in the lower solar atmosphere.",
+      "published": "2026-10-16T16:15:26+00:00",
+      "updated": "2026-10-16T16:15:26+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.24049v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.24049v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.24103",
+      "version": "2610.24103v1",
+      "title": "Effect of induced frame dragging on energy extraction from axially symmetric magnetized Reissner-Nordstr\\\"om BH and observational benchmarks",
+      "authors": [
+        "Eshtursunov, Ikhtiyor",
+        "Zhou, Chen",
+        "Shaymatov, Sanjar",
+        "Sheoran, Pankaj",
+        "Yuan, Chengxun"
+      ],
+      "abstract": "In this paper, we probe the effect of induced frame dragging on the energy extraction process via magnetic reconnection in axially symmetric magnetized Reissner-Nordstr\\\"{o}m black hole (MRNBH) spacetime and show the influence of BH charge $Q$ and the magnetic field $B$ parameters, respectively. We start by analyzing the metric and present the distinction between the geometrical and induced ergospheres. We argue that the induced ergosphere, unlike the geometric ergosphere, is not a property of the spacetime metric but rather a particle-dependent negative energy region that changes as the charge on the particle varies. We find the region where magnetic reconnection can extract energy from the axially symmetric MRNBH and determine the conditions required for this process. We further examine the energies of the accelerated and decelerated plasma outflows and the corresponding magnetic reconnection efficiency. We show that within the parameter ranges considered, the extraction efficiency increases with the MRNBH charge $Q$ and the magnetic field parameter $B$. For sufficiently large $B$, it reaches the efficiency comparable to that of an extremal Kerr BH case. Our results therefore show that electromagnetically induced frame dragging can support energy extraction efficiencies similar to those associated with rotation parameter. To connect with observations, we evaluate the reconnection power directly from the decelerated-plasma energy at infinity and compare it with the observed power scales of M87* and Sgr~A*. For $Q=M$, reconnection extraction appears in our scan only for $|B|M\\gtrsim0.2$ ($B\\sim10^{9}\\,\\mathrm{G}$ for M87*, $\\sim10^{12}\\,\\mathrm{G}$ for Sgr~A*), where $P_{\\mathrm{ext}}\\sim10^{53}$--$10^{57}\\,\\mathrm{erg\\,s^{-1}}$ exceeds the observed power scales by many orders of magnitude.",
+      "published": "2026-10-16T18:32:22+00:00",
+      "updated": "2026-10-16T18:32:22+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2610.24103v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.24103v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.25097",
+      "version": "2610.25097v1",
+      "title": "Destinies of Plasmoids Formed from the Magnetic Reconnection Occurring within the Ergo Region of a Rotating Black Hole",
+      "authors": [
+        "YuChih, Ho-Yun",
+        "Shen, Ye"
+      ],
+      "abstract": "It is widely accepted that magnetic reconnections occur successively in black hole accretion flows, especially on the equatorial plane, owing to the formation of the equatorial current sheet. When magnetic reconnection takes place within the ergosphere of a rotating black hole, one of the ejected plasmoids (denoted as $p_-$) may acquire negative energy-at-infinity density, while the companion plasmoid (denoted as $p_+$) correspondingly carries the energy extracted from the black hole. This mechanism, known as the Comisso-Asenjo process, provides a viable astrophysical pathway for extracting energy from a rotating black hole. Generally speaking, two conditions have to be satisfied for successful energy extraction. First, $p_-$ is generated via magnetic reconnection with negative energy-at-infinity density. Second, the associated $p_+$, which carries the extracted energy, must escape to infinity. Though a number of studies have promoted the theory of the Comisso-Asenjo process, the escape of $p_+$ lacks consideration. In this work, we adopt geodesic approach to systematically examine the destinies of $p_+$ after ejection, thereby establishing the complete conditions for energy extraction from a rotating black hole via magnetic reconnection. We redefine the covering factor, for which only escaping $p_+$ are counted. This quantity reflects how probable the successful energy extraction occurs in an accretion system. Through analysis of this revised covering factor, we identify a lower bound on the black hole spin, $a=0.8005$, below which energy extraction via magnetic reconnection can never succeed, no matter how high the magnetization of the bulk plasma is. This limit suggests that the spin-down of a black hole caused by successive magnetic reconnections would terminate once the spin decreases to approximately 0.8005.",
+      "published": "2026-10-18T08:15:43+00:00",
+      "updated": "2026-10-18T08:15:43+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2610.25097v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.25097v1",
+      "metadata_source": "arXiv submission history",
+      "source_basis": "仅摘要"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2610.23844",
+      "title": "ModeCast：快速预测托卡马克线性内扭结、撕裂模结构与增长率",
+      "summary": "用 JOREK 线性模拟训练代理模型，同时预测稳定性、空间模结构和增长率；固定几何的内扭结与撕裂模扫描显示少量新模拟可帮助校准，但黏性超出训练范围时会失效，尚不能代替非线性重联计算。"
+    },
+    {
+      "id": "2610.22817",
+      "title": "FLARE 磁岛识别：用整炮标签寻找值得人工复核的时间片",
+      "summary": "把一次 FLARE 放电的多帧数据作为整体训练，多示例学习比卷积循环网络更善于检出少数磁岛事件；注意力可帮助定位候选时间，但当前准确度与验证范围还不足以支持自动判定或普遍计数。"
+    },
+    {
+      "id": "2610.22118",
+      "title": "相对论重联中，粒子注入一定要经过 \\(E>B\\) 区域吗？",
+      "summary": "二维、几乎无导向场的电子—正电子 PIC 将注入前做功按区域分开统计，发现多数注入粒子的最大贡献来自强电场区及其退出窗口以外；接触强电场与最终达到高能都不能单独证明能量由那里提供。"
+    },
+    {
+      "id": "2610.20015",
+      "title": "同一个三维磁零点，为什么可以对应不同的流动？",
+      "summary": "联立稳态电阻 MHD 方程，固定一个局部三维磁零点仍能得到不同流动拓扑、压强和电阻率的解族；跨越磁分界面的局部流动可以出现，但模型尚不给出唯一的全局重联率或微观电阻率。"
+    },
+    {
+      "id": "2610.23494",
+      "title": "二维惯性 MHD：无电阻重联、零耗散极限与斑块的合并",
+      "summary": "研究电子惯性允许的二维无电阻拓扑变化，证明受限条件下的零耗散强收敛，并用轮廓模拟比较合并与不合并情形；斑块是否接触和磁场等值线是否改变连通性，需要分别检查。"
+    }
+  ]
+}
