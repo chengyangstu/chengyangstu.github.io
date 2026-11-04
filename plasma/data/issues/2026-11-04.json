@@ -1,0 +1,821 @@
+{
+  "id": "2026-11-04",
+  "window_start": "2026-10-28T01:00:00Z",
+  "window_end": "2026-11-04T01:00:00Z",
+  "created_at": "2026-11-04T01:25:21.347070+00:00",
+  "overview": "本期覆盖北京时间 2026 年 10 月 28 日 09:00 至 11 月 4 日 09:00，按 arXiv 首次提交时间严格筛选。保留 28 条候选，完成 5 篇 PDF 正文选读简报；其余条目只有元数据与摘要，不冒充已经阅读正文。历史各期保持不变，不以旧论文补足数量。\n\n与你的聚变重联研究最直接相关的是 MAST-U 的微撕裂与磁场随机化模拟，因此放在首位。它把平衡流剪切、碳杂质与宏观撕裂模制动转动联系起来；重要边界是，两磁面的输运解释程度不同，完整反馈还没有自洽闭合。本次检索未找到足以使直接聚变撕裂理论与模拟占多数的更多新稿，以下四篇明确作为机制或计算补充，不等同于直接聚变研究。\n\n本周的机制线索是“局部驱动之外，还要检查形成历史和周围结构”：动态电流层的破裂长宽比与拓扑有关；电子—正电子重联中新岛的产生则受载流分布和下游质量加载控制。两篇物种、导引场和几何不同，可互相启发诊断，不能混成一个普遍次级撕裂理论。\n\n计算线索是“守恒、稳定、准确与高效要分别检验”：UGKWP 的场步守恒不等于含高斯校正的整步总能量精确守恒；GX 的大步长稳定不等于热通量无偏。两者适合帮助设计验证方案，但没有在本文完成真实聚变重联参数下的完整验证。逐篇核心工作与边界列在下方。\n\n主检索接口多次返回 HTTP 429，已改用成功的独立关键词检索，并结合官方新稿、近期和月度目录及批量首次提交元数据复查；目录最新公告为 11 月 3 日。覆盖以当时可获得的公告与接口结果为限，“未检索到”不代表不存在尚未公告的新稿。五篇均按实际选读范围标注并核对关键原图表，未声称全文逐图审阅，也未复现实验或模拟。",
+  "query": "weekly.py prepare 主检索 API 返回429；独立关键词 API 成功，结合官方 new/recent、10月和11月目录及批量元数据补查；用 published 首次提交 UTC 严格筛选，目录最新公告11月3日。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2611.00218",
+      "version": "2611.00218v1",
+      "title": "Towards reactor-relevant electromagnetic turbulence in the MAST-U spherical tokamak",
+      "abstract": "We investigate electromagnetic ion-scale turbulence in a high-performing H-mode plasma of the Mega Ampere Spherical Tokamak Upgrade (MAST-U) with local gyrokinetic simulations, asking whether it approaches the non-zonal transition: the nonlinear transition to a high-flux state above a critical value of $q^{2}β_{e}$ found in simulations of STEP, where $q$ is the safety factor and $β_{e}$ the ratio of electron thermal pressure to magnetic pressure. We examine two flux surfaces: one at $t = 531\\,\\mathrm{ms}$, close to peak normalised pressure $β_N$, at normalised poloidal flux $ψ_N = 0.50$; and one at $t = 591\\,\\mathrm{ms}$ and $ψ_N = 0.60$, the ideal-ballooning-stable surface of largest $q^{2}β_e$ inside $ψ_N = 0.8$ at that time. On both surfaces the dominant ion-scale instabilities are microtearing and electromagnetic ballooning-like modes, as in STEP. Without equilibrium flow shear, at least one of the surfaces lies above the large flux threshold with every set of kinetic species we simulate, with ion-scale heat fluxes far exceeding power balance, in turbulence characterised by a highly stochastic magnetic field. Strong flow shear driven by neutral-beam injection in the real experiment suppresses this turbulence and holds the plasma below the transition. When the carbon impurity is included in the simulation, the ion-scale flux is then close to power balance on both surfaces. Without rotation, gyrokinetics suggests the transition would limit the accessible profiles. This could degrade MAST-U plasma performance using heating schemes that lack a momentum source, and this will be tested in forthcoming electron Bernstein wave heating experiments.",
+      "authors": [
+        "Daniel Kennedy",
+        "Yujia Zhang",
+        "Bhavin S Patel",
+        "Sam Blackmore",
+        "Charles Vincent",
+        "Colin M Roach"
+      ],
+      "published": "2026-10-30T18:03:51Z",
+      "updated": "2026-10-30T18:03:51Z",
+      "topics": [
+        "聚变中的重联",
+        "聚变等离子体",
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.00218v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.00218v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 56,
+      "source_sha256": "26c752b817202535e11f54b6affc99063efd18111b6af143c11b75f0ec199aba",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "MAST-U 托卡马克中的微撕裂、磁场随机化与流剪切模拟，并讨论新经典撕裂模制动转动的联系；直接贴近聚变重联方向，但没有自洽演化宏观磁岛与反馈。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "MAST-U 微撕裂与磁场随机化：转动、碳杂质怎样改变热输运？",
+        "takeaway": "GENE 局部电磁回旋动理学模拟显示，实测流剪切能抑制磁场随机化，碳杂质又显著改变非线性热通量；含碳模型只在一个分析磁面上接近功率平衡，另一磁面仍有明显解释缺口。",
+        "question": "微撕裂模（MTM）是在微观尺度上具有撕裂对称性、能扰动磁连接的电磁不稳定性。它与高压强球形托卡马克的电子热输运有关，却不能仅凭线性增长率判断最终热量损失：流动剪切、杂质和带状流都可能改变非线性饱和。\n\n作者选择 MAST-U 的高性能放电，问两个问题：离子尺度电磁湍流能否补足实验热输运？当转动削弱后，是否会进入类似未来 STEP 工况所担心的高输运状态？研究把微撕裂与宏观撕裂模的后果联系起来，但两者不是同一个尺度的模型。",
+        "methods": "对象为第 48657 炮的两个局部磁面：S50 对应 531 ms、\\(\\psi_N=0.50\\)，S60 对应 591 ms、\\(\\psi_N=0.60\\)。\\(\\psi_N\\) 是归一化极向磁通，不是半径；相应的 \\(r/a\\) 分别为 0.62、0.68，其中 \\(r\\) 是径向坐标，\\(a\\) 是等离子体小半径。\n\nGENE 求解局部磁通管中的小扰动回旋动理学方程，保留电势 \\(\\phi\\)、平行磁矢势 \\(A_\\parallel\\) 和平行磁场扰动 \\(\\delta B_\\parallel\\)，并包含线性化碰撞。回旋动理学平均掉快速回旋运动，着重描述低频扰动；局部磁通管只取磁面附近的一小束磁力线，不能自然代表整个装置。\n\n两面的电子压强比 \\(\\beta_e\\) 分别约为 0.0580、0.0567，即电子压强与磁压之比。作者用 \\(q^2\\beta_e\\) 辅助比较电磁响应，\\(q\\) 是无量纲安全因子；该组合在此有用，并不是跨装置的唯一稳定阈值。关键对照是改变平衡流剪切及两、三、四物种配置，逐步纳入碳和快氘离子。\n\n两物种约化仍保留完整平衡的压强梯度，同时调整密度梯度。因此物种扫描改变的不只是“有没有碳”。诊断同时比较热通量、带状与非带状电势功率及磁力线结构；带状流指沿磁面近似对称、主要随径向变化的流动。",
+        "findings": "线性结果在 S50 以微撕裂主导，在 S60 以气球状模主导，两处又都存在相反对称性的次主模。这提示同一放电中，不同半径的电磁输运机制可能不同，不能把全部不稳定谱统称为微撕裂。\n\n不加平衡流剪切时，非线性模拟可形成大范围磁场随机化和很高的热通量；加入实测剪切后，磁力线趋向层状、有序结构，输运明显降低。这里的物理图景是相邻半径流速不同，不断拉伸扰动，破坏维持强随机磁场的相关性，而不是磁场扰动被简单设为零。\n\n**含碳与实测剪切并没有让两个磁面都吻合实验。** 图 23 中，S60 的三、四物种热通量达到功率平衡估计的量级；S50 在各物种配置下仍远低于该估计。S50 含碳算例的小残余净通量甚至向内，图上画的是绝对值，不能把这条曲线误读为较大的向外热损失。\n\n碳引起的非线性变化明显大于线性谱的变化，但原因尚未被独立拆分：密度梯度、碰撞、场屏蔽与带状流响应都可能参与。作者区分的“高通量状态”还同时要求通量超过功率平衡估计的四倍、非带状势功率达到带状功率；未进入这一状态，并不自动意味着输运预测正确。\n\n放电中的 \\(2/1\\) 新经典撕裂模会制动转动；这里的 2、1 分别为极向、环向模数。作者据模拟提出，转动下降可能再打开强电磁输运通道，形成不利反馈。**宏观磁岛—转动—微观输运的完整反馈仍是待检验解释**，局部模拟没有自洽演化这条因果链。",
+        "limitations": "作者在 S50 的输运缺口、杂质效应的成因，以及宏观磁流体模与局部湍流耦合上仍留有开放问题。不能用 S60 的局部量级相符，替代对整炮热输运的解释，也不能从两个磁面的扫描推出统一的电磁失稳阈值。\n\n编辑提醒：正文的分磁面结果比摘要中的概括更具体，本简报按详细结果保留差异。局部模型、有限运行时长和固定输入剖面都限制了全局反馈判断；本文也没有直接计算新经典撕裂模的成核、磁岛宽度演化或破裂重联率。",
+        "reading": "建议先看表 2，弄清两磁面及物种约化；再看图 23 的热通量和符号说明，最后读结论中关于转动制动的讨论。这样能把实测平衡、局部模拟和未来反馈假说分开。\n\n对你的研究，一个可检验的建议是：在固定主要平衡与梯度的条件下，分别扫描流剪切、碳含量和快离子响应，同时记录微撕裂层、磁岛重叠、磁力线随机化和电子热通量。随后再接入可演化宏观磁岛与动量的模型，检验反馈是否真正闭合。",
+        "evidence": "PDF 共 56 页。选读第 1–2、15、17–19、26、29、31–32、35、37–41 页。第 18 页表 2：磁面、归一化和约化模型参数；第 18–19 页：主模与次主模；第 26、29 页：状态判据与拓扑；第 37–40 页及图 23：物种、剪切与两面输运差异；第 40–41 页：宏观模反馈讨论。已查看第 18、38 页原图表；未逐项审阅附录或复现模拟。"
+      }
+    },
+    {
+      "id": "2610.41241",
+      "version": "2610.41241v1",
+      "title": "Plasmoid Instability in Inhomogeneous Current Sheets",
+      "abstract": "Plasmoid instability in inhomogeneous current sheets is investigated using electromagnetic gyrokinetic simulations of collisionless magnetic reconnection. Simulations with and without small random perturbations are compared to examine the effects of symmetry breaking and spatial inhomogeneity. The current-sheet width immediately before disruption remains close to the electron skin depth, whereas the disruption aspect ratio varies significantly between primary and later current sheets. Random perturbations also produce asymmetric plasmoid topologies in which neighboring X points no longer share a common separatrix. These results suggest that spatial inhomogeneity is an important factor in the disruption of dynamically evolving current sheets.",
+      "authors": [
+        "Kazuma Ikeda",
+        "Ryusuke Numata"
+      ],
+      "published": "2026-10-30T04:31:56Z",
+      "updated": "2026-10-30T04:31:56Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41241v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41241v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 16,
+      "source_sha256": "ac2ab6cfe50e5c7901a5deb58e2e7c984bc5a7488e10d05aa6196faa571bf723",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "强导引场下通用无碰撞电流层的回旋动理学重联，关注次级磁岛及非均匀拓扑；不是托卡马克平衡或聚变运行参数的直接模拟。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "电流层为何不能只靠长宽比判断破裂？非均匀拓扑与次级磁岛",
+        "takeaway": "六组 AstroGK 算例显示，后继电流层会在比主电流层更低的长宽比下破裂；对称性破缺还使相邻 X 点不再共有分界线，因此测量磁岛宽度必须说明磁通参照。",
+        "question": "长而薄的电流层常会碎裂成磁岛，即磁力线在二维平面中围出的闭合结构。但真实非线性演化里的电流层不断移动、拉伸和合并，并不总像一个静止、均匀的平衡。对这样的电流层，能否继续用一个临界长宽比判断破裂？\n\n本文把问题落在可测的几何与拓扑上：主重联形成的电流层，与磁岛之间后来生成的电流层，有没有相同破裂条件？轻微随机扰动破坏对称性后，用一个磁岛宽度描述结构是否仍足够？",
+        "methods": "AstroGK 演化二维、无碰撞、强导引场的电磁回旋动理学系统；导引场是垂直于重联平面、强于平面内重联磁场的背景场。两个平面方向周期，没有持续外部驱动。初始磁矢势采用双曲正割平方型剖面，之后由撕裂及磁岛运动自行形成细电流层。\n\n六组算例改变初始长波扰动、第二谐波和随机扰动。固定参数包括 \\(m_i/m_e=100\\)、\\(T_i/T_e=10^{-3}\\)、\\(d_e/a=0.085\\)：\\(m_i,m_e\\) 是离子、电子质量，\\(T_i,T_e\\) 是两者温度，\\(d_e\\) 是电子惯性长度，\\(a\\) 是初始磁场剖面尺度；各比值均无量纲。这是冷离子、约化质量比的机制研究。\n\n作者在层破裂前测量宽度 \\(d_{\\rm CS}\\) 和长度 \\(L_{\\rm CS}\\)，定义长宽比 \\(L_{\\rm CS}/d_{\\rm CS}\\)。另沿中心线提取磁矢势极值，识别 X 点和 O 点：前者位于磁连接分叉的鞍点，后者是磁岛中心。这个诊断并不等于任意位置的全域二维拓扑追踪。",
+        "findings": "图 5 显示，破裂前层宽都位于略大于电子惯性长度的范围，但主电流层达到的长宽比明显大于后继电流层。**同一组物理参数下，后继层并没有重复主层的破裂长宽比。** 非均匀、随时间变化的周围磁场，因而不能从稳定性问题中忽略。\n\n图 6 给出更直观的差别。若 O 点两侧的 X 点具有相同 \\(A_\\parallel\\)，便位于同一磁矢势等值线上，共有一条包围磁岛的分界线，形成“猫眼”结构；\\(A_\\parallel\\) 表示沿导引场的磁矢势，在这类二维几何中其等值线标记平面磁连接。\n\n随机扰动破坏对称后，两侧 X 点的磁矢势可不相同，磁岛呈“泪滴”结构，不再由同一条分界线同时连接两个 X 点。作者分别取通过两侧 X 点的等值线，沿穿过 O 点的横向测岛宽，两种结果随演化分开；对称算例则保持一致。\n\n这不是说磁岛大小不可测，而是说**非对称拓扑下，宽度需要带上分界线的选取规则**。若只保存一条“岛宽随时间”曲线，可能把参照磁通变化混入所谓磁岛增长。",
+        "limitations": "作者明确要求后续扫描随机扰动强度、动理学尺度并扩大电流层统计，才能建立适用于动态电流层的定量稳定判据。六个初始条件的比较不足以确定普适阈值，也没有完整分离非均匀性与形成历史的作用。\n\n编辑提醒：二维、强导引场、极冷离子和约化质量比与聚变条件不同。本文没有研究托卡马克曲率、压力驱动的新经典项或三维磁面破坏；层宽采用作者的测量量，不另行将其改称半宽或半高宽。",
+        "reading": "建议先看图 5 的空心与实心符号，再看图 6 的两种拓扑和图 7 的双参考岛宽。对聚变重联模拟，可借鉴的建议是：同时输出相邻 X 点磁通、O 点磁通、两侧参考岛宽和层形成历史，并检验初始噪声敏感性。应迁移诊断方法，再重新检验参数标度。",
+        "evidence": "PDF 共 16 页。选读第 1–6、9–14 页。第 3–5 页：模型、六组初始扰动与表 2 参数；第 9–11 页及图 5：破裂前层宽和长宽比；第 11–13 页图 6、7：猫眼、泪滴与岛宽定义；第 14 页：作者要求的进一步扫描。已查看第 5、11、12 页原图表；公式提取乱码处据原图核对，未复现计算。"
+      }
+    },
+    {
+      "id": "2611.02126",
+      "version": "2611.02126v1",
+      "title": "The Birth of Plasmoids: Weibel-Driven Secondary Tearing and its Suppression in Relativistic Reconnection",
+      "abstract": "Plasmoids, or magnetic islands, dominate relativistic reconnection layers in kinetic simulations, yet the instability that creates them remains poorly understood. By tracking newborn islands in 2D particle-in-cell simulations of pair-plasma reconnection with magnetizations $0.1\\leσ_0\\le1000$, we show that plasmoids are seeded by a current-filamentation/Weibel instability driven by counter-streaming out-of-plane current carriers near primary x-lines. Measured growth rates are $\\sim0.1$ times the background plasma frequency and agree with linear theory evaluated on the simulated distributions. As inflowing plasma loads the sheet away from the x-line, the current is carried by more particles and their out-of-plane drift slows. The filamentation instability shuts off once this drift becomes comparable to the momentum spread in the outflow direction, which occurs at a distance $\\ell_{\\rm iso}\\proptoσ_0$ from the x-line. Because the unstable region extends farther at higher $σ_0$, our results account for the onset of plasmoid-dominated reconnection in the relativistic regime but predict that plasmoid formation is suppressed beyond $\\sim\\ell_{\\rm iso}$ from primary x-lines, even in ultra-relativistic reconnection. Particle acceleration, variability, and coherent radio emission attributed to plasmoid-dominated reconnection may therefore be confined to smaller regions than previously assumed.",
+      "authors": [
+        "Matthew Goodbred",
+        "Anatoly Spitkovsky"
+      ],
+      "published": "2026-11-01T18:58:21Z",
+      "updated": "2026-11-01T18:58:21Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.02126v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.02126v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 9,
+      "source_sha256": "d6ea9350d9ed7c06d0be0b390e328ccab86a6fd92564fa035deebdfbee9ad404",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "无导引场电子—正电子重联中的次级磁岛机制，包含色散理论和 PIC 对照；物种、几何与聚变电子—离子等离子体不同，不能直接移植其标度。",
+        "method_tags": [
+          "理论",
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "次级磁岛从何而来？电子—正电子重联中的 Weibel 驱动与质量加载",
+        "takeaway": "二维反平行电子—正电子 PIC 与实际分布的色散计算相符，支持电流丝化驱动新生磁岛；下游质量加载又抑制这种驱动，限定新磁岛的产生区域，而非使已有磁岛立即消失。",
+        "question": "重联电流层里不断出现的小磁岛，往往被笼统称为次级撕裂的产物。本文进一步问：在无导引场电子—正电子等离子体中，最初放大磁岛种子的自由能究竟来自哪里？为什么有些下游电流层又不继续产生新岛？\n\n作者关注 Weibel 电流丝化：速度分布的方向差异使电流受到横向扰动后聚集成丝，并放大磁场。在这里，正、负电荷沿相反方向载流，可能提供这种驱动；这一解释需要用局部速度分布与增长率对照，不能仅凭磁岛图像判断。",
+        "methods": "Tristan-MPv2 进行二维反平行粒子网格法（PIC）模拟，跟踪粒子并在网格上求场；流出方向为平面内一个坐标，电流沿平面外，没有导引场。流出边界开放，流入边界供给上游等离子体。初始 Harris 电流层排出后，分析进入准稳态的重联层。\n\n扫描冷磁化参数 \\(\\sigma_0=B_0^2/(4\\pi n_0mc^2)\\)，覆盖 0.1 到 1000。这里采用高斯单位，\\(B_0\\) 是上游磁场，\\(n_0\\) 是正负两物种的上游总数密度，\\(m\\) 是共同粒子质量，\\(c\\) 是光速；\\(\\sigma_0\\) 无量纲。两物种等质量是模型的重要条件。\n\n作者从主 X 线附近提取实际粒子动量分布，代入均匀、无磁背景的线性 Vlasov 色散关系，求最大增长率；另逐个跟踪新生岛的电流扰动，拟合其早期指数增长。前一理论近似忽略背景重联电场等效应，后一诊断避免把整个计算盒的非线性演化误作一个线性模。",
+        "findings": "图 2 中，色散预测与新生岛实测增长率相容，最大增长率为上游等离子体频率十分之一的量级，即 \\(\\Gamma\\sim0.1\\omega_{p0}\\)；\\(\\Gamma\\) 是扰动指数增长率，\\(\\omega_{p0}\\) 是上游等离子体角频率，两者单位均为每秒。增长率在 \\(\\sigma_0\\) 约 10 附近最高，不是全扫描范围内的固定常数。\n\n图中实测误差条是一倍标准差，反映不同拟合增长率的散布，不是某种全模型误差的置信区间。作者把低磁化时增长加快与载流漂移增强联系起来，把高磁化时增长变慢与相对论惯性联系起来；所测对象是岛种子的增长，不是重联磁通变化率。\n\n沿下游运动时，流入粒子不断加载到电流层，同一电流由更多载流子承担，单粒子漂移降低；出流方向的动量展宽又减弱各向异性。**驱动新岛的条件因此会在有限距离后消失，即使电流层还存在。**\n\n作者估计该距离为 \\(\\ell_{\\rm iso}\\sim(1+\\sigma_0)d_0/\\beta_{\\rm rec}\\)。\\(\\ell_{\\rm iso}\\) 是从主 X 线起算的各向同性化长度，\\(d_0=c/\\omega_{p0}\\) 是上游惯性长度，均为长度；\\(\\beta_{\\rm rec}=v_{\\rm in}/v_{A0}\\) 是流入速度与上游阿尔芬速度之比，无量纲。这里不能在所有磁化条件下把阿尔芬速度直接换成光速。\n\n图 3 的时空分布支持新岛集中在仍有各向异性的区域。远离主 X 线后，**被抑制的是新岛的补充，已有磁岛仍可长大和合并**。很大计算域可能与常见有限盒子呈现不同结构，是作者提出的可检验预测。",
+        "limitations": "作者的主要结论限定在二维、无导引场、电子—正电子体系；色散理论还使用局部均匀背景近似。非常大、远超上述特征长度的高磁化计算域仍需更多检验，不能把外推预测写成已经解析的全尺度结果。\n\n编辑提醒：聚变电子—离子重联具有不同质量比、导引场、碰撞和几何。本文不能证明聚变次级撕裂一律由 Weibel 驱动。原文一处温度各向异性判据的措辞与图注不一致，本简报按图注及相邻物理说明解释为各向同性化稳定，不沿用该处歧义表述。",
+        "reading": "建议先看图 2 的局部增长率检验，再读图 3 的质量加载图景，最后查色散近似。对你的研究可借鉴的数值实验是：在电子—离子电流层里分别记录主 X 点到下游的载流漂移、密度、方向温度和局部增长率，验证哪种自由能在起作用。这是诊断建议，不是把本文的电子—正电子公式当作聚变预测。",
+        "evidence": "PDF 共 9 页。阅读第 1–6 页主体及第 7 页附录部分。第 2 页：物种、边界与磁化扫描；第 3 页图 2 和色散讨论：增长率及一倍标准差；第 4–5 页图 3：加载、各向同性化长度及有限域讨论；第 5–6 页：结论和适用范围。已查看第 3、5 页原图；未审计全部附录推导或复现 PIC。"
+      }
+    },
+    {
+      "id": "2610.40206",
+      "version": "2610.40206v1",
+      "title": "A semi-implicit unified gas-kinetic wave-particle method with energy-conserving electromagnetic coupling for multiscale plasmas",
+      "abstract": "In multiscale plasmas, kinetic regions coexist with collision-dominated, strongly magnetized and quasi-neutral ones. In these regions, the collision time, the cyclotron period and the plasma period, respectively, are far shorter than the flow time scales. Schemes that treat the collisions and the field coupling explicitly must take time steps below these times and below the light-crossing time of a cell. This paper presents a semi-implicit unified gas-kinetic wave-particle (UGKWP) method for the multispecies Vlasov-Maxwell system with Bhatnagar-Gross-Krook collisions. The electric field follows from a reformulated Maxwell equation, a single linear system with a unique solution for any time step. Its current response is built from the implicit-midpoint velocity map, which then pushes the particles and the hydrodynamic wave alike. The field step conserves the discrete total energy exactly and remains stable without resolving the cyclotron period, the plasma period or the light-crossing time, so that the time step follows from the flow and sound speeds. A Gauss's law correction adjusts the electric field and the joint charge of particles and wave while conserving the mass, momentum and energy of every charged species. The method reproduces whistler waves and electron plasma waves from Landau damping to collision-dominated oscillations. It agrees with particle-in-cell, two-fluid and magnetohydrodynamic references in a Brio-Wu problem from weak to strong collisionality and magnetization, the Orszag-Tang vortex and collisionless magnetic reconnection. It needs far less CPU time than either the UGKWP method with an explicit solver for the perfectly hyperbolic Maxwell equations or a deterministic multiscale kinetic scheme. In collisional plasmas, it also needs less CPU time than an implicit particle-in-cell method with the same collision operator, increasingly so as collisions strengthen.",
+      "authors": [
+        "Yixiao Wang",
+        "Zhigang Pu",
+        "Xing Ji",
+        "Kun Xu"
+      ],
+      "published": "2026-10-29T14:55:12Z",
+      "updated": "2026-10-29T14:55:12Z",
+      "topics": [
+        "计算方法",
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.40206v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.40206v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 34,
+      "source_sha256": "8811d713ce5c128ef1297b74404fd4dd49564e1bc48a52106577923984b60a38",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 3,
+        "relevance_reason": "BGK–Vlasov–Maxwell 波粒方法含 GEM 重联算例，可借鉴半隐式耦合与约束诊断；主要贡献是算法，不是聚变重联机制。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "半隐式波粒计算怎样兼顾大步长、能量与高斯约束？GEM 重联检验",
+        "takeaway": "UGKWP-EC 用一致电流响应耦合粒子、解析分布与 Maxwell 场，场推进步严格守恒离散总能量；完整算法的高斯校正仍改变电场能，GEM 算例约千分之几的总能量变化不能省略。",
+        "question": "动理学电磁计算同时面对快速电子运动、光波和较慢的离子演化。显式方法常需很小时间步，而扩大步长又可能破坏场与粒子之间的能量交换。本文询问：能否用同一离散响应耦合它们，并控制电荷约束误差？\n\n另一个困难是稀薄与强碰撞区域并存。统一气体动理学波粒方法（UGKWP）用解析分布表示一部分粒子群，其余用离散粒子表示；这里的“波”指分布函数的流体表示，不是另加一类电磁波。",
+        "methods": "模型为 BGK–Vlasov–Maxwell 系统：Vlasov 描述带电粒子输运和洛伦兹力，Maxwell 演化电磁场，BGK 碰撞项把分布按松弛时间拉向局部 Maxwell 分布。碰撞强弱决定解析部分与粒子部分的比例，避免在所有区域都用同一种昂贵表示。\n\n场步使用隐式中点速度映射，让粒子和解析分布贡献的电流与 Maxwell 更新一致，因而离散场—粒子能量交换能够相互抵消。完整一步还包括输运与高斯校正；高斯约束 \\(\\epsilon_0\\nabla\\!\\cdot\\mathbf E=\\rho_c\\) 要求电场散度与电荷密度一致，其中 \\(\\epsilon_0\\) 是真空介电常数，\\(\\mathbf E\\) 是电场，\\(\\rho_c\\) 是电荷密度。\n\n重联检验采用带附加局域扰动的 GEM 初值，而非未经修改的标准初值；各参考程序使用相同设置。质量比 \\(m_i/m_e=25\\)，光速与阿尔芬速度比 \\(c/v_A=20\\) 或 10；这些符号分别表示离子质量、电子质量、光速和参考阿尔芬速度。网格为 \\(256\\times128\\)，每物种每个 Harris／背景粒子群使用每格 256 粒子。\n\n区域为横向 \\([-12.8,12.8]\\)、纵向 \\([-6.4,6.4]\\)，长度以离子惯性长度 \\(d_i\\) 归一化；横向周期，纵向为导体场边界与粒子镜面反射。比较磁通、场结构、能量、高斯残差和耗时，而不只看程序是否稳定。",
+        "findings": "**严格离散总能量守恒成立于一致耦合的场推进步，不自动覆盖含校正的完整算法。** 高斯校正保持每个带电物种的质量、动量与能量，但会改变电场能；完整步的总能量变化恰为这一校正所带来的电场能变化。校正也只消除离散弱散度可表示的残差分量。\n\n表 3 在终点 \\(t\\Omega_{ci}=40\\) 给出重联比较；\\(t\\) 是物理时间，\\(\\Omega_{ci}\\) 是参考离子回旋角频率，乘积无量纲。在 \\(c/v_A=20\\) 时，新算法、iPIC3D 和确定性 DUGKS-RME 的重联磁通分别为 3.55、3.37、3.23，以 \\(B_0d_i\\) 归一化，其中 \\(B_0\\) 是参考磁场强度；这里的二维磁通是每单位平面外长度的磁通。新算法总能量相对初始值变化为 −0.25%。这些数值显示相近演化与可见差别，并非逐项相同。\n\n图 13 中，启用校正后高斯残差约降低两个数量级，并抑制部分伪电流结构；不校正时，能量反而可保持到很小误差，却不能保证电荷约束和电流结构正确。**单看能量守恒曲线不足以判断重联模拟可信。**\n\n性能必须连同基线阅读。在双路 AMD EPYC 7742 工作站上使用 64 核，\\(c/v_A=20\\) 的新算法需 2183 步、11.0 核时；显式 UGKWP-PHM 基线需 20000 步、126.4 核时，约为前者 11.5 倍。核时等于墙上时间乘使用核数，这不是 GPU 加速测试。\n\n同表 DUGKS-RME 为 1452 核时，即约 132 倍，但它采用每物种 \\(40^3\\) 的离散速度网格，与随机粒子表示成本不同。GEM 表没有提供 iPIC3D 的耗时，不能写成“比 PIC 快 132 倍”。大时间步仍受流速和声速条件约束，也不保证准确解析所有高频过程。",
+        "limitations": "作者展示的是选定参数和精度下的基准。GEM 使用约化质量比、有限光速比与附加初始扰动，不能直接保证真实聚变质量比、复杂边界或多尺度湍流下同样准确、同样加速。\n\n编辑提醒：算法中场步的守恒证明、校正的性质、有限容差线性求解和完整算例的误差是不同层次。本文没有把强碰撞 BGK 闭合变成完整库仑碰撞模型，也没有证明单个粗网格重联结果足以支撑普遍大步长选择。",
+        "reading": "建议先读图 13，再读方法中场步和高斯校正的性质，最后看表 3、4。若准备开发加速动理学重联程序，可借鉴一套验证顺序：先验证场—粒子能量交换，再同时跟踪高斯残差、粒子噪声和重联磁通，最后在相同误差目标下比较成本。以上是实现建议，本次没有编译或复现该算法。",
+        "evidence": "PDF 共 34 页。选读第 1、3–5、7、12–15、24–25、27–29 页。第 4–7 页：控制方程、波粒含义与分步；第 12–14 页：场步与高斯校正的守恒边界；第 15 页：64 核及硬件；第 24–25 页：GEM 设置、图 10、表 3；第 27 页：图 13 和表 4。已查看第 25、27 页原图表；未逐行审计所有离散证明或复现基准。"
+      }
+    },
+    {
+      "id": "2611.00675",
+      "version": "2611.00675v1",
+      "title": "Implicit-Explicit Methods for the GX Gyrokinetics Code",
+      "abstract": "Gyrokinetic simulations are crucial for understanding turbulent transport in magnetic confinement fusion devices. Unfortunately, these simulations are typically extremely expensive, particularly when kinetically evolving electrons due to their significantly greater thermal speed compared to that of ions. In this work, we present new implicit-explicit timestepping methods for the GX gyrokinetics code to accelerate these simulations where the ion and electron streaming terms as well as the electron mirror terms are treated implicitly, while the remaining terms are treated explicitly. These methods include a lower-order Lie-Trotter splitting method as well as a higher-order additive Runge-Kutta method. Our schemes take advantage of the sparsity of the GX equations, which allows us to efficiently invert the linear operators that arise from the implicit scheme without consuming significant amounts of limited GPU memory. We demonstrate our new integration scheme for both linear (electrostatic and electromagnetic) and nonlinear (electrostatic) simulations in general toroidal geometry, and show that our methods can achieve up to the maximum theoretical linearly stable timestep for these simulations while maintaining a significant improvement in wall-clock time.",
+      "authors": [
+        "Patrick S. Kim",
+        "Noah R. Mandell",
+        "Ian G. Abel",
+        "William Dorland",
+        "Greg W. Hammett",
+        "Daniel R. Reynolds"
+      ],
+      "published": "2026-10-31T06:13:55Z",
+      "updated": "2026-10-31T06:13:55Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.00675v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.00675v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 26,
+      "source_sha256": "337e682a2acb04ac146fb49e9fd8cfbc2d54014adae544106d5101b4dcebbd2e",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 3,
+        "relevance_reason": "GX 回旋动理学时间推进算法，关联 GPU 计算与未来电磁湍流研究；当前非线性验证为静电算例，没有完成聚变微撕裂或动理学重联验证。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "GX 的隐显式时间推进：哪些步长增益真正转化为可信的计算加速？",
+        "takeaway": "GX 用隐显式方法缓解平行流动与电子镜力的步长限制；三阶 ARK 在所测静电非线性算例中较好保留热通量，但托卡马克算例的实际加速小于平板算例，且非线性电磁验证尚未完成。",
+        "question": "GPU 能更快完成每一步，却不能消除“必须走很多小步”的困难。回旋动理学中电子沿磁场快速运动，常迫使显式算法用远小于慢输运时间尺度的步长。隐显式方法（IMEX）把最苛刻的部分隐式处理，其余保持显式，试图减少总步数。\n\n本文的实用问题是：扩大时间步后，模频率、增长率与饱和热通量是否仍可靠？隐式每步要额外求解方程，增加的成本会不会抵消省下的步数？这比单纯报告稳定步长更接近科研计算所需。",
+        "methods": "GX 是面向 GPU 的局部回旋动理学程序，用 Hermite–Laguerre 基展开速度分布，类似把复杂分布写成一组已知函数的系数。作者对离子与电子的平行流动、电子镜力作隐式处理；镜力来自沿磁力线的磁场强度变化，其余项按方案保留显式。\n\n比较两条推进路线：Lie–Trotter 依次推进不同算子，整体只有一阶精度；加法 Runge–Kutta（ARK）在各阶段协调隐、显式贡献，本文方案整体三阶。某个子步本身高阶，并不把一阶算子拆分自动变成高阶。\n\n传统隐式响应矩阵可能消耗大量显存，作者因此采用结构化近似反演与迭代修正。测试覆盖平板与托卡马克的 Cyclone 基准（CBC）。线性部分有静电和电磁测试，非线性部分仅为静电；本文还令 \\(\\delta B_\\parallel=0\\)，其中该符号表示沿背景磁场方向的磁场扰动。",
+        "findings": "平板非线性静电测试是一个很好的精度提醒：Lie–Trotter 将步长放大 25 倍仍能运行，但平均离子热通量有偏；三阶 ARK 放大 50 倍时，与显式结果的热通量符合较好。**稳定不发散，是必要条件，不能代替物理统计量的准确性。**\n\n表 1 中，这个平板算例的显式三阶 RK 基线耗时 489.49 分钟，ARK 为 23.56 分钟，对应作者报告的 20.78 倍。这里比较的是同一程序不同时间推进方案，不是 GPU 对 CPU 的加速比，也不是所有托卡马克湍流的统一收益。\n\n托卡马克非线性静电算例中，两种隐显式方案只把步长放大四倍。显式基线耗时 617.97 分钟，Lie–Trotter 为 217.83 分钟、加速 2.84 倍，ARK 为 331.58 分钟、加速 1.86 倍。隐式阶段与迭代有额外成本，实际加速小于步长倍数；该组测试的热通量比较较为相容。\n\n托卡马克几何中的磁漂移、曲率及非线性项仍会限制步长。解决平行流动这一瓶颈后，其他过程成为主要约束，所以不能从平板的约二十倍加速直接推断你的聚变重联任务。",
+        "limitations": "作者尚未给出非线性电磁湍流的同等验证；本文的零平行磁扰动设置，也不同于本周 MAST-U 论文保留全部电磁场的模型。不能把这项算法结果直接当作微撕裂、磁场随机化或完整 PIC 重联计算已经验证。\n\n编辑提醒：所查正文及性能表没有明确给出具体 GPU 型号，因而不能据此承诺云端某张卡的分钟数。近似反演需要迭代收敛检查，较便宜的一阶方案也应逐个工况核对热通量偏差，不能只按计时表选择。",
+        "reading": "建议先看图 4 的三条热通量曲线，再看表 1 的平板与托卡马克计时，最后读隐式反演的显存动机。对你未来的 GPU 训练，可增加一个小型比较实验：固定物理问题、分辨率和统计区间，扫描步长，记录热通量误差、迭代次数、显存和总耗时；在相同准确度下选择方案。这是研究训练建议，本次未执行这些性能测试。",
+        "evidence": "PDF 共 26 页。选读第 1–2、5–8、15–20 页。第 5–6 页：场设置和两种时间推进；第 7–8 页：传统响应矩阵的显存动机；第 15–18 页：平板、托卡马克的线性与非线性比较；第 20 页表 1：准确的计时与加速比。已查看第 16 页图 3、4 和第 20 页原表；未审计每个隐式算子推导或复现 GPU 测试。"
+      }
+    },
+    {
+      "id": "2610.38792",
+      "version": "2610.38792v1",
+      "title": "Three-Wave Forced Hasegawa--Wakatani Model: Reducing Chaos with Zonal Flows",
+      "abstract": "We investigate the nonlinear dynamics of resistive drift-wave turbulence with a three-wave truncation of the Hasegawa--Wakatani equations, in which the background density gradient either is fixed or evolves self-consistently, fed by an external particle source $P$ (such as neutral beam injection) and eroded by the turbulent particle flux. Two triads that differ only by a small tilt of the long-wavelength mode are compared, in one this mode is zonal and cannot be driven by the gradient, in the other it is a weakly driven drift wave. Period maps in the plane of the adiabaticity parameter $C$ and the drive show that the zonal triad is almost always regular, whereas the non-zonal triad becomes chaotic. The feedback of the flux on the gradient amplifies this contrast: the fraction of aperiodic states grows considerably in the non-zonal triad and remains negligible in the zonal one. Along a line of constant $C$ at low adiabaticity, the non-zonal triad with a fixed gradient enters chaos through torus breakdown with intermittency and leaves it through an interior crisis and a period-doubling cascade. With the self-consistent gradient, a Neimark--Sacker bifurcation leads to a phase-locked torus that breaks down abruptly, with hysteresis, and chaos then persists up to the largest drive, with the gradient driven intermittently above the threshold of the long-wavelength mode. None of these routes to chaos exists when that mode is zonal.",
+      "authors": [
+        "P. Haerter",
+        "R. L. Viana",
+        "I. L. Caldas"
+      ],
+      "published": "2026-10-28T20:00:44Z",
+      "updated": "2026-10-28T20:00:44Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.38792v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.38792v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.38899",
+      "version": "2610.38899v1",
+      "title": "Options for heating, fueling, and current drive in MANTA, a high-field negative triangularity fusion pilot plant",
+      "abstract": "In this work, we assess how the performance of MANTA, a high-field, highly radiative, negative triangularity tokamak concept, depends on pellet fueling, ion cyclotron resonant frequency (ICRF) heating, and lower hybrid current drive (LHCD) schemes. Negative triangularity (NT) has been gaining momentum in the fusion community as a naturally, robustly ELM-free regime that is capable of power plant level performance. The MANTA device has been the subject of previous works regarding the whole-device design, power handling and divertor assessments, and core transport optimizations. Informed by these previous studies, we assess whether changes to the original MANTA heating and current drive scheme can positively affect performance, both in terms of lowering scrape-off layer power (improving power-handling, a primary benefit of NT) and maximizing plasma gain to levels necessary for an attractive fusion pilot plant. In this work, we find that the MANTA concept can yield improved performance in terms of plasma gain and scrape-off layer power by simultaneously going to lower input power and higher seeded impurity fraction. Also, we find that increasing the fueling magnitude can increase fusion power while minimally impacting scrape-off layer power. Performance can also be improved by optimizing the ICRF design; decreasing the minority ion fraction, decreasing the toroidal mode number of the injected wave, and switching from a helium-3 minority ion to a hydrogen-1 minority ion all result in increases to fusion power. The additional inboard space afforded by the NT geometry provides an opportunity for wave launch to be moved to the inboard side. This is beneficial for LHCD access and results in a wide range of potential current profiles in the edge, with the total driven current due to 25 MW of LHCD reaching up to 1.2 MA, or about 12% of the total current.",
+      "authors": [
+        "Haley S. Wilson",
+        "Andrew O. Nelson",
+        "Jin Myung Park",
+        "Ehab Hassan",
+        "Cami Collins",
+        "Carlos Paz-Soldan"
+      ],
+      "published": "2026-10-28T20:55:56Z",
+      "updated": "2026-10-28T20:55:56Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2610.38899v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.38899v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.39381",
+      "version": "2610.39381v1",
+      "title": "Linear-Stability-Guided Two-Stage Surrogate Model for Nonlinear ITG-TEM Turbulence",
+      "abstract": "We develop a two-stage surrogate model framework to predict the linear and nonlinear properties of ITG-TEM turbulence from GENE gyrokinetic simulations. The first stage uses a hierarchical ensemble of stability and mode classifiers, along with global and mode-specific regressors, to predict the linear growth rate and real frequency. The second stage uses these predictions as linear spectra in a Fourier neural operator (FNO)-based nonlinear surrogate model. The nonlinear model predicts saturated potential and heat flux spectra, together with zonal flow quantities. Two linear drive scalars, the maximum and integral of the linear growth rate over a low-wavenumber range, are also supplied directly to the networks predicting scalar quantities. For the architecture studied here, comparisons with models omitting either or both input paths show that linear information can improve spectral and scalar predictions under extrapolation toward stronger linear drive.",
+      "authors": [
+        "Y. W. Cho",
+        "C. G. Wan",
+        "Z. S. Qu",
+        "C. J. Ajay",
+        "K. P. Li",
+        "K. Lim",
+        "S. S. Kim",
+        "Y. -H. Lee",
+        "J. M. Kwon",
+        "X. Garbet"
+      ],
+      "published": "2026-10-29T05:15:02Z",
+      "updated": "2026-10-29T05:15:02Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.39381v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.39381v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.40092",
+      "version": "2610.40092v1",
+      "title": "Evolutionary tracks and isochrones of the inverse Hall cascade",
+      "abstract": "Decaying MHD turbulence can exhibit an inverse cascade, which means that the height of the spectrum of magnetic energy in the subinertial range increases with time. However, there is evidence for a resistive dependence of the inverse transfer speed. It is unclear whether this is caused by reconnection, which is known to depend on resistivity. Here, we show that in the Hall cascade, where no momentum equation is solved, and the induction term is replaced by what corresponds to the negative Lorentz force in MHD, there is still a resistive dependence of the inverse transfer speed, but no such dependence is found for an analogous numerical reconnection experiment. This suggests that the resistive dependence of the inverse transfer speed is not necessarily related to reconnection.",
+      "authors": [
+        "Axel Brandenburg",
+        "Vinay Kumar"
+      ],
+      "published": "2026-10-29T13:58:45Z",
+      "updated": "2026-10-29T13:58:45Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.40092v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.40092v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41134",
+      "version": "2610.41134v1",
+      "title": "Teacher-guided multi-task learning for integrated plasma monitoring on EAST",
+      "abstract": "This paper integrates tokamak plasma disruption prediction, Edge-Localized Mode (ELM) monitoring, Multifaceted Asymmetric Radiation From the Edge (MARFE) detection, and H/L-mode identification into a unified Multi-Task Learning (MTL) model. This integration aims to realize MTL's potential for improving task performance while reducing inference time. However, on datasets constructed from selected EAST discharges recorded between 2015 and 2020, this study found that the traditional MTL method underperformed the corresponding Single-Task Learning (STL) method on some tasks. This performance degradation is the well-known issue of negative transfer. To address this issue, this study proposes the teacher-guided MTL method, using task-specific STL ensembles (teachers) to guide the training of an MTL model (student). The ensemble teachers guide training through soft-target distillation losses for each task of the MTL student model, and increased weighting of each shot's peak-disruptivity window in the disruption prediction label-supervised loss. Test-set results showed that the teacher-guided MTL method outperformed the corresponding STL method in ROC-AUC for all four tasks, eliminating the negative transfer observed with the traditional MTL method. In addition, on the same single GPU or single physical CPU core, the MTL student model can substantially reduce the inference time required to generate all four task outputs compared with the four STL baseline models. This paper offers a promising route to plasma monitoring systems that cover a broader range of phenomena, improve per-task performance and reduce inference time with limited real-time computational resources, supporting future high-performance plasma operation.",
+      "authors": [
+        "Yunhu Jia",
+        "Wenhui Hu",
+        "Bihao Guo",
+        "Qingquan Yang",
+        "Xin Lin",
+        "Haoyu Wang",
+        "Yao Huang",
+        "Yuehang Wang",
+        "Kai Wu",
+        "Zhengping Luo",
+        "Yanmin Duan",
+        "Jilei Hou",
+        "Ruirui Zhang",
+        "Jianqiu Zhu",
+        "Zijie Liu",
+        "Qiping Yuan",
+        "Bingjia Xiao"
+      ],
+      "published": "2026-10-30T01:38:40Z",
+      "updated": "2026-10-30T01:38:40Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.41134v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41134v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.01356",
+      "version": "2611.01356v1",
+      "title": "Learned Surrogates of Three-Dimensional Magnetohydrodynamic Turbulence",
+      "abstract": "Three-dimensional magnetohydrodynamic (MHD) turbulence, the flow of astrophysical and fusion plasmas, is costly to simulate. We present, to our knowledge, the first learned surrogates of three-dimensional resistive MHD turbulence, and compare three standard backbones in that role: a convolutional UNet, a shifted-window transformer and a Fourier neural operator. They are trained as autoregressive emulators of decaying MHD turbulence at a resolution of $128^3$ and Reynolds numbers of 1000, 3000 and 6000, on 500 simulations per Reynolds number, each with one two-stage procedure, single steps and then short rollouts, and stopped by one rule. Over a window of about one large-eddy turnover time, the UNet and the transformer reach relative velocity errors of 0.018 to 0.053 and keep the current sheets, the enstrophy, the current density and the energy spectra of the simulation; which of the two is the more accurate depends on the Reynolds number, the UNet leading at 3000 and 6000 and the transformer at 1000. Applied with the same backbones and training procedure to two public benchmarks, the models reach the lowest error reported to date on the isotropic turbulence set of FactFormer, 39% below the best published model. On the compressible MHD set of The Well, their rollout errors are a third to a half below those of the best of The Well's baselines. They also match a 1.3 B-parameter pretrained foundation model in its rollout windows, with 20-62 times fewer parameters. The code, the configuration of every model, the evaluation scripts and the data generator with the seed of every simulation will be released upon publication.",
+      "authors": [
+        "Semih Kacmaz",
+        "E. A. Huerta"
+      ],
+      "published": "2026-10-31T23:54:52Z",
+      "updated": "2026-10-31T23:54:52Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.01356v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.01356v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.38906",
+      "version": "2610.38906v1",
+      "title": "Local neoclassical calculations using a Hermite-Laguerre velocity-space basis with advanced collision operators",
+      "abstract": "We present radially local neoclassical (NC) calculations based on a Hermite-Laguerre (HL) velocity-space polynomial expansion combined with advanced linearized collision operators, including the exact Fokker-Planck-Landau (FPL) operator. The implementation is verified against the NC code SFINCS using both a multi-species Lenard-Bernstein-Dougherty-like (LBD) operator and the FPL operator, the NC fluxes agreeing to within 3% in the Pfirsch-Schlüter regime. The accuracy of the HL basis is then assessed by convergence studies against the Legendre-Laguerre (LG) basis. At an equal number of spectral coefficients, neither basis is uniformly more accurate. In the plateau regime, the LG basis is more accurate on the particle and heat fluxes, which are sensitive to the trapped-passing boundary, whereas the HL basis is more accurate on the bootstrap current, carried by the parallel flow. In the banana regime, both bases converge slowly. Finally, we compare the LBD and the original (OS) and improved Sugama (IS) operators against the FPL operator. The IS operator retrieves the NC fluxes to within 6% over four decades of collisionality, whereas the LBD operator overestimates the ion heat flux by a factor of 2.6 to 4.7. The OS operator overestimates the ion heat flux by 4 to 33%, while retrieving the particle flux and the bootstrap current to within 9% and 18%, respectively. The convention adopted for the LBD collision frequency also changes the bootstrap current by up to two orders of magnitude. The present work extends the use of the HL basis, previously used in turbulent calculations, to NC physics and, to the knowledge of the author, these are the first NC calculations using the HL basis.",
+      "authors": [
+        "B. J. Frei"
+      ],
+      "published": "2026-10-28T21:00:45Z",
+      "updated": "2026-10-28T21:00:45Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.38906v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.38906v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41748",
+      "version": "2610.41748v1",
+      "title": "Stabilization of counter propagating currents by energy conservation in collisions",
+      "abstract": "Current filamentation generates magnetic fields and shapes electron transport in dense plasmas, where collisions can either suppress or enhance its growth. Here we show that conserving electron kinetic energy in a collisional model can change both the dominant instability and its characteristic wavelength. We develop a linear kinetic theory for drifting, anisotropic electron populations with a relaxation operator that conserves particle number and laboratory-frame kinetic energy while allowing momentum transfer to a stationary ion background. For counterstreaming currents, energy conservation maintains the stabilizing influence of charge separation over a broader range of collision frequencies than a model conserving particle number alone. At intermediate collision rates, the resulting suppression of transverse filamentation allows a nearly aperiodic oblique mode to dominate, reducing the maximum growth rate and shifting the wavelength of the fastest-growing perturbation. Two-dimensional particle-in-cell simulations support predicted growth rates of up to more than a magnitude lower than expected without energy conserving collision.",
+      "authors": [
+        "Thomas Kluge",
+        "Jannis Schulz",
+        "Arthur Hirsch-Passicos",
+        "Pawel Ordyna",
+        "Ulrich Schramm"
+      ],
+      "published": "2026-10-30T13:51:25Z",
+      "updated": "2026-10-30T13:51:25Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41748v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41748v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41544",
+      "version": "2610.41544v1",
+      "title": "AMPERe: an exactly divergence-free quadrature-by-expansion evaluator for near-surface Biot--Savart and virtual-casing fields in fusion geometries",
+      "abstract": "Accurate magnetic-field evaluation on and near current-carrying surfaces is a recurring computational bottleneck in magnetic-confinement fusion. As targets approach the source surface, Biot--Savart and virtual-casing kernels become singular, causing standard Gauss--Legendre and upsampled trapezoidal quadratures to lose accuracy. We introduce AMPERe, a quadrature-by-expansion (QBX) evaluator for vector magnetostatic kernels on general three-dimensional, non-axisymmetric tokamak and stellarator geometries. The method develops a spherical-harmonic QBX formulation for the vector Biot--Savart and virtual-casing (Stratton--Chu) fields and expresses the resulting magnetic field as the analytic curl of a regular-solid-harmonic vector potential. This construction yields a divergence-free discrete field at every expansion order, provides analytic derivatives, and enables an a priori separation of truncation, quadrature, and geometric errors. On the rotating-ellipse benchmark of Malhotra et al. [1], QBX maintains a relative error of 2--5 x 10^{-6} throughout the near-surface regime at distance-independent cost, whereas upsampled trapezoidal quadrature exhibits O(1) errors and requires node counts scaling as (h/d)^2. AMPERe is implemented as a header-only, performance-portable Kokkos library supporting CPU and GPU backends, with target-specific and local-correction accelerations validated against the baseline. The method is further demonstrated on realistic Wendelstein 7-X configurations, including sheet-current and virtual-casing field evaluations.",
+      "authors": [
+        "H. Betar",
+        "Y. Sarazin",
+        "V. Grandgirard",
+        "D. Zarzoso"
+      ],
+      "published": "2026-10-30T10:42:00Z",
+      "updated": "2026-10-30T10:42:00Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41544v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41544v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41343",
+      "version": "2610.41343v1",
+      "title": "Spectroscopic observations of periodic bursty ejections during a dome-spire-shaped jet",
+      "abstract": "Context: The study investigates the complexity of the formation and evolution of a dome-spire-shaped jet (or anemone jet) that originated in an active region and was presumably driven by null-point magnetic reconnection. Aims: We aim to provide a quantitative estimation of multi-temperature plasma dynamics and physical parameters of the jet and its blob-like features, together with its temporal evolution in three-dimensional perspective. Methods: For this, we analyze unique sit-and-stare spectral (Si IV, Mg II k, and C II) and slit-jaw imaging 1400 Å and 2796 Å observations obtained with the Interface Region Imaging Spectrograph (IRIS), with a slit uniquely positioned just above the assumed reconnection site. Co-observations taken with the Fast Imaging Solar Spectrograph of the Goode Solar Telescope in the chromospheric H$α$ and Ca II 8542.10 Å lines were also analyzed. These data are complemented by EUV imaging information from the Atmospheric Imaging Assembly on board the Solar Dynamics Observatory. Results: The IRIS observations reveal that the jet is formed by multiple periodic ($\\sim$30 s) plasma ejections with blob-like appearance, each associated with strongly blueshifted Si IV 1402.77 Å transition-region emission reaching about $-300$ km/s. More importantly, the ejections are grouped into well-defined packets, each lasting approximately 3--5 min. In contrast, only a single Doppler component is observed in the chromospheric Ca II line. Multi-Gaussian decomposition of the Si IV line profiles reveals a highly accelerated plasma, with line-of-sight speed toward the observer increasing linearly from $\\sim$30 to 112 km/s over 66 s, corresponding to an acceleration of 1.3 km/s$^2$. The kinetic energy release rate is estimated in the range of $\\sim$1.0$\\times10^{24}$--1.0$\\times10^{25}$ erg\\,s$^{-1}$.",
+      "authors": [
+        "Heesu Yang",
+        "Maria S. Madjarska",
+        "Kyoung-Sun Lee",
+        "Klaus Galsgaard"
+      ],
+      "published": "2026-10-30T06:58:54Z",
+      "updated": "2026-10-30T06:58:54Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.41343v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41343v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.40794",
+      "version": "2610.40794v1",
+      "title": "FLUCS: a modular GPU-native framework for fluid and plasma turbulence",
+      "abstract": "We present FLUCS, an open-source framework for solving systems of partial differential equations efficiently on graphics processing units (GPUs), targeting models of fluid and plasma turbulence. It comprises a set of numerical solvers specialised for a well-defined class of problems and independently developed systems that supply specific systems of equations. This allows different models to share numerical infrastructure while retaining control over their individual implementation and optimisation. The present release provides a Fourier pseudospectral solver for one-, two-, and three-dimensional periodic domains solved on a single NVIDIA GPU, with integrating-factor time integration and several time-stepping and dealiasing methods. We verify its convergence, quantify its computational costs, and demonstrate its application to three reduced models of fusion and astrophysical plasma turbulence.",
+      "authors": [
+        "T. Adkins",
+        "P. G. Ivanov"
+      ],
+      "published": "2026-10-29T18:00:25Z",
+      "updated": "2026-10-29T18:00:25Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.40794v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.40794v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41493",
+      "version": "2610.41493v1",
+      "title": "As a matter of reconstruction -- varying the magnetic Prandtl number in implicit large eddy simulations",
+      "abstract": "The magnetic Prandtl number ($\\mathrm{Pm}$), the ratio of viscosity to magnetic diffusivity, spans many orders of magnitude in astrophysical plasmas. It shapes how turbulence amplifies and structures magnetic fields. In direct numerical simulations (DNS) the viscosity and magnetic diffusivity can be controlled explicitly and independently, whereas in implicit large eddy simulations (ILES) they are set by the numerical scheme. We test whether, in a finite-volume code, $\\mathrm{Pm}$ can be varied through the reconstruction scheme by applying different methods to the hydro and magnetic variables. As a proof of concept, we simulate driven, subsonic, homogeneous magnetohydrodynamic turbulence using five pairs of hydrodynamic and magnetic reconstruction schemes at varying resolutions. We measure the effective viscosity and resistivity from the energy transfer between scales. Reconstructing the magnetic field at higher order than the fluid raises the effective magnetic Prandtl number and vice versa. We demonstrate that a mix of second- and third-order reconstruction alone results in a $\\gtrsim20\\times$ change in $\\mathrm{Pm}$. A comparison of DNS with matched explicit dissipation at these values agrees with the ILES. Mixed reconstruction thus offers a simple and efficient way to explore $\\mathrm{Pm} \\not\\simeq 1$ in ILES without adding explicit dissipation.",
+      "authors": [
+        "Vinay Kumar",
+        "Philipp Grete"
+      ],
+      "published": "2026-10-30T09:48:35Z",
+      "updated": "2026-10-30T09:48:35Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41493v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41493v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.40528",
+      "version": "2610.40528v1",
+      "title": "NEOPIC: A Neural Operator Framework for Particle-based Kinetic Plasma Simulations",
+      "abstract": "We introduce NEOPIC, a framework for learning the field operator in particle-based methods applied to kinetic plasma simulations. Its key novelty is a neural operator that acts directly on the empirical measure of the particles, rather than on a grid, and is evaluated at the particle positions. No mesh or tree is needed and, unlike grid-based neural operators, no deposition onto a mesh takes place, so the particle noise that dominates the inputs of particle simulations is not aliased. Since it replaces only the field solve, it serves as a plug-and-play field solver for particle-based methods: it can be trained on data from particle-in-cell, particle-in-Fourier or tree codes, and combined with any time integrator, including implicit schemes. We prove that the discrete evaluation coincides with the continuous operator at any number of particles (representation equivalence) and derive an error analysis that separates sampling, learning and time-stepping errors: up to the learning error, NEOPIC has the error structure of standard Monte Carlo particle methods. We show that the particle noise in the training data acts as an implicit regularizer, which gives guidance on the number of training particles in relation to the particle numbers used at inference. A complexity analysis shows that NEOPIC is an $O(N_p)$ method whose constants are set by the architecture alone, independently of any mesh or tree. Numerical experiments on electrostatic benchmarks in two and three dimensions, including Landau damping, two-stream and bump-on-tail instabilities, a cyclotron mini-app and a Penning trap, confirm the theoretical findings. A single model trained on several mini-apps generated by different reference methods captures all of them and remains stable up to twice the training time window, which points towards foundation models for fields in particle-based methods.",
+      "authors": [
+        "Sriramkrishnan Muralikrishnan",
+        "Chelsea Maria John",
+        "Jeffrey Kelling",
+        "Michael Bussmann",
+        "Robert Speck",
+        "Paul Gibbon"
+      ],
+      "published": "2026-10-29T17:33:20Z",
+      "updated": "2026-10-29T17:33:20Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.40528v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.40528v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.38839",
+      "version": "2610.38839v1",
+      "title": "Diffusion model for fast alpha-particle transport in Magneto-Inertial Fusion plasmas",
+      "abstract": "A diffusion model is developed to describe fast alpha-particle transport and confinement in dense magnetized DT fusion plasmas, tailored to Magneto-Inertial Fusion conditions. The model, derived from the Fokker-Planck kinetic equation using the Chapman-Enskog approximation, includes dynamic Coulomb friction from electrons and ions. This approach improves upon earlier heuristic model [Liberman and Velikovich, J. Plasma Phys. 31, 369 (1984)], which, while valid in the ignition range near 5 keV, lacks accuracy at the higher temperatures ~20 keV required for high-gain Magnetized Liner Inertial Fusion (MagLIF). This paper provides explicit analytic formulas for all transport coefficients and characterizes the relationship between the alpha-particle pressure gradient and the associated Ampère force in magnetized plasmas, which are both relevant for MagLIF at high temperatures.",
+      "authors": [
+        "Alexander Velikovich",
+        "Fernando García-Rubio",
+        "Scott Davidson",
+        "Lee Ellison",
+        "Jason Hamilton",
+        "Paul Schmit"
+      ],
+      "published": "2026-10-28T20:26:08Z",
+      "updated": "2026-10-28T20:26:08Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2610.38839v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.38839v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.02818",
+      "version": "2611.02818v1",
+      "title": "Comparison of models for dynamical structures of solar plasma",
+      "abstract": "Possible mechanisms of generation of dynamical plasma structures are associated with the Schwarzschild criterion for convective instability and with excess energy (heat, magnetic): due to the superadiabatic temperature gradient, the overheated plasma starts to rise. In the framework of Navier-Stokes MHD equations, the complete system of equations for the full axisymmetric plasma model includes equations for the stream function, the azimuthal velocity component, the density change, the flow function of poloidal magnetic field, and the azimuthal component of the magnetic field. Within the framework of ideal hydrodynamics, the simplest plasma model is applicable to the initial stage of generation of plasma structures. In this case, rigorous analytical solutions are constructed from blocks. Within the framework of ideal hydrodynamics, some intermediate model - the refined model considers rotating plasma at the growth stage. In this case, some unidirectional differential rotation occurs. The full model studies the development of structures as rotating plasma from the very beginning to the highest development stage. The velocity field is adjusted to boundary conditions. Velocity components change in a coordinated manner. The stationary axisymmetric ambient magnetic field and its gradients have little effect on the plasma structure and velocity field. The movement structures for all models are similar. Radial flows converge towards the axis at the bottom, and there is an outflow to the periphery near the top of the plasma structure. The maximum vertical velocity component is reached at the center of the axis. Applications of these models to solar structures, including jets, are discussed.",
+      "authors": [
+        "S. N. Artekha"
+      ],
+      "published": "2026-11-02T09:20:14Z",
+      "updated": "2026-11-02T09:20:14Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论"
+      ],
+      "url": "https://arxiv.org/abs/2611.02818v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.02818v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41450",
+      "version": "2610.41450v1",
+      "title": "Accelerating Computation and Resolving Extraneous Roots in the Kinetic Plasma Dispersion Relation Solver BO",
+      "abstract": "Kinetic dispersion relations are widely used to study waves and instabilities in space, astrophysical, and laboratory plasmas. Iterative root searches depend on initial guesses and may fail to converge or miss important branches. The BO/PDRK solvers [Comput. Phys. Commun. 244, 343-371 (2019)] use rational pole expansions to transform the nonlinear dispersion relation into a matrix eigenvalue problem, obtaining all roots of the approximated relation in one calculation. However, high cyclotron harmonics enlarge the matrix and slow computation, while extraneous roots are difficult to separate from physical modes. We develop BO-T (BO-Tian), an improved version of BO combining two methods. First, for matrix reduction, BO-T applies rank factorization to combined residue matrices, preserving the rational dispersion relation and accounting for the removed pole eigenvalues. Second, for root screening, BO-T uses contour comparison between approximate and reference kinetic dispersion matrices along a closed contour enclosing no poles. This provides a sufficient condition for preserving local root counts, with error bounds for isolated roots and criteria for growth rate signs. Benchmarks on representative electrostatic and electromagnetic cases show speedups of about 10 to 140 for matrix assembly and eigenvalue calculation, exceeding 30 in most cases with high cyclotron harmonics. Root screening recovers the main unstable branches in agreement with published and archived dispersion curves.",
+      "authors": [
+        "Xizhi Tian",
+        "Huasheng Xie",
+        "Long Wei"
+      ],
+      "published": "2026-10-30T08:54:14Z",
+      "updated": "2026-10-30T08:54:14Z",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "理论",
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41450v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41450v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41756",
+      "version": "2610.41756v1",
+      "title": "Machine learning surrogates for multi-geometry EDGE2D-EIRENE studies of MAST Upgrade",
+      "abstract": "Two-dimensional edge plasma transport simulations provide a detailed description of divertor plasma behaviour, but their computational cost limits large parameter scans and iterative modelling. We present a database of 23,379 converged EDGE2D-EIRENE simulations for MAST Upgrade (MAST-U), spanning three divertor magnetic configurations, variations in separatrix density and input power, deuterium fuelling locations, and nitrogen seeding rates and locations. Independent multilayer perceptron surrogates are trained for twelve scalar outputs, including divertor front positions, target electron temperature and core-edge boundary quantities. On a held-out test set, the surrogates achieve $0.9462 \\leq R^2 \\leq 0.9994$, substantially outperforming linear regression baselines. Dense surrogate scans quantify the dependence of carbon radiation front motion on separatrix density, divertor geometry and fuelling location. Nitrogen seeding scans reveal a strong dependence on seeding location, with high-field-side seeding rapidly reducing core-boundary electron temperature, while divertor seeding produces little response. Batch inference for all twelve outputs at 786,432 operating points takes 1.76 s on GPU, compared with a median wall time of 2.61 hours using four CPU cores for separate EDGE2D-EIRENE simulations. These models enable rapid comparison of geometry and source-location effects on divertor and core-boundary conditions within the sampled simulation domain.",
+      "authors": [
+        "George K. Holt",
+        "Lorenzo Zanisi",
+        "Romain Futtersack",
+        "James Simpson"
+      ],
+      "published": "2026-10-30T13:58:55Z",
+      "updated": "2026-10-30T13:58:55Z",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2610.41756v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41756v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.02870",
+      "version": "2611.02870v1",
+      "title": "Structure of energy flux densities in Earth's magnetotail reconnection regions: Bridging simulation and observation",
+      "abstract": "Magnetic reconnection is important in both space and laboratory contexts because it changes the topology of magnetic fields and converts magnetic energy into particle energies. Establishing where this energy conversion occurs is critical for understanding how reconnection partitions energy. Using a novel machine learning approach based on simulations that explicitly identifies the separatrix regions for the first time, the partition of energy flux densities within the magnetic reconnection site is evaluated through statistical study of magnetotail reconnection events observed in situ. The separatrices are found to have the largest electron energy flux densities, roughly twice those in the exhaust, and Poynting flux densities about four times those in the inflows, whereas typical ion enthalpy flux densities are largest in the exhaust. The separatrices are therefore sites of intense electron and electromagnetic energy transport, although their small thickness means that the exhaust may still carry most of the total energy flux.",
+      "authors": [
+        "Cara L. Waters",
+        "Jonathan P. Eastwood",
+        "Harry C. Lewis",
+        "Naïs Fargette",
+        "Marit Øieroset",
+        "Tai D. Phan",
+        "David L. Newman",
+        "Martin V. Goldman"
+      ],
+      "published": "2026-11-02T10:09:58Z",
+      "updated": "2026-11-02T10:09:58Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2611.02870v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.02870v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.02199",
+      "version": "2611.02199v1",
+      "title": "Current Sheets and Magnetic Reconnection statistics by Solar Orbiter at few to tens of Ion Inertial Lengths II: Conditions for Reconnection, and Current Sheet Planarity",
+      "abstract": "We present a statistical study of magnetic reconnection and current sheet (CS) properties at scales from the ion inertial length ($δ_i$), up to 86.4 $δ_i$. We analyze 103 hours of high-cadence (4 samples/s) in-situ Solar Orbiter ion data, collected from July 2020 to September 2022, which correspond mainly to slow and Alfvénic solar wind. We applied an automatic detection algorithm to find CSs of thicknesses near and above the ion inertial length ($δ_i$), and classify them as Alfvénic or reconnecting. The orientation of the CSs is consistent with an isotropic distribution of the discontinuities. The median ratio of reconnection jet velocity to theoretical outflow velocity is 0.71. We find that the diamagnetic drift reconnection suppression mechanism has no impact on the cataloged CSs, due to the symmetry of their upstream conditions. We find that a flow shear in the reconnection direction suppresses magnetic reconnection, and it is consistently greater for Alfvénic than for reconnecting CSs. Flow shear in the guide-field direction is too small to suppress magnetic reconnection in ion scale solar wind CSs.",
+      "authors": [
+        "Inmaculada F. Albert",
+        "Sergio Toledo-Redondo",
+        "Víctor Montagud-Camps",
+        "Aida Castilla",
+        "Naïs Fargette",
+        "Benoît Lavraud",
+        "Philippe Louarn",
+        "Christopher J. Owen",
+        "Ioannis Zouganelis"
+      ],
+      "published": "2026-11-01T20:56:44Z",
+      "updated": "2026-11-01T20:56:44Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2611.02199v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.02199v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41923",
+      "version": "2610.41923v1",
+      "title": "Current Sheets and Magnetic Reconnection statistics by Solar Orbiter at few to tens of Ion Inertial Lengths I: Energy Dissipation",
+      "abstract": "In this work, we study the turbulent origin of ion-scale Current Sheets (CSs) and the dissipation of energy via magnetic reconnection. We analyze 103 hours of high-cadence (4 samples/s) in-situ ion data from Solar Orbiter, collected between July 2020 and September 2022. We apply an automatic detection algorithm that finds current sheets (CSs) of thickness (length in the normal direction, $λ$) near the ion inertial length ($δ_i$), and classifies them as Alfvénic or reconnecting. We compile a catalog of 974 CSs of thickness in the range of few to 90 ion inertial lengths, of which 53 contain an ion reconnection jet. We estimate that Solar Orbiter spends $\\sim 1 \\%$ of the dwell time inside a CS of few to 90 $δ_i$ thickness, and 0.06\\% inside a reconnecting CS of the same thickness range. By comparing these results with previous studies we estimate that the abundance of CSs and of Reconnecting CSs evolves with heliocentric distance ($r$) as $r^{-0.9}$ and $r^{-1.5}$, respectively. We estimate that magnetic reconnection dissipates $ε_{rec}\\sim 30 \\hspace{5pt} \\text{J} \\text{kg}^{-1} \\text{s}^{-1},$ in the $\\sim 1 - 40$ $δ_i$ scale-range, by assessing the amount of plasma that interacts with a reconnection exhaust. We show how the dissipation of turbulence energy cascade by magnetic reconnection at scales smaller than 90 $δ_i$ is more effective closer to the Sun, and decays as $r^{-3.6}$. The current density of Alfvénic CSs thicker than the ion inertial length presents scale invariance, obeying $J_0/J_A=0.9(λ/2δ_i)^{-0.71}$, suggesting that CSs generated locally from solar wind turbulence.",
+      "authors": [
+        "Inmaculada F. Albert",
+        "Sergio Toledo-Redondo",
+        "Víctor Montagud-Camps",
+        "Aida Castilla",
+        "Naïs Fargette",
+        "Benoît Lavraud",
+        "Philippe Louarn",
+        "Christopher J. Owen",
+        "Ioannis Zouganelis"
+      ],
+      "published": "2026-10-30T15:53:23Z",
+      "updated": "2026-10-30T15:53:23Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.41923v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41923v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.41749",
+      "version": "2610.41749v1",
+      "title": "Inferring dominant acceleration mechanisms using the longitudinal spread of solar particle intensities: 28 May 2021 event",
+      "abstract": "Solar energetic particles (SEPs) are typically accelerated during solar eruptions and propagate along magnetic field lines in the inner heliosphere. These eruptions include shock waves driven by coronal mass ejections (CMEs) and magnetic reconnection in solar flares. Disentangling these source mechanisms within the measurements has been a long-standing problem for space physics researchers. Since spacecraft rarely reach the acceleration regions close to the Sun, measured SEP intensities reflect a combination of particle acceleration and interplanetary transport. The method used in this study attempts to identify which of the two main acceleration processes is more dominant for specific particle energies and species in a standalone event. Through this approach, we aim to better identify the signatures associated with these two acceleration phenomena and recognize similar behaviors in measurements with transport effects. This study characterizes the longitudinal spread of the SEP event on 28 May 2021 by fitting Gaussian curves at regular time intervals to particle intensities as a function of spacecraft position. This evolution offers unprecedented detail compared to earlier peak-focused studies, which were also limited to only three observers, while we now benefit from a novel fleet. To support the interpretation of the evolving profiles, we use a 2D SEP transport model to test if the evolution of the SEP distribution can also be caused by interplanetary effects. For this event, we find that the particle distribution of 0.1 MeV electrons remains static, while for 14 and 32 MeV protons, the distribution grows and moves to the west. We suggest that the CME-driven shock is the dominant source for protons, and that the flare is the dominant source only for the studied 0.1 MeV electrons. Interplanetary transport processes could also be contributing to the moving particle distributions.",
+      "authors": [
+        "Jaclyn T. Lang",
+        "R. Du Toit Strauss",
+        "Jan Gieseler",
+        "Stefan Jensen",
+        "J. Grant Mitchell",
+        "Rami Vainio",
+        "Nina Dresing"
+      ],
+      "published": "2026-10-30T13:52:40Z",
+      "updated": "2026-10-30T13:52:40Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.41749v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.41749v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.39253",
+      "version": "2610.39253v1",
+      "title": "Insights into the Kinematic Evolution of Filament-Induced Jets: Coupling of Interchange and Flare Reconnection",
+      "abstract": "Jets are ubiquitous eruptive activities in the solar atmosphere, playing an important role in mass transport, atmospheric heating, and energy supply. However, the triggering mechanism remains elusive. To reveal the fine process of jet evolution, we study a jet associated with a B-class flare that involves in two distinct stages. Analyzing the complete evolution of a solar jet captured by the Solar Dynamics Observatory (SDO), we clearly identify its dual-stage kinematics, evolving from interchange to flare reconnection. This dual-stage jet is characterized by distinct dual-stage signatures in magnetic morphology, H$α$ profile, jet speed, jet height, X-ray flux, loop-top source, and temperature. These differences are naturally unified by a physical picture coupling interchange and flare reconnection, offering new insights into understanding of the physical process of filament-induced jets.",
+      "authors": [
+        "Zehao Tang",
+        "Xiaoli Yan",
+        "Zhike Xue",
+        "Jincheng Wang",
+        "Zhe Xu",
+        "Yadan Duan"
+      ],
+      "published": "2026-10-29T03:04:38Z",
+      "updated": "2026-10-29T03:04:38Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.39253v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.39253v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2610.38419",
+      "version": "2610.38419v1",
+      "title": "The Ubiquity of White-Light Flares on the Sun",
+      "abstract": "White-light flares (WLFs) have long been considered rare on the Sun, as most magnetic reconnections occur in the corona, making it difficult to transport sufficient energy downward to heat the very low layers for WL continuum emission. However, it is also argued that WL continuum emission is a common feature of all flares, and the rare detection of them is largely due to the limited sensitivity and resolution of telescopes. Recently, we developed a new method to identify WLFs, which exhibits extraordinary detection capability. Combined with SDO/HMI's over 15 years of continuous photospheric observations, it provides us an unprecedented opportunity to address the long-standing debate about WLF ubiquity. A total of 1951 flares (547 B-class, 1316 C-class, and 88 M-class) from 769 low-activity active regions (ARs; flare number $<$ 10) observed during January 2011 - May 2025 are investigated. Among these, 1012 are identified as WLFs, giving an overall occurrence rate of 51.9\\%. The occurrence rates for B-, C-, and M-class flares are 36.9\\%, 56.9\\%, and 85.2\\%, respectively, showing a clear increase with flare class. The occurrence rate is also highly correlated with the AR's sunspot number. For the first time, we find that WL continuum radiation is widely present even among B-class flares. Different WLFs contain varying numbers of WL kernels, which exhibit distinct properties, evolutionary behaviors and different relationships with GOES soft X-ray flux and its time derivative. These results strongly suggest that WLFs are a common phenomenon on the Sun.",
+      "authors": [
+        "Shuanghong Li",
+        "Yongliang Song",
+        "Kun Wang",
+        "Mei Zhang",
+        "Xianyong Bai",
+        "Xiao Yang"
+      ],
+      "published": "2026-10-28T08:04:35Z",
+      "updated": "2026-10-28T08:04:35Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2610.38419v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.38419v1",
+      "source_basis": "仅摘要"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2611.00218",
+      "title": "MAST-U 微撕裂与磁场随机化：转动、碳杂质怎样改变热输运？",
+      "summary": "GENE 局部电磁回旋动理学模拟显示，实测流剪切能抑制磁场随机化，碳杂质又显著改变非线性热通量；含碳模型只在一个分析磁面上接近功率平衡，另一磁面仍有明显解释缺口。"
+    },
+    {
+      "id": "2610.41241",
+      "title": "电流层为何不能只靠长宽比判断破裂？非均匀拓扑与次级磁岛",
+      "summary": "六组 AstroGK 算例显示，后继电流层会在比主电流层更低的长宽比下破裂；对称性破缺还使相邻 X 点不再共有分界线，因此测量磁岛宽度必须说明磁通参照。"
+    },
+    {
+      "id": "2611.02126",
+      "title": "次级磁岛从何而来？电子—正电子重联中的 Weibel 驱动与质量加载",
+      "summary": "二维反平行电子—正电子 PIC 与实际分布的色散计算相符，支持电流丝化驱动新生磁岛；下游质量加载又抑制这种驱动，限定新磁岛的产生区域，而非使已有磁岛立即消失。"
+    },
+    {
+      "id": "2610.40206",
+      "title": "半隐式波粒计算怎样兼顾大步长、能量与高斯约束？GEM 重联检验",
+      "summary": "UGKWP-EC 用一致电流响应耦合粒子、解析分布与 Maxwell 场，场推进步严格守恒离散总能量；完整算法的高斯校正仍改变电场能，GEM 算例约千分之几的总能量变化不能省略。"
+    },
+    {
+      "id": "2611.00675",
+      "title": "GX 的隐显式时间推进：哪些步长增益真正转化为可信的计算加速？",
+      "summary": "GX 用隐显式方法缓解平行流动与电子镜力的步长限制；三阶 ARK 在所测静电非线性算例中较好保留热通量，但托卡马克算例的实际加速小于平板算例，且非线性电磁验证尚未完成。"
+    }
+  ]
+}

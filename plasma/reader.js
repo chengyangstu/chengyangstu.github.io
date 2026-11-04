@@ -4,7 +4,7 @@ const Reader = {
     if (Number.isInteger(p.brief?.relevance_tier)) return p.brief.relevance_tier;
     if (p.topics.includes('聚变中的重联')) return 0;
     if (p.topics.includes('聚变等离子体') && /\b(reconnect\w*|\w*tearing|magnetic islands?|sawtooth|sawteeth|internal kink|error.field penetration)\b/i.test(p.title + ' ' + (p.abstract || ''))) return 0;
-    if (p.topics.includes('磁场重联') && /\b(MRX|TREX|FLARE|laboratory)\b/i.test(p.title)) return 1;
+    if (p.topics.includes('磁场重联') && (/\b(MRX|TREX|laboratory)\b/i.test(p.title) || /\bFLARE\b/.test(p.title))) return 1;
     if (p.topics.includes('磁场重联')) return 2;
     return 3;
   },
