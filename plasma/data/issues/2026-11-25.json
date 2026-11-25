@@ -1,0 +1,411 @@
+{
+  "id": "2026-11-25",
+  "window_start": "2026-11-18T01:00:00+00:00",
+  "window_end": "2026-11-25T01:00:00+00:00",
+  "created_at": "2026-11-25T01:13:36.998160+00:00",
+  "overview": "本期窗口为北京时间 11 月 18 日 09:00 至 11 月 25 日 09:00，保留 12 条候选，完成三份正文选读。最前是 DIII-D 锁模的密度涨落诊断，后面两篇分别补充 Hall 能量传递方法和 JET 边缘输运背景。\n\n锁模论文揭示了一个明确的检测与控制时间问题。较长的持续性判断能减少误报，也会推迟确认。检测率、锁时定位误差与真正可用的提前量需要分别评估。该论文侧重诊断算法。本周检索没有找到足够多的直接聚变重联理论和模拟新稿来构成多数。\n\nHall-MHD 论文提供按尺度、按场分解能量流的方法。JET 论文则表明，工况中的主导模和电场重建会影响剪切抑制输运的效果。它们可帮助组织重联模拟的诊断，但各自仍保留周期不可压模型、固定台基剖面等假设。\n\n主检索、独立关键词和等离子体 new/recent/月度目录已交叉补查，另查太阳和空间物理目录。剔除了信息融合与凝聚态中同名词造成的误匹配。首次提交时间严格限制在本周，当前可见最新公告为 11 月 24 日。三份简报标注实际正文选读位置，未复现数值或实验结果。",
+  "query": "执行 weekly.py prepare --end 对应截止 --limit 10，主检索与独立关键词 arXiv API 均成功。补查 physics.plasm-ph 的 new/recent/2026-11 官方目录及太阳、空间物理月度目录；人工审阅分类并按首次 submitted/published UTC 过滤。当前目录最新公告为 2026-11-24。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2611.28266",
+      "version": "2611.28266v1",
+      "title": "CNN-Based Locked Mode Detection and Prospects for Prediction Utilizing Density Fluctuation Signals",
+      "abstract": "The deceleration of Magnetohydrodynamic (MHD) modes in tokamak plasmas is an observed behavior commonly associated with growing mode amplitude. As rotating MHD modes decelerate to a non-rotating state, they can form Locked Modes (LMs), which can degrade plasma confinement and cause disruptions. LMs therefore pose a serious threat to the sustained operation of otherwise-stable plasmas in Fusion Pilot Plants (FPPs). Identification of MHD modes and any subsequent locking is typically performed with an array of magnetic signals; these magnetic signals may not survive in the harsh reactor environment of an FPP and external magnetic measurements are delayed by magnetic diffusion through the tokamak shielding. This work uses the Radial Interferometer Polarimeter (RIP) as an alternative diagnostic to identify the slowing of rotating MHD modes into LMs. Because this fluctuation-based approach relies on observing prior mode rotation, detection and prediction are restricted to LMs with prior rotation and exclude born-locked modes. Labels were constructed to train a Convolutional Neural Network (CNN) to distinguish MHD modes that lock from those that may appear to approach a locking state but ultimately do not lock. The trained CNN learned to identify low-frequency, descending MHD modes but struggled to distinguish modes that would continue toward locking from those that would not. A second-stage detection method significantly improved performance, detecting 88.5% of LMs with a precision of 83.7% by applying persistence and classification-margin filters to the CNN output. These results demonstrate the capability of an FPP-relevant, non-magnetic diagnostic for accurate LM detection while also identifying fundamental limitations in the achievable prediction time using a fluctuation-based approach.",
+      "authors": [
+        "Randall Clark",
+        "Maxim Nurgaliev",
+        "Georgy Subbotin",
+        "Jie Chen",
+        "Terry L. Rhodes",
+        "Dmitri M. Orlov"
+      ],
+      "published": "2026-11-20T19:49:20+00:00",
+      "updated": "2026-11-20T19:49:20+00:00",
+      "topics": [
+        "聚变中的重联",
+        "聚变等离子体",
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2611.28266v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.28266v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 16,
+      "source_sha256": "23d5bb810ef3ae8042ba1f5fee937558265a07590b40c479191b96fa65a0272e",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "DIII-D 旋转磁流体模到锁模的诊断研究，直接关联聚变磁岛和破裂预警，采用实验数据与机器学习。",
+        "method_tags": [
+          "数值模拟",
+          "实验 / 观测"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "密度涨落能识别锁模到什么程度，又能提前多久？",
+        "takeaway": "DIII-D 单弦密度涨落频谱经卷积网络和持续时间过滤，可识别所测曾转动锁模的 88.5%，精确率为 83.7%。为抑制误报而等待 50 ms，会耗尽许多事件的提前预警时间。",
+        "question": "旋转磁岛逐渐减速并锁定后，可能使约束恶化并促成破裂。未来装置的外部磁诊断受到屏蔽与环境限制，研究因此尝试从内部密度涨落追踪减速。一个频率下降的谱线既可能最终锁定，也可能随后恢复，预测需要区分这两种结局。\n\n本文同时研究事件检测和预警时间。检测要求找到对应的锁模事件，预警还要求信号来得足够早，让控制系统能够动作。两项指标需要分别核对。",
+        "methods": "数据来自 DIII-D 径向干涉偏振仪（RIP）的中平面单条视线，实际输入为线积分密度涨落。121 炮包含 139 次具有先前旋转的锁模。网络使用短时傅里叶变换得到频谱，每个谱窗只含之前 5 ms 数据，每隔 10 ms 取一帧。十帧输入覆盖过去 90 ms，频率范围为 0–25 kHz。\n\n人工标签由磁诊断辅助确定，包括无警告、早期警告和紧急警告。紧急标签要求频率 \\(f\\leq5\\,\\mathrm{kHz}\\)、持续减速，并在之后 100 ms 内锁定。\\(f\\) 是所追踪磁流体模的旋转频率。这个未来结局用于训练标签，模型输入只使用已经发生的频谱。\n\n作者按放电的时间顺序分十折，训练、验证、测试各占八、一、一折。模型和阈值在验证折选择，最终汇总各独立测试折。卷积神经网络（CNN）先产生逐帧类别，再把连续紧急标签合成事件块，要求至少持续 50 ms，且块内分类概率优势的中位数大于 0.3。",
+        "findings": "网络容易认出低频下降的模，但对“会锁定”与“只是减速”仍会混淆。许多误报只持续 10–20 ms，因此持续时间过滤能去掉一批短噪声事件，同时也引入延迟。\n\n**最终性能属于网络与块过滤组成的完整检测器。** 汇总测试事件后的召回率为 88.5%，表示实际锁模中被检出的比例；精确率为 83.7%，表示被报为正的块中真正对应锁模的比例。F1 为 86.0%，它综合这两个比例。论文按全部测试事件合并计算这些值，没有给出这组事件指标的折间标准差。\n\n表 7 中，存活真阳性块约 56.9% 在块开始后的 0–50 ms 内锁定。过滤器恰需等待 50 ms，因此很多事件在完成可靠确认之前就已锁定。**检测率较高，仍可能只留下很短或没有可用的提前量。**\n\n作者还在已经判真的事件块上追踪谱脊结束，估计锁定时刻，测试平均绝对误差为 15.9 ms。这个结果用于评价锁时定位。它还使用了块之后的谱线演化，评估实时提前控制时需回到每一时刻实际可获得的输出。",
+        "limitations": "本研究仅覆盖先旋转后锁定的模。直接从噪声中出现的“生来锁定”事件被排除。单条视线也未用来确定模的空间位置或极向、环向模数。数据标签仍借助磁诊断，后续向未来装置迁移需要可靠的参考标签。\n\n低频减速后的结局在现有频谱中可能缺少足够可辨信息。阈值减小可以提前报警，也会带来更多误报，所需权衡取决于控制动作的代价。论文没有完成新装置上的在线控制验证。",
+        "reading": "建议先看表 5 的事件指标，再看表 7 和图 10 的时间分布，最后检查标签与数据划分。若用于你的磁岛模拟，可生成密度涨落与合成视线信号，同时保存岛宽、转动和锁定时刻。逐时计算报警后真正剩余的控制时间，可以把物理先兆、采样窗口和算法延迟联系起来。",
+        "evidence": "PDF 共 16 页。选读第 1–5、9–12 页。第 3–4 页为诊断输入、标签和十折划分，第 5 页为逐帧网络性能，第 9–10 页表 5 为事件块检测，第 11 页表 6、7 为锁时及警告时间，第 12 页讨论生来锁定和迁移限制。已核对第 10–11 页原图表。"
+      }
+    },
+    {
+      "id": "2611.25686",
+      "version": "2611.25686v1",
+      "title": "Energy transfers in decaying three-dimensional Hall-magnetohydrodynamics turbulence: Dependence on the Ion-Inertial Length and the Magnetic Prandtl Number",
+      "abstract": "We present a systematic study of energy transfers in three-dimensional (3D) decaying Hall-magnetohydrodynamics (HMHD) turbulence. Our study has been designed to investigate the dependence of these transfers on initial energy spectra, the ion-inertial length $d_{i}$, and the magnetic Prandtl number $Pr_{m}$. Using shell-to-shell decomposition, we compute the energy transfer rates for (a) kinetic-to-kinetic, (b) magnetic-to-magnetic, (c) kinetic-to-magnetic, and (d) magnetic-to-kinetic interactions by carrying out extensive pseudospectral direct numerical simulations (DNSs) of 3D HMHD and its MHD counterpart. Furthermore, we examine the magnetic-to-magnetic and current-density-to-magnetic energy transfers arising from the Hall term in this framework. Energy transfers between like fields -- namely, kinetic-to-kinetic and magnetic-to-magnetic -- are predominantly local and forward in direction, cascading energy from large to small length scales. This behavior is consistent with a self-similar flow structure in the inertial range. Cross-field transfers, between kinetic and magnetic energy, are found to be forward but non-local in character. At low and high $Pr_{m}$, the transfers become local, and the nonlinear energy transfer is significantly suppressed. Moreover, we observe that the Hall term drives both inverse and forward transfers of magnetic energy, associated with local and non-local transfer, respectively.",
+      "authors": [
+        "Pratik Patel",
+        "Sharad K. Yadav",
+        "Akanksha Gupta",
+        "Hideaki Miura",
+        "Rahul Pandit"
+      ],
+      "published": "2026-11-19T08:02:24+00:00",
+      "updated": "2026-11-19T08:02:24+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.25686v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.25686v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 18,
+      "source_sha256": "06df29c179f9c3967061374ec78cba909abf88792072e9d5e5cab5b84bca5704",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 3,
+        "relevance_reason": "不可压 Hall-MHD 的能量传递诊断，适合辅助重联能量预算，本文研究通用衰减湍流。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "Hall-MHD 湍流中，哪些能量在相邻尺度之间交换？",
+        "takeaway": "三维直接数值模拟将动能与磁能的传递分通道计算。同类场主要向邻近小尺度传能，动能与磁能之间还存在跨越较远波数的交换；Hall 通道的方向随尺度和耗散参数变化。",
+        "question": "一个湍流谱可以显示能量主要放在哪些波数，却不直接告诉我们哪一组尺度给另一组供能。作者把傅里叶空间划成壳层，分别追踪动能、磁能及 Hall 项的壳间交换，研究离子尺度和耗散率如何改变传递。",
+        "methods": "模型为三维不可压 Hall 磁流体力学。与单流体感应方程相比，Hall 项引入电子和离子流动差异对磁场的影响。运动粘滞率 \\(\\nu\\) 与磁扩散率 \\(\\eta\\) 定义磁普朗特数 \\(\\mathrm{Pm}=\\nu/\\eta\\)，无量纲；离子惯性长度 \\(d_i\\) 也按计算参考长度归一。\n\n六组无外力衰减模拟使用边长 \\(2\\pi\\) 的周期盒和 \\(1024^3\\) 网格点。前三组在同样初始谱及 \\(\\mathrm{Pm}=1\\) 下比较 \\(d_i=0,0.025,0.05\\)。后三组固定 \\(d_i=0.05\\)，比较 \\(\\mathrm{Pm}=0.1,1,10\\)，使用另一种共同初始谱。两组系列各自回答一个参数问题。\n\n传递矩阵记录供能壳与受能壳，正向表示大尺度流向小尺度。“局域”指交换主要发生在相近波数壳，而“非局域”指跨越较远的波数范围。这个定义描述尺度关系。",
+        "findings": "图 4、5 的动能到动能、磁能到磁能矩阵，主要信号集中在邻近对角线，表现为向较小尺度的局域传递。加入所查 Hall 强度后，这两个通道的主要形态保持相似。\n\n动能与磁能的交叉通道在磁普朗特数为 1 时出现较明显的非局域交换。在较低或较高磁普朗特数下，强磁扩散或强粘滞限制了活跃的波数范围，相关非局域信号减弱。\n\n**Hall 通道需要连同尺度和具体分项解释。** 论文在部分范围看到向较大尺度的传递，也看到向较小尺度的传递。它会重分配磁能，通过总谱或单个矩阵正负区，尚无法直接得到某个重联层的加热效率。",
+        "limitations": "本文使用不可压、周期、衰减系统，参数系列的初始谱也不同。结果没有逐个定位 X 点、测量重联率或区分离子电子加热。Hall 项在理想连续方程中的总能量重分配，与电阻、粘滞的最终耗散应各自记账。",
+        "reading": "建议从表 I 理清两组扫描，再读图 4–9 的传递定义。可在自己的 Hall 或双流体重联程序中增加按项计算的能量预算，检验进入电子或离子尺度的能流是否同时伴随磁拓扑变化。",
+        "evidence": "PDF 共 18 页。选读第 3–5、9、14、16 页。第 3–4 页为傅里叶壳间传递和数值方法，第 5 页表 I 为扫描，第 9、14、16 页为 Hall 分项及总结。已查看第 5 页参数表、第 8 页图 4–5。"
+      }
+    },
+    {
+      "id": "2611.27566",
+      "version": "2611.27566v1",
+      "title": "Edge transport mechanisms in small-ELM and type-I ELM regimes at JET using global gyrokinetic simulations",
+      "abstract": "To explore tokamak operating regimes that combine high energy confinement with edge dynamics relevant for ITER, new regimes with small edge-localized modes (ELMs), referred to as baseline small-ELM (BSE), have been obtained at JET with the Be wall and W divertor. In this work, the edge transport mechanisms in a selected BSE discharge are compared with those in a standard H-mode with type-I ELMs using radially global gyrokinetic simulations with the GENE code. The simulations use experimental input profiles and include kinetic electrons and deuterium ions, electromagnetic (EM) effects, and the radially varying equilibrium $E\\times B$ flow. At low toroidal mode number $n$, the type-I ELM pedestal is found to be unstable to kinetic-ballooning modes (KBMs), with radial mode structures covering the full pedestal. In the BSE regime, no KBM branch is found, and the same spectral range is dominated by hybrid ITG--TEM modes. The modifications of the linear modes by finite$-\\beta$ effects are discussed in details. In nonlinear simulations of the type-I ELM regime, KBM-driven turbulence produces high transport levels that are resilient to the equilibrium $E\\times B$ flow. By contrast, in the BSE regime, EM effects moderately increase transport, which is strongly regulated by the equilibrium $E\\times B$ flow. The two regimes also differ in their radial turbulence organization and in the amplitude and persistence of the zonal shearing rate. These results identify the interplay between EM effects and equilibrium $E\\times B$ flow as a key element of edge transport regulation.",
+      "authors": [
+        "Mattia Dicorato",
+        "Jeronimo Garcia",
+        "Tobias Görler",
+        "Elena de la Luna",
+        "Gabriele Merlo",
+        "Emiliano Fable",
+        "Frank Jenko",
+        "Žiga Štancar",
+        "Luca Garzotti",
+        "Vito K. Zotta",
+        "Fernanda Rimini",
+        "Domenico Frigione",
+        "JET Contributors",
+        "the EUROfusion Tokamak Exploitation Team"
+      ],
+      "published": "2026-11-20T13:04:03+00:00",
+      "updated": "2026-11-20T13:04:03+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.27566v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.27566v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 27,
+      "source_sha256": "71880db8b076870bd215d41f8e73c06b32d55edc7db67e27eda152b3e3eb55f4",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 4,
+        "relevance_reason": "JET 边缘全局电磁回旋动理学输运对照，可补充微撕裂研究的模识别和流剪切背景。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "JET 小 ELM 与Ⅰ型 ELM 台基中，流剪切为何表现不同？",
+        "takeaway": "全局 GENE 对照中，Ⅰ型 ELM 剖面出现较强的动理学气球模输运，小 ELM 剖面则由其他漂移模主导、对平衡流更敏感。作者通过电磁与静电极限、有流与无流的组合检验这一差别。",
+        "question": "台基中电子热输运增强，可能由多种电磁不稳定性造成。研究把 JET 的两个具体放电并列，检查模式性质改变后，平衡电场漂移流能否同样有效地抑制湍流。它也为比较微撕裂结果提供了一个具有不同主导模的工况。",
+        "methods": "GENE 在径向全局区域求解电子、氘离子的回旋动理学，使用实验平衡、真实质量比和线性化碰撞，并保留平行磁矢势的电磁响应。区域跨越归一化环向磁通半径 0.86–0.98，允许不同半径的结构相互耦合。\n\nⅠ型 ELM 放电为第 97395 炮，小 ELM 基准为第 94442 炮。作者分别比较电磁、静电极限，以及有无平衡电场漂移流。径向电场 \\(E_r=f_EE_r^{\\rm FB}\\)，其中 \\(E_r^{\\rm FB}\\) 是力平衡重建，\\(f_E\\) 是无量纲幅度系数。主对照中，Ⅰ型采用 1，小 ELM 采用 0.5，另做 0.8 的敏感性算例。",
+        "findings": "低环向模数范围内，Ⅰ型台基由动理学气球模（KBM）主导；小 ELM 台基主要为离子温度梯度模与受困电子模的混合。本文没有发现微撕裂占主导。这个模式识别差异，有助于解释后续的非线性响应。\n\n**在作者选定的流幅度下，小 ELM 工况的输运受抑更强。** 表 4 以同一个工况、同一电磁模型的无流结果为分母。Ⅰ型的有流离子、电子平均热扩散率比分别为 0.471、0.535，小 ELM 则为 0.210、0.207。热扩散率本身以 \\(\\mathrm{m^2/s}\\) 计，这些比值无量纲。\n\n在小 ELM 中提高到 \\(f_E=0.8\\)，所保留尺度的输运几乎完全受抑。两炮电场形状和采用的幅度不同，因此跨炮差别还包含平衡条件。作者把Ⅰ型较高输运解释为崩塌前高梯度台基的响应。",
+        "limitations": "电场重建的不确定性较大，幅度上下 50% 是人为敏感性范围。固定实验剖面的湍流计算没有演化完整 ELM 崩塌。小 ELM 的功率量级相符也仍需更严格的功率平衡验证，纯电子尺度温度梯度输运尚未充分解析。",
+        "reading": "建议先看表 2 的对照矩阵，再核对表 4 的分母。研究微撕裂或重联驱动输运时，可以采用同样的开关对照，并同时检查模奇偶性和磁通结构，避免仅凭热通量或电磁标签推断磁岛机制。",
+        "evidence": "PDF 共 27 页。选读第 1、5–7、11–12、17–18 页。第 5–7 页为全局模型及流幅度，第 11 页表 4 为扩散率比，第 17–18 页为模式、饱和及限制。已核对第 7 页表 2 和第 11 页原图表。"
+      }
+    },
+    {
+      "id": "2611.23895",
+      "version": "2611.23895v1",
+      "title": "DIVO: a direct divertor configuration plasma start-up scheme aimed at tokamak fusion reactors",
+      "abstract": "The tokamak, one of the mainstream approaches to magnetic confinement in nuclear fusion devices, will be the first approach to reach reactor class prototyping. Plasma start-up is expected to be more challenging in large superconducting next-step tokamaks such as ITER due to the low inductive toroidal electric field and potentially long durations in limiter configuration when plasma-wall interactions lead to easier impurity contamination of the confined plasma. Such limiter start-up is the standard way of early plasma formation in the vast majority of today's experimental devices and is planned on ITER. To mitigate these issues, a novel plasma start-up scheme with divertor geometry only (DIVO start-up) was recently developed for the first time on the EAST superconducting tokamak. The key breakthrough in this work is the use of a non-inductive, electron cyclotron wave generated plasma formed in a poloidal field configuration which is a superposition of a barrel-like geometry around the centre of the vacuum vessel and a mirror-like geometry across the whole vessel cross-section. Such a non-inductive discharge avoids the drawback of low inductive electric field which is unavoidable in large superconducting devices as a consequence of the relatively low voltages which can be applied to the magnet coils. In addition to the low toroidal electric field, the DIVO start-up scheme as demonstrated on EAST significantly reduces impurity sources compared to the conventional limiter phase approach, even in cases with relatively poorly conditioned plasma-facing surfaces. The robustness of the DIVO start-up has also been verified on EAST with varying prefill gas pressure, impurity level and inductive electric field. It thus offers a potential solution to one of the main issues facing routine successful start-up on large tokamak reactors.",
+      "authors": [
+        "Wenbin Liu",
+        "Jinping Qian",
+        "Long Zeng",
+        "Rui Ding",
+        "Yuehang Wang",
+        "Richard A. Pitts",
+        "Ernesto Lerche",
+        "D. B. King",
+        "Bin Zhang",
+        "Xianzu Gong",
+        "Zhengping Luo",
+        "Yao Huang",
+        "Binfu Gao",
+        "Dalong Chen",
+        "Pengfei Zhou",
+        "Fang Ding",
+        "Liqing Xu",
+        "Yanmin Duan",
+        "Chaowei Mai",
+        "Weixi Cao",
+        "Wei Gao",
+        "Shouxin Wang",
+        "Weiye Xu",
+        "Handong Xu",
+        "Bin Cao",
+        "Kedong Li",
+        "Zhe Gao",
+        "Ximan Li",
+        "Ling Zhang",
+        "Yunxin Cheng",
+        "Kangning Geng",
+        "Hailing Zhao"
+      ],
+      "published": "2026-11-18T05:47:24+00:00",
+      "updated": "2026-11-18T05:47:24+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.23895v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23895v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.24293",
+      "version": "2611.24293v1",
+      "title": "Moment-Fourier approach to parallel closures and transport for a toroidally confined multi-ion plasma",
+      "abstract": "We develop a multi-ion closure framework for tokamak plasmas by solving the drift-kinetic equation using the moment-Fourier method. The model extends our previous single-ion formulation to plasmas containing multiple ion species and consistently incorporates inter-species collisional effects in the moment system. As a representative case, we consider a deuterium-carbon plasma, assuming a common zeroth-order ion temperature on each flux surface while allowing the electron temperature to differ. The first-order fluid moments, namely density, temperature, and parallel flow velocity, are computed for electrons, deuterium ions, and carbon ions. The framework enables a direct comparison of the first-order parallel flow velocities of deuterium and carbon ions, thereby providing a quantitative basis for interpreting charge-exchange spectroscopy measurements and for systematic multi-ion neoclassical transport studies.",
+      "authors": [
+        "Jeong-Young Ji"
+      ],
+      "published": "2026-11-18T12:05:59+00:00",
+      "updated": "2026-11-18T12:05:59+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.24293v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.24293v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.25571",
+      "version": "2611.25571v1",
+      "title": "How zonal states beat-driven by Alfven eigenmodes stabilize micro-turbulence in tokamak plasmas",
+      "abstract": "The effects of zonal states (ZS) beat-driven by Alfven eigenmodes (AEs) on micro-turbulence stability are investigated; taking toroidal Alfven eigenmode (TAE) and ion temperature gradient mode (ITG) as an example. The analysis is carried out by deriving the nonlinear gyrokinetic equation describing particle response to ITG, in the presence of TAE beat-driven ZS. It is found that, the phase space zonal structure generated by AEs could lead to a significant reduction in the local nonuniformity drive and, thereby, stabilize the local ITG instabilities. The zonal flow induced shearing, on the other hand, contributes only to a real frequency shift and, typically, negligibly small additional stabilization.",
+      "authors": [
+        "Liu Chen",
+        "Zhiyong Qiu",
+        "Tiancheng Liu",
+        "Fulvio Zonca",
+        "Qian Fang"
+      ],
+      "published": "2026-11-19T06:10:58+00:00",
+      "updated": "2026-11-19T06:10:58+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.25571v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.25571v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.27039",
+      "version": "2611.27039v1",
+      "title": "Measuring and predicting plasma blob influence on downstream transport through paired simulations",
+      "abstract": "We use two-dimensional TOKAM2D simulations of flux-driven turbulence to measure how much a single plasma blob affects particle transport farther out in the scrape-off layer. We evolve the same turbulent state twice, weakening the density and potential variations of one blob in one of the two simulations. The resulting difference in outward particle flux, integrated over time in each poloidal sector of a downstream band, defines the blob's influence vector $\\alpha$. Its magnitude falls steeply with distance from the band and generally increases with blob size and density content. Even blobs with similar bulk properties can differ in influence by orders of magnitude. A graph neural network that uses the recent evolution of the fields in and around each blob predicts much of this difference for pairs of otherwise similar blobs. To see how the difference develops, we compare the downstream density and radial velocity in the two simulations. For both strongly and weakly influential blobs in the pairs examined, changes in radial velocity account for most of the local change in outward flux. In the stronger responses, the density and flow contributions tend to reinforce each other in the same sectors at the same times.",
+      "authors": [
+        "J. C. Huang",
+        "Z. S. Qu",
+        "R. Varennes",
+        "X. Garbet",
+        "C. G. Wan",
+        "C. Guet",
+        "D. Niyato",
+        "K. Lim",
+        "V. Grandgirard"
+      ],
+      "published": "2026-11-20T03:11:01+00:00",
+      "updated": "2026-11-20T03:11:01+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.27039v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.27039v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.28898",
+      "version": "2611.28898v1",
+      "title": "Formation of Multiple BGK-like Structures in the Time-asymptotic State of Collisionless Vlasov-Poisson Plasmas",
+      "abstract": "The time-asymptotic state of a finite-amplitude perturbation in a collisionless and Maxwellian plasma is typically represented as a steady state of two non-linearly superposed, counter-propagating Bernstein-Greene-Kruskal (BGK) modes. Using high-resolution Vlasov-Poisson simulations, we show that the plasma evolves self-consistently into a time-asymptotic state of multiple vortex-like structures that gradually fill the phase-space and reduce filamentation. This occurs without the need for external forcing or the presence of an energetic plasma population. This finding suggests that the time-asymptotic regime of the plasma is rather akin to a non-linear superposition of multiple BGK-like modes associated with nearly constant phase-speed waves. The electric field and the space-averaged particle distribution function exhibit a power-law broad spectrum, which is consistent with an energy cascade towards smaller scales in both position and velocity spaces.",
+      "authors": [
+        "Hugo A. Carril",
+        "Jorge A. Gidi",
+        "Roberto E. Navarro",
+        "Jaime A. Araneda"
+      ],
+      "published": "2026-11-21T16:22:57+00:00",
+      "updated": "2026-11-21T16:22:57+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.28898v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.28898v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.29090",
+      "version": "2611.29090v1",
+      "title": "Single-Shot Single-Stage Stellarators",
+      "abstract": "In stellarator design, the plasma and the coils are so geometrically complex that they are usually designed separately, so that a high-performance plasma may be impossible to reproduce with coils that can actually be manufactured and assembled. We present a new method to close this gap. In this framework, the plasma shape is optimized while, for every candidate shape, near-optimal coils that satisfy hard engineering limits are found. Without any manually-tuned weights, the method steers the plasma towards shapes that real coils can produce. Moreover, we demonstrate the first single-shot optimization runs starting from tokamak ``cold-starts''. From a single-shot cold-start, we design a finite-$\\beta$ stellarator comparable to reactor-scaled NCSX, as well as a compact aspect-ratio 2.5 and $\\langle\\beta\\rangle=2\\%$ quasi-axisymmetric stellarator with one field period and self-consistent bootstrap current. Starting from a boundary derived from W7-X, we design a quasi-isodynamic stellarator with reactor-relevant stability properties. We then use this to warm-start an optimization for a single coil-set solution that produces a high-performance QI stellarator at every pressure value from vacuum to $\\langle\\beta\\rangle=4\\%$, addressing directly the ``start-up'' phase of a reactor. The self-consistent free-boundary solutions for these stellarators typically have better coils than a traditional separate-design approach, at comparable or better plasma performance, illustrating that robust single-stage methods are possible and providing a direct route to the design of reactor-scale stellarators.",
+      "authors": [
+        "Pedro F. Gil",
+        "Lanke Fu",
+        "Alan A. Kaptanoglu"
+      ],
+      "published": "2026-11-21T23:28:56+00:00",
+      "updated": "2026-11-21T23:28:56+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.29090v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.29090v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.28237",
+      "version": "2611.28237v1",
+      "title": "Dual Horizon-MAD: A New Mode of Binary Black Hole Magnetically Arrested Accretion with Saturated Horizon Magnetic Fluxes and Intermittent Minidisks",
+      "authors": [
+        "Vikram Manikantan",
+        "Vasileios Paschalidis"
+      ],
+      "abstract": "Reliable first-principles predictions of multimessenger signals from inspiralling supermassive binary black holes (SMBBHs) require magnetohydrodynamic (MHD) simulations in full general relativity (GR) that resolve the accretion flow down to the black hole horizons. However, performing such simulations long enough to relax the magnetohydrodynamics near the BBHs is computationally challenging and a source of uncertainty in modeling efforts. In this work, we present the longest MHD simulation of circumbinary disk (CBD) accretion onto a SMBBH in full GR. The equal-mass, quasicircular, nonspining BBH starts at an initial separation of $d/M=30$ and evolves over $\\sim56$ orbits ($t \\simeq 52,000 \\, GM/c^3$), relaxing the magnetic field dynamics within the CBD cavity. After $\\sim 23$ orbits and persistent magnetically arrested minidisks, the accretion enters a new magnetically arrested mode which we call dual horizon-MAD (DH-MAD). In DH-MAD, the dimensionless horizon magnetic fluxes remain saturated at $φ_{BH}\\sim 20$ driving magnetic flux eruptions from the vicinity of the BH horizons, and the vertical magnetic flux in the cavity saturates, but no flux eruptions occur at the cavity-CBD boundary. During this DH-MAD phase, there is also a shift in the total mass accretion rate variability, which exhibits a periodicity of $f\\sim 1.8 f_{\\rm orb}$, while the accretion rate modulation on the individual black holes occurs almost at the orbital period, $f\\sim 0.9 f_{\\rm orb}$. $φ_{BH}$ also exhibits a robust periodicity at $f\\sim 0.4 f_{\\rm orb}$, suggesting that quasiperiodic nonthermal emission from magnetic reconnection near the horizons could be a smoking gun electromagnetic counterpart to inspiraling SMBBHs. Finally, minidisks around the BHs become intermittent in the DH-MAD phase, even at a separation of $d/M = 24$, likely due to the large plasma magnetization in the optically thin cavity.",
+      "published": "2026-11-20T19:11:20Z",
+      "updated": "2026-11-20T19:11:20Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.28237v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.28237v1",
+      "source_basis": "仅摘要",
+      "pages": 19,
+      "source_sha256": "16bb86137c6e4398803dfa9b109906832b36a15cb5ee013767d719e0f8a6bb70"
+    },
+    {
+      "id": "2611.26299",
+      "version": "2611.26299v1",
+      "title": "Multiple blobs following a coronal mass ejection",
+      "authors": [
+        "Qing-Min Zhang",
+        "Jin-Han Guo",
+        "Jie Chen",
+        "Zong-Yi Li",
+        "Yi-Wei Ni",
+        "Yan-Jie Zhang"
+      ],
+      "abstract": "In this paper, we study a partial filament eruption, which generated a C4.1 class two-ribbon flare and a wide coronal mass ejection (CME) propagating in the northeast direction on 2023 March 20. The long, sigmoidal filament in active region 13258 is composed of two parts: the eruptive part and remaining part. Both of them are supported by magnetic flux ropes. The separation of two ribbons persist for ~12 hr, with the separation speeds decreasing from 0.26-5.62 to 0.13-0.53 km/s observed in H$α$ and 304 Å. A thin, curved current sheet follows the CME and extends in the northeast direction. Eight and seven bright blobs are found to move outward along the current sheet observed by SOHO/LASCO and STEREO-A/COR2, respectively. In LASCO images, the apparent speeds, lifetime, maximal height, and width of the blobs are 378-871 km/s, 7-84 minutes, 2.94-6.25\\,$R_{\\sun}$, and 38.8-225.4 Mm. In COR2 images, the apparent speeds, lifetime, maximal height, and width of the blobs are 336-712 km/s, 20-100 minutes, 4.09-7.61\\,$R_{\\sun}$, and 102.9-318.3 Mm. A positive correlation is found between the lifetime and maximal height, suggesting that blobs with longer lifetime propagate further from the solar surface. The total duration of blobs is >8 hr, which is consistent with ongoing flare reconnection manifested by persistent ribbon separation in the chromosphere. The aspect ratio (28-37) of the current sheet is probably larger than the critical value, suggesting that the blobs following the CME are possibly generated by tearing-mode instability of the current sheet.",
+      "published": "2026-11-19T15:51:17Z",
+      "updated": "2026-11-19T15:51:17Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.26299v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.26299v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.25810",
+      "version": "2611.25810v1",
+      "title": "Hard X-ray flux rope anchor points in the October 2024 X9 flare",
+      "abstract": "In recent studies, signatures of non-thermal hard X-ray (HXR) emission at the anchor point of erupting flux ropes were reported, suggesting that accelerated electrons trapped in the erupting flux ropes can reach the chromosphere and produce Bremsstrahlung emission there. We investigated the HXR sources observed during the impulsive phase of the X9-class flare SOL2024-10-03T12:18 from AR 13842 and assessed whether any of the HXR sources are associated with the anchor points of the erupting flux rope. We analysed the evolution and location of the flare ribbon sources and coronal dimmings to diagnose the eruption process by using multi-vantage point data from the Solar Orbiter and Earth-orbiting instruments. We combined this with a pre-eruption non-linear force-free magnetic field extrapolation to reconstruct the initial magnetic connectivity and compare it to the observed flare ribbons and dimming locations. The magnetic field extrapolation shows two flux ropes before the flare onset. Tether-cutting reconnection during the impulsive phase of the flare results in a larger erupting flux rope formed by the reconnection of the two pre-existing flux ropes. The Spectrometer/Telescope for Imaging X-rays on Solar Orbiter observes at least four distinct HXR sources: two flare footpoints and two additional outer sources at the anchor points of the erupting flux rope. These observations corroborate earlier speculations that non-thermal electrons trapped in the erupting flux rope precipitate along the field lines into the denser chromosphere.",
+      "authors": [
+        "Muriel Zoë Stiefel",
+        "Amaia Razquin",
+        "Louise Harra",
+        "Astrid M. Veronig",
+        "Säm Krucker"
+      ],
+      "published": "2026-11-19T09:32:19Z",
+      "updated": "2026-11-19T09:32:19Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.25810v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.25810v1",
+      "source_basis": "仅摘要"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2611.28266",
+      "title": "密度涨落能识别锁模到什么程度，又能提前多久？",
+      "summary": "DIII-D 单弦密度涨落频谱经卷积网络和持续时间过滤，可识别所测曾转动锁模的 88.5%，精确率为 83.7%。为抑制误报而等待 50 ms，会耗尽许多事件的提前预警时间。"
+    },
+    {
+      "id": "2611.25686",
+      "title": "Hall-MHD 湍流中，哪些能量在相邻尺度之间交换？",
+      "summary": "三维直接数值模拟将动能与磁能的传递分通道计算。同类场主要向邻近小尺度传能，动能与磁能之间还存在跨越较远波数的交换；Hall 通道的方向随尺度和耗散参数变化。"
+    },
+    {
+      "id": "2611.27566",
+      "title": "JET 小 ELM 与Ⅰ型 ELM 台基中，流剪切为何表现不同？",
+      "summary": "全局 GENE 对照中，Ⅰ型 ELM 剖面出现较强的动理学气球模输运，小 ELM 剖面则由其他漂移模主导、对平衡流更敏感。作者通过电磁与静电极限、有流与无流的组合检验这一差别。"
+    }
+  ]
+}

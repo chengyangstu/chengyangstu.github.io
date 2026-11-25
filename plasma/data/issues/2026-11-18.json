@@ -1,0 +1,608 @@
+{
+  "id": "2026-11-18",
+  "window_start": "2026-11-11T01:00:00+00:00",
+  "window_end": "2026-11-18T01:00:00+00:00",
+  "created_at": "2026-11-25T01:13:36.983276+00:00",
+  "overview": "本期按北京时间 11 月 11 日 09:00 至 11 月 18 日 09:00 的首次提交窗口补发，保留 22 条候选，完成两份正文选读。优先介绍 ARC 破裂中的电流弛豫与逃逸电子损失，随后介绍动理学湍流重联的上游磁场统计。\n\nARC 研究把随机磁场之后的电流展平和边界刮除联系起来，表明重联后果的判断需要同时追踪感应驱动、电子生成位置和损失。另一篇研究发现，重联上游场的统计与湍流相关尺度联系较紧，提示微小重联层所处理的磁能仍与较大结构有关。二者都强调从局部结构连接到整体能量或粒子预算。\n\n两篇均有重要范围限制。ARC 使用降维闭合，磁鞘的直接加热份额依赖几何和效率假设。本次检索没有找到更多适合详读的直接聚变撕裂理论与模拟稿，因此保留两份简报。一份本窗口首次上载的环形箍缩会议材料，其正文保留较早时期的展望，放入候选而未作为新结果详写。\n\n主检索、独立关键词 API 与官方目录补查均已执行，并按首次提交 UTC 时间过滤。目录补查发生于本次补发时，最新可见公告为 11 月 24 日。正文中的两篇仍严格属于原周窗口，其余候选仅供检索。",
+  "query": "执行 weekly.py prepare --end 对应截止 --limit 10，主检索与独立关键词 arXiv API 均成功。补查 physics.plasm-ph 的 new/recent/2026-11 官方目录及太阳、空间物理月度目录；人工审阅分类并按首次 submitted/published UTC 过滤。当前目录最新公告为 2026-11-24。",
+  "reading_note": "Codex 辅助阅读；PDF 文本提取不等于逐图审阅；请以原文为准。",
+  "papers": [
+    {
+      "id": "2611.23412",
+      "version": "2611.23412v1",
+      "title": "Effect of scrape-off losses and current flattening on runaway electron dynamics in ARC",
+      "abstract": "Disruptions in high-current tokamaks, such as ARC, may result in megaampere-scale runaway electron currents. In this work, we evaluate mitigation strategies via massive material injection, accounting for the combined impact of scrape-off losses due to vertical displacement events and current profile relaxation during the thermal quench. We find that scrape-off losses alone yield only modest reductions in runaway electron currents, but combining them with current flattening creates a beneficial synergistic effect. The latter broadens the current channel outward, shifting efficient runaway electron generation closer to the plasma edge where the dynamically contracting boundary can effectively scrape off the electron beams. This interplay significantly expands the operational window for mitigation toward lower assimilated densities, theoretically reducing runaway currents to manageable levels at experimentally feasible assimilated quantities.",
+      "authors": [
+        "William Weeks",
+        "István Pusztai",
+        "Ida Ekmark",
+        "Cesar Clauser",
+        "Ryan Sweeney",
+        "R. Alex Tinguely",
+        "Tünde Fülöp"
+      ],
+      "published": "2026-11-17T19:13:08+00:00",
+      "updated": "2026-11-17T19:13:08+00:00",
+      "topics": [
+        "聚变中的重联",
+        "聚变等离子体",
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.23412v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23412v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 19,
+      "source_sha256": "b92e8adc4d295ddca347cc8ba90cc4512bbb1755ee1ff82e0946fe3c8c1a2cde",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 0,
+        "relevance_reason": "ARC 破裂过程中磁场随机化后的电流弛豫与逃逸电子损失，直接关联聚变破裂重联的后果，采用降维电流展平闭合。",
+        "method_tags": [
+          "数值模拟"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "ARC 破裂中的电流展平怎样帮助刮除逃逸电子？",
+        "takeaway": "DREAM 扫描显示，电流展平改变逃逸电子生成的径向位置及时间，使收缩边界更容易移除它们；但现有扫描仍未同时满足作者提出的电流、传导热损失与电流猝灭时间三项参考指标。",
+        "question": "破裂时磁场随机化可使电流剖面迅速弛豫，也能让高能电子沿开放磁力线逃离。逃逸电子又可能通过碰撞雪崩快速增殖。它们是在芯部形成，还是在边缘形成，会直接影响垂直位移期间的损失。\n\n作者研究这两类效应的配合。电流展平改变感应电场与电流通道，边界收缩则持续移除外层。研究重点是同样的材料同化条件下，二者联合后能否减少逃逸电流，以及热负荷是否也能满足要求。",
+        "methods": "DREAM 使用一维流体—动理学框架，设置为 ARC V3A，初始总电流 12 MA、轴上磁场 11.3 T、壁电阻时间 250 ms。氘与氖被瞬时、均匀地放入等离子体。扫描的 \\(n_D\\)、\\(n_{\\rm Ne}\\) 分别为已同化氘、氖的数密度，单位为 \\(\\mathrm{m^{-3}}\\)。实际注入系统的物质量还取决于同化比例。\n\n热猝灭由指定的磁扰动扩散触发，扰动相对幅度为 \\(\\delta B/B=0.3\\%\\)。平均温度降到 20 eV 时结束该阶段。电流展平用守恒总磁螺度的超扩散项表示，并只在热猝灭期间开启。磁螺度描述磁场缠绕和连接的整体性质，这个闭合将复杂三维随机场中的弛豫近似为径向电流重分布。\n\n边界刮除模型通过 \\(\\psi(r_{\\rm LCFS},t)=\\psi(a,0)\\) 求收缩的最后闭合磁面。其中 \\(\\psi\\) 是极向磁通，\\(r_{\\rm LCFS}\\) 是该磁面的小半径，\\(a\\) 是初始小半径，\\(t\\) 是时间。边界外的逃逸电子迅速损失。作者对刮除、电流展平分别开关，形成四组对照，比较相同输入下的差别。",
+        "findings": "只开启边界刮除时，芯部集中的逃逸电流仍较难移除。加入电流展平后，电流通道向外扩展，也能降低热猝灭结束时芯部的感应驱动，使电子增殖与边界收缩的先后关系改变。图 2 中，较低逃逸电流对应的同化密度区域因此明显扩大。\n\n**低密度基准算例的改善来自生成受到延迟和损失更有效这两方面。** 在 \\(n_D=1.40\\times10^{21}\\,\\mathrm{m^{-3}}\\)、\\(n_{\\rm Ne}=2.26\\times10^{18}\\,\\mathrm{m^{-3}}\\) 下，同样保留电流展平，去掉刮除时逃逸电流可超过 4 MA；启用刮除后，最大仍受约束的逃逸电流约为 349 kA。此数值属于这一组模型与输入。\n\n论文同时追踪“累计刮除电流当量”，将历次损失粒子的电流贡献累加。它可超过任一时刻仍受约束的电流。图 6 基准例中的累计平台约 0.8 MA，代表此前已经损失的总当量，不能据此判断仍有同样大小的束流存在。壁面能量沉积还取决于这些电子的能谱、到壁时间和落点。\n\n**降低逃逸电流尚未解决全部缓解约束。** 所扫描区域没有同时达到最大逃逸电流低于 150 kA、传导热能份额低于 10%、电流猝灭时间在 11.3–142 ms 之间。这三项是作者选择的比较标准。传导热份额也只是壁面损伤风险的代理，需要结合空间和时间分布解释。",
+        "limitations": "作者指出，热输运闭合采用电子热速度尺度，可能高估传导损失。固定磁扰动幅度、均匀瞬时同化、预设的电流弛豫和边界处理，都限制了可行区域的定量判断。模型也未求出三维重联层、磁岛演化或电子打到壁上的完整能谱。\n\n读到较低残存电流时，应同时查累计损失。另一方面，边界安全因子下降提示后期可能出现额外磁流体不稳定性，但该降维模型无法仅凭安全因子确定其发生和后果。",
+        "reading": "建议先看图 2 的四组参数图，再看图 4 与图 6 的时序。对你的重联研究，可进一步用三维模拟输出电流展平的速率、磁拓扑随机化范围及电子逃逸通道，为这里的闭合提供输入。比较时同时保存瞬时受约束电流、累计损失和损失能谱，才能判断“束流减少”具体发生在哪个环节。",
+        "evidence": "PDF 共 19 页。选读第 1–6、8、11、13–15 页。第 3–6 页为材料、输运及两种闭合，第 8 页图 2 为参数扫描，第 11 页为基准电流，第 13 页图 6 区分累计损失，第 14–15 页为后期稳定性与结论。已查看第 8、11、13 页原图及正文。"
+      }
+    },
+    {
+      "id": "2611.17450",
+      "version": "2611.17450v1",
+      "title": "Turbulence at the Correlation Scale as the Driver of Magnetic Reconnection: In Situ Observations and Kinetic Simulations",
+      "abstract": "We study the statistical properties of magnetic reconnection using high-resolution in situ observations from the Magnetospheric Multiscale (MMS) Mission in the terrestrial magnetosheath and kinetic particle-in-cell (PIC) simulations. For the first time, using in situ observations, we find that the statistics of upstream reconnecting fields in a macroscopic turbulent plasma system are closely linked with the amplitude of turbulence at the correlation scales. These results are further confirmed with fully kinetic plasma turbulence simulations. Consequently, the average magnetic reconnection rates and associated heating rates, determined through the upstream fields, could become orders of magnitude higher than those predicted using the turbulence amplitude at the dissipation scale. We then use a simplified model of the heating of reconnection exhausts to estimate the ratio of this reconnection heating rate to the overall energy cascade rate due to turbulence. Estimates from the PIC simulations and the MMS observations yield a ratio on the order of $1/5$, indicating that direct reconnection heating is playing a substantial role in dissipating the turbulent fluctuations.",
+      "authors": [
+        "M. Bilal Khan",
+        "Michael A. Shay",
+        "Riddhi Bandyopadhyay",
+        "Subash Adhikari",
+        "William H. Matthaeus",
+        "Paul A. Cassak",
+        "Julia E. Stawarz",
+        "Sohom Roy",
+        "Sean Oughton",
+        "Colby C. Haggerty",
+        "Yan Yang",
+        "Francesco Pecora",
+        "Jason M. TenBarge"
+      ],
+      "published": "2026-11-12T19:21:07+00:00",
+      "updated": "2026-11-12T19:21:07+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2611.17450v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.17450v1",
+      "source_basis": "PDF 正文选读",
+      "pages": 9,
+      "source_sha256": "3aff8c9c9622bb3bf24d6e84b55eb3f8134c96ee0e7fa718aa1468a0e6a28252",
+      "brief": {
+        "editorial_version": 2,
+        "relevance_tier": 2,
+        "relevance_reason": "地球磁鞘观测与通用动理学湍流重联，提供上游场统计和加热估计的思路。",
+        "method_tags": [
+          "数值模拟",
+          "实验 / 观测"
+        ],
+        "reading_scope": "PDF 正文选读",
+        "title_zh": "湍流重联的上游磁场，应该从哪个尺度估计？",
+        "takeaway": "MMS 磁鞘观测和粒子模拟中，上游重联磁场的分布更接近湍流相关尺度的磁场增量。作者据此建立直接重联加热估算，给出磁鞘样本约两成级联功率的量级。",
+        "question": "重联层虽很薄，其两侧输入的磁场却连接着更大的结构。若用最小耗散尺度的弱磁波动估计上游场，可能低估能流。本文检查从局部重联事件得到的场跳变，与整个湍流在不同距离上的场增量是否具有相似统计。",
+        "methods": "P3D 进行有导引场的二维空间、三分量粒子网格模拟，系统为周期衰减湍流。质量比 \\(m_i/m_e=25\\)，计算域边长 \\(149.6d_i\\)，其中 \\(m_i,m_e\\) 为离子和电子质量，\\(d_i\\) 为参考离子惯性长度。网格为 \\(4096^2\\)，每物种每格 3200 粒子，分析取电流活动较强的一个时刻。\n\n作者先在德拜尺度滤波，降低粒子噪声造成的伪 X 点，再从磁矢势的鞍点识别重联位置，最终分析 266 个事件。两侧上游场取在各自扩散区边界外，允许两侧厚度不同。与之对照的全域横向磁场增量，分别在平均扩散区厚度和湍流相关长度上计算。\n\n观测部分使用 MMS 四星在 60 个磁鞘数据段中识别的 256 个事件，共得到 1001 个上游场增量样本。同一事件可被多星测到。利用平均流速将时间间隔换成空间距离，需依赖泰勒冻结流近似。",
+        "findings": "图 1、2 中，相关尺度的横向磁场增量与局部上游半跳变的概率分布，在形状及均值上接近；用扩散层厚度取增量时差别较大。模拟中，前者的长度约 \\(3.5d_i\\)，后者约 \\(d_i\\)。**用于能流估计的上游场，需要考虑它连接的大尺度环境。**\n\n作者再用准二维磁通管成对重联的几何模型估算加热，假设典型无量纲重联率约 0.1、流入磁能中约 20% 转成所考虑的直接加热。磁鞘估算为 \\(0.7\\times10^6\\,\\mathrm{J\\,kg^{-1}\\,s^{-1}}\\)，样本平均级联率约 \\(4\\times10^6\\,\\mathrm{J\\,kg^{-1}\\,s^{-1}}\\)，比值约两成。\n\n粒子模拟则将直接重联加热估计与实际离子升温比较，比例约四分之一。两个比例的分母和获得方式不同。论文通过较一致的量级，支持直接出流加热对耗散有贡献的解释。",
+        "limitations": "加热份额依赖重联区几何、上游密度、效率和事件数的模型。磁鞘级联率平均时还排除了负级联率数据段。概率分布相似支持统计联系，对“驱动”的因果解释仍需更多条件扫描。\n\n二维模拟、粒子质量比及磁鞘采样限制了对聚变三维磁场的外推。直接重联加热只覆盖粒子通过重联出流时的一部分能量转换。",
+        "reading": "建议先复查图 1、2 中两类磁场增量的定义，再读加热模型。可在聚变湍流重联模拟中同时统计 X 点上游场、层宽、相关长度和热化位置，检验用局部小尺度幅度估计磁能输入会产生多大误差。",
+        "evidence": "PDF 共 9 页。阅读第 1–6 页主体。第 2 页为粒子设置及事件诊断，第 3–4 页图 1、2 为统计比较和 MMS 样本，第 5 页式（4）为加热估计，第 6 页给出两类加热比例、平均规则和结论。已查看第 3–4 页原图。"
+      }
+    },
+    {
+      "id": "2611.15382",
+      "version": "2611.15382v1",
+      "title": "Impurity turbulent transport and its role in driving zonal flows in tokamak plasmas",
+      "abstract": "The driving mechanisms of zonal flows (ZFs) in multi-ion-species tokamak plasmas are investigated by using gyrokinetic theory and simulations. For deuterium plasmas containing either helium ash with a steep density gradient or lithium impurity at a high charge concentration, the magnitude of impurity turbulent energy flux (TEF) can be comparable to, or even stronger than, that of the main-ion TEF. Moreover, the impurity TEF significantly drives ZFs. Both the impurity and main-ion turbulent poloidal Reynolds stress (PRS) drives are significant for the case with a high lithium charge concentration. The shielding timescale of the turbulent PRS drive is found to be the damping time of geodesic acoustic mode, which is significantly shorter than one ion bounce period.",
+      "authors": [
+        "Yuesong Li",
+        "Zihao Wang",
+        "Haochuan Wang",
+        "Debing Zhang",
+        "Shaojie Wang"
+      ],
+      "published": "2026-11-11T12:01:24+00:00",
+      "updated": "2026-11-11T12:01:24+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.15382v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.15382v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.16846",
+      "version": "2611.16846v1",
+      "title": "Impact of edge-localized resonant magnetic perturbation on L-H transition in the KSTAR tokamak",
+      "abstract": "The impact of edge-localized resonant magnetic perturbation (ERMP) on the low-to-high (L-H) confinement mode transition is investigated through dedicated experiments on the KSTAR tokamak with tungsten divertor and numerical simulations with a one-dimensional (1D) reduced transport model. Experimentally, under matched conditions, the ERMP inhibits the L-H transition, whereas the reference discharge without ERMP enters H-mode. The ERMP enhances edge electron temperature fluctuations and the turbulence decorrelation rate, and flattens the toroidal rotation, reducing the edge $E\\times B$ velocity shear below the threshold required for turbulence suppression. An extended 1D predator-prey model, which incorporates toroidal flow evolution and realistic radial profile of the magnetic perturbation due to plasma response field, reproduces the experimental trends of enhanced turbulence, reduced ExB flow shear, and inhibited L-H transition. These findings contribute to a better understanding of how ERMP affects L-H transition dynamics in tungsten divertor environments and offer a valuable reference for the application of ERMP in current and future fusion devices.",
+      "authors": [
+        "Y. Zhang",
+        "M. Jiang",
+        "K. X. Han",
+        "W. H. Ko",
+        "S. M. Yang",
+        "J. D. Hu",
+        "Z. B. Guo",
+        "M. J. Choi",
+        "J. W. Juhn",
+        "J. Lee",
+        "J. H. Lee",
+        "Y. H. Lee",
+        "Y. F. Liu",
+        "X. B. Li",
+        "Y. R. Zhu",
+        "G. Q. Dong",
+        "G. Z. Hao"
+      ],
+      "published": "2026-11-12T14:20:11+00:00",
+      "updated": "2026-11-12T14:20:11+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟",
+        "实验 / 观测"
+      ],
+      "url": "https://arxiv.org/abs/2611.16846v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.16846v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.16885",
+      "version": "2611.16885v1",
+      "title": "Self-consistent thermal-runaway electron equilibria",
+      "abstract": "In this work, we develop and solve a self-consistent equilibrium model for plasmas containing thermal and runaway electron (RE) populations, motivated by observations of residual plasma density during alternating-current (AC) transitions in ISTTOK. We adopt an existing monoenergetic, narrow-pitch guiding-center formulation, while retaining a spatially varying toroidal-field function, and show that prescribing the radius-weighted RE density by the orbit label alone conflicts with particle conservation and vector equilibrium wherever the thermal toroidal-field function varies along an occupied drift contour. Both conditions instead require the ratio of RE density to toroidal field to be constant along each drift contour. Taking this ratio as a function of the orbit label gives a compatible closure that relates the equilibrium RE density to a prescribed reference profile. Combined with Grad-Shafranov-Helmholtz thermal free functions, it yields a closed field equation that retains the displacement between drift and magnetic surfaces. At fixed thermal coefficients, we prove existence for every finite reference-profile amplitude under sign and spectral conditions. We also prove local constrained existence and uniqueness near a thermal equilibrium with a nonsingular current-beta response and derive a current-pressure bound. An ISTTOK ramp-down example with a prescribed 20% energetic-current fraction and 2 keV energy gives a magnetic-orbit axis separation of 2.39 mm. The resulting fields and current distributions can serve as initial conditions for studies of electron survival and plasma recovery through AC reversal.",
+      "authors": [
+        "M. Keu",
+        "M. Hole",
+        "A. Malaquias"
+      ],
+      "published": "2026-11-12T14:47:35+00:00",
+      "updated": "2026-11-12T14:47:35+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.16885v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.16885v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.18093",
+      "version": "2611.18093v1",
+      "title": "Finite-Larmor-radius vortex interaction from {\\delta}f to full-f gyrofluid dynamics",
+      "abstract": "We study finite-size electrostatic gyrofluid vortex pairs in a two-dimensional isothermal model, focusing on finite-Larmor-radius effects and the transition from local perturbative to finite-amplitude full-distribution dynamics. An effective response kernel based on Pad\\'e ion gyroaveraging regularizes the short-range Euler interaction on the Larmor-radius scale while preserving its logarithmic far field, yielding a finite- core prediction for the orbital frequency. Local-model scans show that increasing the ion temperature relative to the electron temperature enhances gyrospinning and filamentation and drives a separation-dependent transition from merger to long-lived co-rotation. Long-wavelength simulations reproduce the predicted finite-Larmor- radius-induced dip in orbital angular frequency, corresponding to a pronounced slowdown of the vortex-pair rotation. For the full-distribution regime, we introduce a quasi-neutrality-consistent initialization that reconstructs the ion gyrocenter density from prescribed electron density and electrostatic potential. It recovers the local limit at small amplitude, whereas finite-amplitude simulations reveal additional mean-density polarization vorticity, delayed or arrested merger, and a loss of density- vorticity sign symmetry already in the cold-ion full-f system. An independent sign scan of density and vorticity then shows how this nonlinear NOB asymmetry combines with the local warm-ion FLR symmetry breaking identified in earlier {\\delta}f vortex studies; for warm ions, Pad\\'e-based arbitrary-wavelength NOB and NOB+LWL polarization additionally produce distinct morphologies and trajectories. These results demonstrate that nonlinear density-dependent polarization and FLR physics form separate but coupled mechanisms that can qualitatively alter elementary vortex interactions in two-dimensional gyrofluid dynamics.",
+      "authors": [
+        "Manuel Rinner",
+        "Franz Ferdinand Locker",
+        "Markus Held",
+        "Alexander Kendl"
+      ],
+      "published": "2026-11-13T12:19:32+00:00",
+      "updated": "2026-11-13T12:19:32+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.18093v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.18093v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.18423",
+      "version": "2611.18423v1",
+      "title": "Generation of low-frequency flows by shear Alfv\\'en waves in magnetohydrodynamics",
+      "abstract": "Coherently forced, weak reduced-magnetohydrodynamic turbulence is studied in a uniform plasma to investigate the long-term nonlinear interactions of shear Alfv\\'en waves. The 'pump waves' are chosen to model toroidal Alfv\\'en eigenmodes, excited by suprathermal particles in magnetic fusion devices. Modes with zero frequency and no variation along the magnetic field are generated nonlinearly; these produce analogues of zonal flows and currents in a gradient-free system. This indicates that quasistationary flows can be generated by shear Alfv\\'en waves in systems simpler than those previously considered, which relied on compressibility, finite-Larmor-radius effects, or complex geometry. The saturated amplitudes of the modes are found analytically and numerically as a function of pump-wave amplitude. This facilitates estimates of the critical amplitude above which toroidal Alfv\\'en eigenmodes can generate sufficiently strong zonal flows to suppress microturbulence in the core of magnetic fusion devices. This threshold corresponds to magnetic fluctuations whose amplitude, relative to the background field, is comparable to $\\rho_{\\star i}$, the ion Larmor radius normalised to the minor radius of the device.",
+      "authors": [
+        "James M. Edmiston",
+        "Michael Fitzgerald",
+        "Juan Ruiz Ruiz",
+        "Dmitri A. Uzdensky",
+        "Alexander A. Schekochihin"
+      ],
+      "published": "2026-11-13T17:02:45+00:00",
+      "updated": "2026-11-13T17:02:45+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.18423v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.18423v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.18508",
+      "version": "2611.18508v1",
+      "title": "Restoring Consistency with Poynting's Theorem in Numerical MHD and RMHD",
+      "abstract": "For perfectly conducting plasmas, Poynting's theorem states that the time rate of change of electromagnetic energy density equals the negative of the divergence of the Poynting flux. To the best of our knowledge, this involutive theorem has never been mimetically incorporated in codes. We show that there is an inconsistency in MHD and RMHD codes that evolve face-centered magnetic fields in globally-divergence-free fashion. This is because the face-centered flux of energy density, which incorporates a Poynting vector, is evaluated using one-dimensional Riemann solvers that are applied at face-centers. However, the face-centered magnetic fields are evolved according to edge-centered electric fields that come from two-dimensional Riemann solvers that are applied to the edges of a zone. While edge-centered electric fields are used to evolve the magnetic field, they have no influence on the face-centered Poynting flux. For situations where the magnetic energy is much larger than the thermal energy, this causes a negative pressure to be evaluated at the zone-centers. This paper restores consistency by using edge-centered variables to evaluate a face-centered Poynting flux. A simple accuracy-preserving correction is made to the face-centered flux of energy density. We show that it helps considerably in simulations that have very strong magnetic fields.",
+      "authors": [
+        "Dinshaw S. Balsara",
+        "Deepak Bhoriya"
+      ],
+      "published": "2026-11-13T18:24:16+00:00",
+      "updated": "2026-11-13T18:24:16+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.18508v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.18508v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.19175",
+      "version": "2611.19175v1",
+      "title": "Scaling of the Radial Motion and Size of Filamentary Structures in the Scrape-Off Layer Inferred from 100 kHz Visible Imaging on 294 MAST Discharges",
+      "abstract": "Filaments are important carriers of cross-field transport in the scrape-off layer of a tokamak. Analytic models predict that their radial velocity varies with their size. We measured the radial velocity and size of a large population of filaments on MAST, using data recorded from a 100 kHz, 48 x 256 pixel camera in the outboard midplane in the FAIR-MAST archive. Computer vision techniques were used to automate the identification of filaments and tracking of their trajectories, which yielded 86,042 filament tracks over 294 discharges in 4 campaigns. The archive does not contain spatial calibration, so we have obtained a pixel scale by regression of the plasma limb column in the image on the EFIT outboard LCFS radius, with bootstrap intervals. The scale is 2.7-5.2 millimetres per pixel. We find a median velocity of 424 m/s, and median radial width of 3.6 cm. The dependence of velocity on size is mild, with a log-log slope of +0.05 (95% interval +0.03 to +0.07) when the effects of exposure blurring are corrected for. This is because filaments are not in either velocity regime; they span the range $\\hat{a}$ = 0.13-1.97 in two-region units, which straddles the maximum velocity predicted by the two-region model, but the normalized velocity $\\hat{v}$ is much smaller than the scale of the model, at $\\hat{v} \\approx 0.06$.",
+      "authors": [
+        "Jessie Dong",
+        "Ryan Wu"
+      ],
+      "published": "2026-11-14T05:51:40+00:00",
+      "updated": "2026-11-14T05:51:40+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.19175v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.19175v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.19458",
+      "version": "2611.19458v1",
+      "title": "A full-wave ICRH solver with full kinetic accuracy using only first order differential equations",
+      "abstract": "Accurate full-wave computation of ion cyclotron resonance heating (ICRH) typically requires solving the computationally demanding integro-differential dielectric tensor of the hot plasma. Based on the method in [Phys. Plasmas 32, 082110 (2025)], we develop BO-FW1D, a 1D frequency domain finite difference full-wave solver which generates full kinetic, accurate and efficient simulations utilizing a fluid plasma model. To accurately convert the conductivity tensor in phase space into a first-order differential equation, we introduce a mathematically rigorous framework using pseudodifferential operator theory based on Kohn-Nirenberg ordering. Benchmarks with an all-orders 1D full-wave solver show high consistency in critical kinetic effects and electric-field distributions, while substantial computational acceleration is achieved. This work could lay the foundation for developing full-wave solvers that combine full kinetic accuracy with high computational efficiency.",
+      "authors": [
+        "Liuheng Wu",
+        "Ziyu Wang",
+        "Huasheng Xie",
+        "Chang Liu"
+      ],
+      "published": "2026-11-14T15:28:33+00:00",
+      "updated": "2026-11-14T15:28:33+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.19458v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.19458v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.19520",
+      "version": "2611.19520v1",
+      "title": "Simulations of turbulent heat and particle transport in stellarator plasmas",
+      "abstract": "Achieving sustained energy production in magnetic confinement fusion reactors requires a deep understanding of turbulent transport of heat and particles. This thesis investigates turbulent transport with a particular emphasis on stellarators, using simulations with the $\\delta f$ gyrokinetic code stella for the W7-X, LHD, TJ-II and NCSX stellarators, the ASDEX Upgrade (AUG) tokamak and the Cyclone Base Case (CBC). It addresses two questions: how do density gradients affect turbulent heat transport, and can turbulence help retain particles in the plasma core? In the first part, an inter-machine study shows a strong reduction of the ion heat flux in NCSX and W7-X with increasing density gradients, attributed to the stabilization of ion-temperature-gradient-driven modes without significantly destabilizing trapped-electron modes or universal instabilities. This beneficial effect is absent in tokamaks, where the heat flux increases with the density gradient, highlighting the role of magnetic geometry. The ion heat flux in stellarators does not follow the growth rate of the fastest-growing linear mode, underscoring the importance of nonlinear effects. Trapped-electron modes dominate in CBC, AUG, TJ-II, LHD and NCSX, while passing-particle-driven universal instabilities contribute significantly in W7-X. The second part addresses the long-standing discrepancy between the strongly hollow density profiles predicted by neoclassical theory in large stellarators and the flat or weakly peaked profiles measured in W7-X. Nonlinear simulations and a particle balance analysis show that turbulence provides a robust inward particle flux, driven by finite ion and electron temperature gradients, that can account for the observed profiles: the sign of the turbulent particle flux matches the sign of the discrepancy between the experimental and neoclassical fluxes across the entire plasma radius of W7-X.",
+      "authors": [
+        "Hanne Thienpondt"
+      ],
+      "published": "2026-11-14T17:32:32+00:00",
+      "updated": "2026-11-14T17:32:32+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.19520v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.19520v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.21899",
+      "version": "2611.21899v1",
+      "title": "Collisionality scaling of the tokamak density limit",
+      "abstract": "The threshold at which density-limiting plasma instabilities occur in tokamak fusion reactors is not well understood. Here, we present the first large-scale empirical evidence of a common collisionality threshold present across multiple devices and confinement regimes. Machine-learning-guided analysis of a diverse experimental database identifies a scaling in edge effective collisionality ($\\nu_*$) that bears resemblance to the widely utilized Greenwald limit but yields a substantially lower false positive rate. This threshold decreases with dimensionless pressure ($\\beta$), consistent with theoretical expectations for enhanced transport from electromagnetic effects on resistive ballooning mode turbulence. These results suggest that future burning plasma devices such as ITER and ARC could potentially achieve higher density, and thus fusion power, than previously expected.",
+      "authors": [
+        "A. D. Maris",
+        "C. Rea",
+        "A. Pau",
+        "R. Granetz",
+        "E. Marmar",
+        "for the Alcator C-Mod Team",
+        "the ASDEX Upgrade Team",
+        "the DIII-D Team",
+        "JET Contributors",
+        "the TCV Team",
+        "the EUROfusion Tokamak Exploitation Team"
+      ],
+      "published": "2026-11-16T21:12:37+00:00",
+      "updated": "2026-11-16T21:12:37+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.21899v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.21899v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.21918",
+      "version": "2611.21918v1",
+      "title": "Kinetic-Ballooning and Resistive X-Point Dynamics in Quasicontinuous Exhaust Tokamak Plasmas",
+      "abstract": "We investigate quasicoherent modes (QCMs) and their interaction with scrape-off-layer (SOL) plasma blobs (filaments) in the type-I-ELM-free quasicontinuous exhaust (QCE) regime, extending the analysis in [K. Zhang et al., Phys. Rev. Lett. 137, 055102 (2026)]. Two-fluid electromagnetic turbulence simulations are compared for two self-consistent turbulence states with different separatrix densities. In both cases, a separatrix-spanning QCM resides within the radial-electric-field well, whereas blobs are observed only in the case with higher separatrix density. The QCM exhibits similar kinetic-ballooning-mode (KBM) signatures in both cases, with modest differences in coherence and harmonic content. The primary difference is the presence of an additional resistive X-point mode (RXM), which emerges as the near-X-point collisionality increases. The coexistence of the KBM and RXM shifts the potential--density cross-phase from its KBM-like value toward the interchange value in the SOL, allowing QCM perturbations to be ejected as blobs. These intermittent blobs account for over half of the net radial $E\\times B$ transport in the far SOL. Neither QCM onset nor blob ejection requires an increase in upstream collisionality. The results distinguish the KBM-dominated mechanism that regulates the pedestal from the RXM-assisted blob-launching mechanism that enables intermittent SOL exhaust.",
+      "authors": [
+        "Kaiyu Zhang",
+        "Wladimir Zholobenko",
+        "Andreas Stegmeir",
+        "Michael Faitsch",
+        "Konrad Eder",
+        "Christoph Pitzal",
+        "Frank Jenko",
+        "ASDEX Upgrade Team"
+      ],
+      "published": "2026-11-16T21:31:06+00:00",
+      "updated": "2026-11-16T21:31:06+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.21918v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.21918v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.22251",
+      "version": "2611.22251v1",
+      "title": "Recovering hysteresis in reduced models of plasma turbulence: a Mori--Zwanzig-inspired closure",
+      "abstract": "Hysteretic transitions between turbulent and strongly zonal-flow-dominated states provide an important test for reduced models of plasma turbulence and a minimal setting for studying dynamics relevant to L-H transitions. The 12-mode truncation of the modified Hasegawa-Wakatani system developed by Guillon and G\\\"urcan retains this transition but underestimates the hysteresis observed in direct numerical simulations (DNS). Guided by the Mori-Zwanzig framework, we construct a phenomenological closure for the influence of discarded modes. The discarded spectrum is coarse-grained into a reservoir, whose feedback on the retained modes is modeled together with a separate drift-wave damping term. Without increasing the number of retained modes, the closure recovers nearly all of the hysteresis width missing from the unclosed truncation and places both transition thresholds close to their DNS values. To test the model beyond hysteresis, we also examine particle flux. The closed model improves upon the unclosed truncation, agreeing more closely with DNS at low adiabaticity but underestimating transport at high adiabaticity. These results show that a low-dimensional representation of discarded-mode feedback can improve predictions of hysteretic turbulence-flow transitions.",
+      "authors": [
+        "Ameir Shaa",
+        "Kyungtak Lim",
+        "Claude Guet",
+        "Xavier Garbet"
+      ],
+      "published": "2026-11-17T05:55:26+00:00",
+      "updated": "2026-11-17T05:55:26+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.22251v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.22251v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.22435",
+      "version": "2611.22435v1",
+      "title": "Modeling of basic physics issues in toroidal pinches and tools for performance control",
+      "abstract": "Nonlinear modelling has improved significantly in dealing with physics issues encountered in magnetically confined toroidal pinches, such as the Reversed Field Pinch and Tokamak configurations. Here, recent results relevant to the understanding of helical self-organization processes are presented: formation of internal transport barriers, temporary loss of operational point, relaxation-reconnection events, excitation of Alfv\\`en waves, and a possible fundamental mechanism for ion heating in plasmas. Starting from physics processes in Reversed Field Pinch plasmas, several similarities with Tokamaks are presented. In addition, data analysis tools, machine learning autoencoding techniques, are here trained for the first time on a RFP data analysis case.",
+      "authors": [
+        "S. Cappello",
+        "D. Bonfiglio",
+        "Di Giannatale",
+        "A. Kryzhanovskyy",
+        "G. Manduchi",
+        "A. Rigon",
+        "F. Sattin",
+        "L. Spinicci",
+        "G. Spizzo",
+        "M. Veranda",
+        "N. Vivenzi",
+        "L. Chacòn",
+        "D. Grasso",
+        "M. V. Falessi",
+        "F. Pegoraro",
+        "D. F. Escande",
+        "L. Chacòn",
+        "D. Grasso",
+        "M. V. Falessi",
+        "F. Pegoraro"
+      ],
+      "published": "2026-11-17T09:08:47+00:00",
+      "updated": "2026-11-17T09:08:47+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "数值模拟"
+      ],
+      "url": "https://arxiv.org/abs/2611.22435v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.22435v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.23319",
+      "version": "2611.23319v1",
+      "title": "Reusing formal Vlasov-Maxwell proofs to certify plasma solver outputs",
+      "abstract": "AI now produces machine-checked mathematics faster than researchers can read it. Can such theorems do practical computational work? We reuse one from \\mbox{OpenAI's} Lean~4 relativistic Vlasov--Maxwell library: initial fields determine the field at an outside point until plasma signals reach it, and the energy leaving a surrounding box before they reach its faces. New Lean proofs and numerical bounds give particle-free references for particle-in-cell simulations across three tasks. Domain size follows analytically from observation time, exposing boundary and initialization errors in WarpX and Smilei that global energy checks missed. Grid choice can be tested directly: combining two coarse grids recovers unknown plasma inputs within tolerance at a median 14.9-fold speedup over a fine grid, where the medium grid alone fails. For reduced models, the bounds establish the minimum number of time curves needed to predict energy loss.",
+      "authors": [
+        "Bowen Zhu",
+        "Jian Wu"
+      ],
+      "published": "2026-11-15T08:09:09+00:00",
+      "updated": "2026-11-15T08:09:09+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.23319v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23319v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.23468",
+      "version": "2611.23468v1",
+      "title": "Galilean invariance of Hamiltonian guiding center theory",
+      "abstract": "Galilean invariance is a desired property for classical non-relativistic theories. Guiding center theory describes the slow drift motion of charged particles in strong magnetic fields. While one can guarantee a Hamiltonian formulation to all orders, it was previously unknown whether such a theory can possess Galilean symmetry. We show that specific first- and second-order guiding center models are Galilean invariant. Furthermore, we prove that one can ensure Galilean invariance to all orders.",
+      "authors": [
+        "C. D. Stephens",
+        "J. W. Burby"
+      ],
+      "published": "2026-11-17T20:17:21+00:00",
+      "updated": "2026-11-17T20:17:21+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.23468v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23468v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.23481",
+      "version": "2611.23481v1",
+      "title": "Analytic guiding center formulas for bounce-transit motion in a concentric circular, finite inverse aspect ratio tokamak geometry",
+      "abstract": "Bounce-transit motion in concentric circular magnetic geometry is typically analyzed in the limit that the inverse aspect ratio, $\\varepsilon$, is small. We prove that this approximation is not necessary to study a concentric circular geometry by deriving new analytical formulas while retaining a non-zero $\\varepsilon.$ We use these formulas to demonstrate that the approximation is robust for $\\varepsilon \\lesssim 0.3.$",
+      "authors": [
+        "Cole D. Stephens",
+        "Xavier Garbet",
+        "Frank Jenko"
+      ],
+      "published": "2026-11-17T20:33:00+00:00",
+      "updated": "2026-11-17T20:33:00+00:00",
+      "topics": [
+        "聚变等离子体"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.23481v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23481v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.17086",
+      "version": "2611.17086v1",
+      "title": "Partition of Unity Data-driven Finite Element Method for Anisotropic Diffusion in Magnetized Plasmas",
+      "abstract": "Numerical simulation of transport processes in magnetized plasmas is characterized by extreme anisotropy, where diffusion along magnetic field lines can be many orders of magnitude larger than in the perpendicular direction. This anisotropy leads to thin, steep boundary layers and numerical pollution that standard finite element methods struggle to resolve without prohibitive mesh refinement. In this paper, we introduce the Partition of Unity Data-Driven Finite Element Method (PU-DDFEM), a data-driven local model reduction approach, for anisotropic diffusion. The method utilizes a bottom-up construction to enable a complete offline-online splitting. We parametrize the local magnetic field and boundary conditions to generate a snapshot space that captures the essential physics of plasma confinement. Dominant modes are extracted via a local spectral problem to identify representative features. These modes are then mapped to the global domain using a partition of unity to form a conforming approximation space. This ensures that the basis functions are fully reusable across different global magnetic configurations, significantly reducing the online computational overhead for large-scale plasma simulations.",
+      "authors": [
+        "Siu Wun Cheung",
+        "Youngsoo Choi"
+      ],
+      "published": "2026-11-12T16:50:55+00:00",
+      "updated": "2026-11-12T16:50:55+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.17086v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.17086v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.22689",
+      "version": "2611.22689v1",
+      "title": "Magnetic Flux Eruptions in Magnetically Arrested Disks: Magnetic Reconnection and Bubble Expansion",
+      "abstract": "Using a high-resolution GRMHD simulation of a magnetically arrested disk, we investigate the physical mechanism driving magnetic-flux eruption. The horizon-threading magnetic flux declines mainly in off-equatorial regions, whereas localized hot spots associated with magnetic reconnection appear near the equatorial plane around the onset of flux decline. A non-axisymmetric, magnetically supported low-density structure, which we identify as a magnetic bubble, expands radially and azimuthally within a pre-existing low-density channel in the filamentary accretion flow. Based on these findings, we propose a physical picture linking reconnection, bubble expansion, and horizon magnetic flux decline. The reconnection occurs in the pre-existing low-density channel, and may reconfigure the field and promote bubble expansion. Magnetic-pressure gradients provide broadly distributed outward support for the expansion, while magnetic tension contributes a localized outward force near the equator. Bubble expansion may limit gas replenishment, helping to maintain the low-density region and reduce the total pressure near the equator. This pressure reduction may facilitate equatorward electromagnetic energy transport. In the simulation, the polar electromagnetic energy flux reverses from poleward to equatorward near the onset of the horizon-flux decline. The equatorward transport is concentrated in the bubble sector and carries electromagnetic energy from the off-equatorial magnetosphere to the equatorial region. This energy supply may sustain localized reconnection and plasma heating as the eruption develops.",
+      "authors": [
+        "Guoqiang Zhang",
+        "Feng Yuan"
+      ],
+      "published": "2026-11-17T12:37:22+00:00",
+      "updated": "2026-11-17T12:37:22+00:00",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.22689v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.22689v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.23084",
+      "version": "2611.23084v1",
+      "title": "An Efficient Method for Directly Integrating the Vlasov Equation in Collisionless and Weakly-Collisional Simulations",
+      "abstract": "We describe and test a new numerical method to solve the Vlasov/Boltzmann equation in systems with arbitrary levels of collisionality. The method combines recent ideas to evolve the distribution function (DF) directly in 6+1 dimensional phase-space in a manner which is Lagrangian in both position+velocity. The 'particles' of traditional Monte-Carlo/Particle-In-Cell/N-body (MC/PIC/NB) methods become mesh-generating points defining a volume partition, each of which carries a set of momentum-Lagrangian basis functions representing a local anisotropic momentum DF. The DF is then integrated between cells and bases via a higher-order reconstruction and Godunov-type method, evolving a 10 or 13-moment representation of each basis to ensure manifest mass/momentum/energy conservation. The method allows one to represent arbitrary DFs, including multiple independent streams but also collisional or phase-mixed or thermal distributions (unlike traditional 'moments' or waterbag/tessellation methods), and the cost is bounded to a modest multiplier of MC/PIC/NB costs. We provide an example implementation which uses a spatially-Lagrangian volume partition, second-order reconstruction, and simple set of bases which ensure constant cell masses and couple directly to existing MC/PIC/NB machinery, made public in the code GIZMO. We validate in a series of test problems, demonstrating manifest conservation, Galilean and translation and rotation invariance, and ability to represent complex DFs without spurious dissipation or instability. We discuss applications where this method can have advantages compared to traditional algorithms for simulations of dark matter, stellar, weakly-collisional neutral gas, and particulate/dust dynamics; multiphase/polydisperse flows; cosmic ray and radiation transport/hydrodynamics; and plasma physics.",
+      "authors": [
+        "Philip F. Hopkins"
+      ],
+      "published": "2026-11-17T17:09:37+00:00",
+      "updated": "2026-11-17T17:09:37+00:00",
+      "topics": [
+        "计算方法"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.23084v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.23084v1",
+      "source_basis": "仅摘要"
+    },
+    {
+      "id": "2611.14992",
+      "version": "2611.14992v1",
+      "title": "A Failed Filament Eruption and Associated Active Region Heating Driven by External Magnetic Reconnection",
+      "authors": [
+        "Yudi Ou",
+        "Yuandeng Shen",
+        "Dongxu Liu",
+        "Reetika Tiwari"
+      ],
+      "abstract": "We investigate a failed filament eruption and associated coronal heating in NOAA Active Region 12353 on 2015 May 23, focusing on the relationship between magnetic confinement and external reconnection. Coordinated observations from the Goode Solar Telescope and the Solar Dynamics Observatory, together with nonlinear force-free field extrapolations, allow us to trace the event from the merging of two low-lying filamentary structures to the failed eruption of the resulting elongated filament. Before the rapid rise, the modeled flux rope had entered a regime susceptible to kink instability, while low-atmospheric internal reconnection had already occurred; both may have contributed to the initial acceleration. The rising flux rope remained below the torus instability threshold and was confined by a strong, asymmetric overlying field that compressed it against the overlying loops. An elongated interface brightening, bidirectional plasmoid-like motions, newly brightened loop systems, and progressive weakening of the filament are consistent with external reconnection that changed the magnetic connectivity, removed magnetic flux from the rope, and disrupted its coherent structure. Differential emission measure analysis indicates that the external reconnection heated the active region loop system. A transient, localized structure with high-temperature emission was observed at the interaction interface, consistent with the expected location of a current sheet associated with external reconnection. These results suggest that the strong confining field halted the filament eruption and sustained the interface compression required for current sheet formation, enabling external reconnection to disrupt the flux rope and heat the active region loop system.",
+      "published": "2026-11-11T03:47:11Z",
+      "updated": "2026-11-11T03:47:11Z",
+      "topics": [
+        "磁场重联"
+      ],
+      "methods": [
+        "待判定"
+      ],
+      "url": "https://arxiv.org/abs/2611.14992v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.14992v1",
+      "source_basis": "仅摘要",
+      "pages": 21,
+      "source_sha256": "039d2a8d118ee600d821c371deb3165387383e990efcc3a4e8dc64517494c028"
+    }
+  ],
+  "overall_report": [
+    {
+      "id": "2611.23412",
+      "title": "ARC 破裂中的电流展平怎样帮助刮除逃逸电子？",
+      "summary": "DREAM 扫描显示，电流展平改变逃逸电子生成的径向位置及时间，使收缩边界更容易移除它们；但现有扫描仍未同时满足作者提出的电流、传导热损失与电流猝灭时间三项参考指标。"
+    },
+    {
+      "id": "2611.17450",
+      "title": "湍流重联的上游磁场，应该从哪个尺度估计？",
+      "summary": "MMS 磁鞘观测和粒子模拟中，上游重联磁场的分布更接近湍流相关尺度的磁场增量。作者据此建立直接重联加热估算，给出磁鞘样本约两成级联功率的量级。"
+    }
+  ]
+}
